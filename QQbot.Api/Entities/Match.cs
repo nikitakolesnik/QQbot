@@ -9,19 +9,19 @@ namespace QQbot.Api.Entities
 	public class Match
 	{
 		[Key]
-		public ushort Id { get; set; }
+		public int Id { get; set; }
 
 		public DateTime When { get; set; } = DateTime.UtcNow;
 
-		public Player[] Team1 { get; set; }
+		public Team Team1 { get; set; }
 
-		public Player[] Team2 { get; set; }
+		public Team Team2 { get; set; }
 
-		public Team Winner { get; set; }
+		public TeamNumber Winner { get; set; }
 
-		[MaxLength(1000)]
-		public string Notes { get; set; } = string.Empty;
+		//[MaxLength(1000)]
+		//public string Notes { get; set; } = string.Empty;
 
-		public bool Disabled { get; set; } = false;
+		public MatchStatus Status { get; set; } = MatchStatus.Disabled;
 	}
 }

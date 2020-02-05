@@ -7,9 +7,9 @@ namespace QQbot.Api.Entities
 	public class Player
 	{
 		[Key]
-		public ushort Id { get; set; }
+		public int Id { get; set; }
 
-		public ulong DiscordId { get; set; } // example: 240413827718578177
+		public long DiscordId { get; set; } // example: 240413827718578177
 
 		[Required]
 		[MaxLength(20)]
@@ -21,17 +21,16 @@ namespace QQbot.Api.Entities
 
 		public bool PlaysBack { get; set; } = false;
 
-		public short Shitlo { get; set; } = 1000; // Keeping traditions alive
+		public int Rating { get; set; } = 0;
 
-		public ushort Wins { get; set; } = 0;
+		public int Wins { get; set; } = 0;
 
-		public ushort Losses { get; set; } = 0;
+		public int Losses { get; set; } = 0;
 
 		/* Achievements/badges/stats?
 			- games played & winrate inferred
 			- highest consecutive wins
 			- rank? bronze/silver/gold/etc
-			- 
 		 */
 	}
 }

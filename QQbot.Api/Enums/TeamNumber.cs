@@ -1,6 +1,6 @@
 ﻿namespace QQbot.Api.Enums
 {
-	public enum Team
+	public enum TeamNumber
 	{
 		Team1 = 1,
 		Team2
