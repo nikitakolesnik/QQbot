@@ -9,7 +9,7 @@ namespace QQbot.Api.Entities
 		[Key]
 		public ushort Id { get; set; }
 
-		public ulong DiscordId { get; set; } // 240413827718578177
+		public ulong DiscordId { get; set; } // example: 240413827718578177
 
 		[Required]
 		[MaxLength(20)]
@@ -21,7 +21,7 @@ namespace QQbot.Api.Entities
 
 		public bool PlaysBack { get; set; } = false;
 
-		public short Shitlo { get; set; } = 1000;
+		public short Shitlo { get; set; } = 1000; // Keeping traditions alive
 
 		public ushort Wins { get; set; } = 0;
 

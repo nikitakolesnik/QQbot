@@ -19,11 +19,32 @@ namespace QQbot.Api.Controllers
 		}
 
 		/*
-		 Get lobby status
+			Get lobby status
 
-		 Initialize a lobby (inactive to forming)
+			Initialize a lobby (inactive to forming)
 
+			Add player to queue by discord ID
 
-		 */
+			Add player to queue by name
+
+			Remove player from queue
+
+			Decide first pick
+
+			Add captain
+
+			Change captain
+
+			Move player from queue to team
+
+			Move player from team to queue
+
+			Trade a player on each team for each other (potentially consumed by web client)
+				- by name/id?
+
+			start match
+
+			end match ("match" entity would be created here)
+		*/
 	}
 }
