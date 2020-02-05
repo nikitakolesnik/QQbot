@@ -18,6 +18,6 @@ namespace QQbot.Api.Entities
 
 		public Player[] Team2 { get; set; }
 
-		public LobbyStatus Status { get; set; }
+		public Status Status { get; set; }
 	}
 }

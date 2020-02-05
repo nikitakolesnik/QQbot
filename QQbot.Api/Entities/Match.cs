@@ -17,7 +17,7 @@ namespace QQbot.Api.Entities
 
 		public Player[] Team2 { get; set; }
 
-		public MatchWinner Winner { get; set; }
+		public Team Winner { get; set; }
 
 		[MaxLength(1000)]
 		public string Notes { get; set; } = string.Empty;
