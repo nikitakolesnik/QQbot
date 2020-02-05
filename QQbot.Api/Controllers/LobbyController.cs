@@ -18,11 +18,12 @@ namespace QQbot.Api.Controllers
 			_context = context ?? throw new ArgumentNullException(nameof(context));
 		}
 
-		[HttpGet]
-		[Route("exists")]
-		public bool ActiveLobbyExists()
-		{
-			return true;
-		}
+		/*
+		 Get lobby status
+
+		 Initialize a lobby (inactive to forming)
+
+
+		 */
 	}
 }
