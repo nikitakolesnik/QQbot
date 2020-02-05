@@ -12,6 +12,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
 using QQbot.Api.Contexts;
+using QQbot.Api.Services;
 
 namespace QQbot.Api
 {
@@ -32,6 +33,8 @@ namespace QQbot.Api
 			services.AddDbContext<ApplicationDbContext>(o =>
 				o.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=QQbotDB;Trusted_Connection=true;")
 			);
+
+			services.AddScoped<IPlayerRepository, PlayerRepository>();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using QQbot.Api.Contexts;
+using QQbot.Api.Entities;
+using QQbot.Api.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,17 +12,31 @@ namespace QQbot.Api.Controllers
 	[Route("/api/players")]
 	public class PlayerController : ControllerBase
 	{
-		private ApplicationDbContext _context;
+		private readonly PlayerRepository _playerRepository;
 
-		public PlayerController(ApplicationDbContext context)
+		public PlayerController(PlayerRepository playerRepository)
 		{
-			_context = context ?? throw new ArgumentNullException(nameof(context));
+			_playerRepository = playerRepository ?? throw new ArgumentNullException(nameof(playerRepository));
 		}
 
 		[HttpGet]
-		public async Task<IActionResult> Get()
+		public async Task<ActionResult<Player[]>> GetPlayers()
 		{
-			return Ok("thing");
+			var players = await _playerRepository.GetPlayersAsync();
+
+			return Ok(players);
+		}
+
+		[HttpGet]
+		[Route("{id:int}")]
+		public async Task<ActionResult<Player>> GetPlayer(int id)
+		{
+			Player player = await _playerRepository.GetPlayerAsync(id);
+
+			if (player == null)
+				return BadRequest($"Player with ID#{id} not found.");
+
+			return Ok(player);
 		}
 	}
 }

@@ -8,7 +8,9 @@ namespace QQbot.Api.Entities
 	public class Player
 	{
 		[Key]
-		public Guid Id { get; set; } = Guid.NewGuid();
+		public ushort Id { get; set; }
+
+		public ulong DiscordId { get; set; } // 240413827718578177
 
 		[Required]
 		[MaxLength(20)]
@@ -20,11 +22,11 @@ namespace QQbot.Api.Entities
 
 		public bool PlaysBack { get; set; } = false;
 
-		public int Shitlo { get; set; } = 1000;
+		public short Shitlo { get; set; } = 1000;
 
-		public int Wins { get; set; } = 0;
+		public ushort Wins { get; set; } = 0;
 
-		public int Losses { get; set; } = 0;
+		public ushort Losses { get; set; } = 0;
 
 		/* Achievements/badges/stats?
 			- games played & winrate inferred
