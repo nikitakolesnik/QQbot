@@ -13,9 +13,9 @@ namespace QQbot.Api.Entities
 
 		public DateTime When { get; set; } = DateTime.UtcNow;
 
-		public TeamPlayer WinningTeam { get; set; }
+		public Team WinningTeam { get; set; }
 
-		public TeamPlayer LosingTeam { get; set; }
+		public Team LosingTeam { get; set; }
 
 		public MatchStatus Status { get; set; } = MatchStatus.Active;
 	}
