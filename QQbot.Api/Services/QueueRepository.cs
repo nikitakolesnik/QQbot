@@ -15,7 +15,7 @@ namespace QQbot.Api.Services
 			_context = context ?? throw new ArgumentNullException(nameof(context));
 		}
 
-		public async Task<int> Clear()
+		public async Task<int> ClearAsync()
 		{
 			return await _context.Database.ExecuteSqlRawAsync("DELETE FROM Queue");
 		}

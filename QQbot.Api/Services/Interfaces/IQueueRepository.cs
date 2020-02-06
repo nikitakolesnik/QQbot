@@ -4,6 +4,6 @@ namespace QQbot.Api.Services
 {
 	public interface IQueueRepository
 	{
-		Task<int> Clear();
+		Task<int> ClearAsync();
 	}
 }
