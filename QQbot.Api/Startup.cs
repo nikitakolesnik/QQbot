@@ -14,6 +14,7 @@ using Microsoft.EntityFrameworkCore;
 using QQbot.Api.Contexts;
 using QQbot.Api.Services;
 using QQbot.Api.Services.Interfaces;
+using AutoMapper;
 
 namespace QQbot.Api
 {
@@ -34,6 +35,8 @@ namespace QQbot.Api
 			services.AddDbContext<ApplicationDbContext>(o =>
 				o.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=QQbotDB;Trusted_Connection=true;")
 			);
+
+			services.AddAutoMapper(typeof(Startup)); // https://stackoverflow.com/a/42925728
 
 			services.AddScoped<IPlayerRepository, PlayerRepository>();
 		}
