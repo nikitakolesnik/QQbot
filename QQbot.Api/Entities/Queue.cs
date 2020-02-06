@@ -1,9 +1,11 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace QQbot.Api.Entities
 {
-	public class Lobby
+	[Table("Queue")]
+	public class Queue
 	{
 		[Key]
 		public int Id { get; set; }

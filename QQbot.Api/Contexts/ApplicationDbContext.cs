@@ -7,7 +7,9 @@ namespace QQbot.Api.Contexts
 	{
 		public DbSet<Player> Players { get; set; }
 		public DbSet<Match> Matches { get; set; }
-		public DbSet<Lobby> Lobbies { get; set; }
+		public DbSet<Queue> Queue { get; set; } // Singular - only one queue ever exists
+		public DbSet<Team> Teams { get; set; }
+		public DbSet<TeamPlayer> TeamPlayers { get; set; }
 
 		public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
 		{

@@ -20,7 +20,7 @@ namespace QQbot.Api.Controllers
 		}
 
 		[HttpGet]
-		public async Task<ActionResult<Player[]>> GetPlayers()
+		public async Task<ActionResult<IEnumerable<Player>>> GetPlayers()
 		{
 			var players = await _playerRepository.GetPlayersAsync();
 

@@ -1,7 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace QQbot.Api.Entities
 {
+	[Table("TeamPlayers")]
 	public class TeamPlayer
 	{
 		[Key]
