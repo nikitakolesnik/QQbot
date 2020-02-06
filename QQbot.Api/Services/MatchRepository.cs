@@ -52,9 +52,7 @@ namespace QQbot.Api.Services
 			await _context.Matches.AddAsync(new Match { WinningTeam = teamWin, LosingTeam = teamLose });
 
 
-			// Calculate rating change, create TeamPlayer objects, save rating before & after
-
-			IEnumerable<TeamPlayer> teamPlayers = Enumerable.Empty<TeamPlayer>();
+			// Calculate rating change, Create & Insert TeamPlayer rows, save rating before & after
 
 			double winTeamRating  = _calc.TeamRating(playersWin);
 			double loseTeamRating = _calc.TeamRating(playersLose);
@@ -65,7 +63,7 @@ namespace QQbot.Api.Services
 
 				player.Rating = _calc.PlayerRating(player.Rating, loseTeamRating, MatchResult.Win);
 				teamPlayer.RatingAfter = player.Rating;
-				teamPlayers.Append(teamPlayer);
+				await _context.AddAsync(teamPlayer);
 			}
 			foreach (Player player in playersLose)
 			{
@@ -73,14 +71,6 @@ namespace QQbot.Api.Services
 
 				player.Rating = _calc.PlayerRating(player.Rating, winTeamRating,  MatchResult.Lose);
 				teamPlayer.RatingAfter = player.Rating;
-				teamPlayers.Append(teamPlayer);
-			}
-
-
-			// Insert TeamPlayer rows
-
-			foreach(TeamPlayer teamPlayer in teamPlayers)
-			{
 				await _context.AddAsync(teamPlayer);
 			}
 
