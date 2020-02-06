@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using QQbot.Api.Entities;
+using QQbot.Api.Models.Entities;
 
 namespace QQbot.Api.Contexts
 {

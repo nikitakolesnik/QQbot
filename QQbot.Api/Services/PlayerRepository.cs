@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using QQbot.Api.Entities;
+using QQbot.Api.Models.Entities;
 using Microsoft.EntityFrameworkCore;
 using QQbot.Api.Contexts;
 

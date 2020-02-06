@@ -1,4 +1,4 @@
-﻿using QQbot.Api.Entities;
+﻿using QQbot.Api.Models.Entities;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
