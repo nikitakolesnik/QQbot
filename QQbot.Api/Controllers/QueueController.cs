@@ -20,7 +20,7 @@ namespace QQbot.Api.Controllers
 		[Route("clear")]
 		public async Task<IActionResult> Clear()
 		{
-			await _repository.Clear();
+			await _repository.ClearAsync();
 			return Ok();
 		}
 	}
