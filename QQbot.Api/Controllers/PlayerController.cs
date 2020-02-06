@@ -1,9 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using QQbot.Api.Entities;
+using QQbot.Api.Models.Entities;
 using QQbot.Api.Services;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace QQbot.Api.Controllers

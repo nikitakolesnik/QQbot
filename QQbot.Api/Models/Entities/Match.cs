@@ -3,7 +3,7 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace QQbot.Api.Entities
+namespace QQbot.Api.Models.Entities
 {
 	[Table("Matches")]
 	public class Match
