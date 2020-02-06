@@ -5,10 +5,11 @@ using System.Threading.Tasks;
 
 namespace QQbot.Api.Enums
 {
-	public enum MatchStatus
+	public enum Permissions
 	{
-		Disabled, 
-		PendingReview, 
-		Active
+		None = 0,
+		MiniMod,
+		Mod,
+		Admin
 	}
 }

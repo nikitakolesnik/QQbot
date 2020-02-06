@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using QQbot.Api.Contexts;
+using QQbot.Api.Services.Interfaces;
 
 namespace QQbot.Api.Services
 {

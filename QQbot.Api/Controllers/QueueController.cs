@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using QQbot.Api.Services;
+using QQbot.Api.Services.Interfaces;
 using System;
 using System.Threading.Tasks;
 
@@ -9,9 +9,9 @@ namespace QQbot.Api.Controllers
 	[Route("api/lobby")]
 	public class QueueController : ControllerBase
 	{
-		private QueueRepository _repository;
+		private IQueueRepository _repository;
 
-		public QueueController(QueueRepository repository)
+		public QueueController(IQueueRepository repository)
 		{
 			_repository = repository ?? throw new ArgumentNullException(nameof(repository));
 		}

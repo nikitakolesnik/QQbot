@@ -1,8 +1,9 @@
-﻿using System;
+﻿using QQbot.Api.Enums;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace QQbot.Api.Models.Entities
+namespace QQbot.Api.Entities
 {
 	[Table("Queue")]
 	public class Queue
@@ -11,6 +12,8 @@ namespace QQbot.Api.Models.Entities
 		public int Id { get; set; }
 
 		public Player Player { get; set; }
+
+		public TeamNumber? TeamNumber { get; set; } = null;
 
 		public DateTime Joined { get; set; } = DateTime.UtcNow;
 	}

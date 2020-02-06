@@ -13,6 +13,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
 using QQbot.Api.Contexts;
 using QQbot.Api.Services;
+using QQbot.Api.Services.Interfaces;
 
 namespace QQbot.Api
 {
