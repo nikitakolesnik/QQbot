@@ -8,6 +8,6 @@ namespace QQbot.Api.Services.Interfaces
 	public interface IMatchRepository
 	{
 		//Task<IEnumerable<PlayerCompact>> GetPlayerInfoAsync(string[] names);
-		Task<IActionResult> RecordMatchAsync(string[] winningTeam, string[] losingTeam);
+		Task<int> RecordMatchAsync(string[] winningTeam, string[] losingTeam);
 	}
 }

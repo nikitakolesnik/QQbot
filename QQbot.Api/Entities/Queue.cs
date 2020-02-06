@@ -13,7 +13,7 @@ namespace QQbot.Api.Entities
 
 		public Player Player { get; set; }
 
-		public TeamNumber? TeamNumber { get; set; } = null;
+		public TeamNumber TeamNumber { get; set; } = TeamNumber.NoTeam;
 
 		public DateTime Joined { get; set; } = DateTime.UtcNow;
 	}

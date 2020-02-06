@@ -2,7 +2,8 @@
 {
 	public enum TeamNumber
 	{
-		Team1 = 1,
+		NoTeam = 0,
+		Team1,
 		Team2
 	}
 }

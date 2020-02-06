@@ -1,75 +1,93 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using QQbot.Api.Contexts;
-using QQbot.Api.Models;
 using QQbot.Api.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using AutoMapper;
 using QQbot.Api.Entities;
+using QQbot.Api.Enums;
 
 namespace QQbot.Api.Services
 {
 	public class MatchRepository : IMatchRepository
 	{
 		private readonly ApplicationDbContext _context;
-		private readonly IMapper _mapper;
+		private readonly IRatingCalculator _calc;
 
-		public MatchRepository(ApplicationDbContext context, IMapper mapper)
+		public MatchRepository(ApplicationDbContext context, IRatingCalculator calc)
 		{
 			_context = context ?? throw new ArgumentNullException(nameof(context));
-			_mapper  = mapper  ?? throw new ArgumentNullException(nameof(mapper));
+			_calc    = calc    ?? throw new ArgumentNullException(nameof(calc));
 		}
 
-		private async Task<IEnumerable<PlayerCompact>> GetPlayerInfoAsync(string[] names)
+		private async Task<IEnumerable<Player>> GetPlayerInfoAsync(string[] names)
 		{
-			var players = await _context.Players
-				//.Select(p => new { p.Name, p.Id, p.Rating }) // TODO: see if doing this is actually faster
+			return await _context.Players
 				.Where(p => names.Contains(p.Name, StringComparer.CurrentCultureIgnoreCase))
 				.ToListAsync();
-
-			return _mapper.Map<PlayerCompact[]>(players);
 		}
 
-		public async Task<IActionResult> RecordMatchAsync(string[] winningPlayers, string[] losingPlayers)
+		public async Task<int> RecordMatchAsync(string[] winNameList, string[] loseNameList)
 		{
-			// Create player lists for both teams
+			// Get player info for both teams
 
-			IEnumerable<PlayerCompact> playersWin  = await GetPlayerInfoAsync(winningPlayers);
-			IEnumerable<PlayerCompact> playersLose = await GetPlayerInfoAsync(losingPlayers);
-			//IEnumerable<PlayerCompact> players = Enumerable.Empty<PlayerCompact>()
-			//	.Concat(await GetPlayerInfoAsync(winningPlayers))
-			//	.Concat(await GetPlayerInfoAsync(losingPlayers));
+			IEnumerable<Player> playersWin  = await GetPlayerInfoAsync(winNameList);
+			IEnumerable<Player> playersLose = await GetPlayerInfoAsync(loseNameList);
 
 
-			// Create new teams
+			// Create & Insert new teams
 
 			Team teamWin  = new Team();
 			Team teamLose = new Team();
 
 			await _context.Teams.AddAsync(teamWin);
 			await _context.Teams.AddAsync(teamLose);
+			await _context.SaveChangesAsync();
 
 
-			//Create the match, with winning & losing teams
+			// Create & Insert the match
 
-			Match match = new Match { WinningTeam = teamWin, LosingTeam = teamLose };
-			
-			await _context.Matches.AddAsync(match);
+			await _context.Matches.AddAsync(new Match { WinningTeam = teamWin, LosingTeam = teamLose });
 
 
-			//Create TeamPlayer rows
+			// Calculate rating change, create TeamPlayer objects, save rating before & after
 
-			foreach(var player in playersWin)
+			IEnumerable<TeamPlayer> teamPlayers = Enumerable.Empty<TeamPlayer>();
+
+			double winTeamRating  = _calc.TeamRating(playersWin);
+			double loseTeamRating = _calc.TeamRating(playersLose);
+
+			foreach (Player player in playersWin)
 			{
-				await _context.TeamPlayers.AddAsync(new TeamPlayer { });
+				TeamPlayer teamPlayer = new TeamPlayer { Player = player, RatingBefore = player.Rating, Team = teamWin };
+
+				player.Rating = _calc.PlayerRating(player.Rating, loseTeamRating, MatchResult.Win);
+				teamPlayer.RatingAfter = player.Rating;
+				teamPlayers.Append(teamPlayer);
+			}
+			foreach (Player player in playersLose)
+			{
+				TeamPlayer teamPlayer = new TeamPlayer { Player = player, RatingBefore = player.Rating, Team = teamLose };
+
+				player.Rating = _calc.PlayerRating(player.Rating, winTeamRating,  MatchResult.Lose);
+				teamPlayer.RatingAfter = player.Rating;
+				teamPlayers.Append(teamPlayer);
 			}
 
 
+			// Insert TeamPlayer rows
 
-			throw new NotImplementedException();
+			foreach(TeamPlayer teamPlayer in teamPlayers)
+			{
+				await _context.AddAsync(teamPlayer);
+			}
+
+
+			// Done
+
+			return await _context.SaveChangesAsync();
 		}
 	}
 }
