@@ -11,7 +11,5 @@ namespace QQbot.Api.Entities
 		public Player Player { get; set; }
 
 		public DateTime Joined { get; set; } = DateTime.UtcNow;
-
-		public Team Team { get; set; }
 	}
 }

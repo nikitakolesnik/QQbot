@@ -13,15 +13,10 @@ namespace QQbot.Api.Entities
 
 		public DateTime When { get; set; } = DateTime.UtcNow;
 
-		public Team Team1 { get; set; }
+		public TeamPlayer WinningTeam { get; set; }
 
-		public Team Team2 { get; set; }
+		public TeamPlayer LosingTeam { get; set; }
 
-		public TeamNumber Winner { get; set; }
-
-		//[MaxLength(1000)]
-		//public string Notes { get; set; } = string.Empty;
-
-		public MatchStatus Status { get; set; } = MatchStatus.Disabled;
+		public MatchStatus Status { get; set; } = MatchStatus.Active;
 	}
 }

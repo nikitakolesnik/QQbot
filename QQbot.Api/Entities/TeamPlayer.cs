@@ -11,6 +11,8 @@ namespace QQbot.Api.Entities
 
 		public Team Team { get; set; }
 
-		public int Rating { get; set; }
+		public int RatingBefore { get; set; }
+
+		public int RatingAfter { get; set; }
 	}
 }
