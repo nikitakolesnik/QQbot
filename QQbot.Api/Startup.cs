@@ -35,7 +35,10 @@ namespace QQbot.Api
 				o.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=QQbotDB;Trusted_Connection=true;")
 			);
 
+			services.AddScoped<IMatchRepository,  MatchRepository>();
 			services.AddScoped<IPlayerRepository, PlayerRepository>();
+			services.AddScoped<IQueueRepository,  QueueRepository>();
+			services.AddScoped<IRatingCalculator, RatingCalculator>();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
