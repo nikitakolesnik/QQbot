@@ -14,7 +14,7 @@ namespace QQbot.Api.Services
 			return players.Sum(p => p.Rating) / players.Count();
 		}
 
-		public int PlayerRating(int playerRating, double opponentRating, MatchResult matchResult)
+		public int PlayerRating(int playerRating, double opponentRating, int maxRatingDiff, MatchResult matchResult)
 		{
 			throw new NotImplementedException();
 		}

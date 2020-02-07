@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using QQbot.Api.Entities;
 using QQbot.Api.Enums;
+using Microsoft.AspNetCore.Mvc;
 
 namespace QQbot.Api.Services
 {
@@ -30,10 +31,10 @@ namespace QQbot.Api.Services
 
 		public async Task<IEnumerable<Player>> GetPlayerInfoAsync(string names)
 		{
-			string[] nameList = names.Split(',');
+			string[] nameList = names.ToLower().Split(',');
 
 			return await _context.Players
-				.Where(p => nameList.Contains(p.Name, StringComparer.CurrentCultureIgnoreCase))
+				.Where(p => nameList.Contains(p.Name))
 				.ToListAsync();
 		}
 
@@ -42,6 +43,16 @@ namespace QQbot.Api.Services
 			return await _context.Players
 				.Where(p => ids.Contains(p.Id))
 				.ToListAsync();
+		}
+
+		// Consider caching this result? idk how long
+		[ResponseCache(Duration = 1)]
+		public async Task<int> GetMaxRatingDifferenceAsync()
+		{
+			int min = await _context.Players.MinAsync(p => p.Rating);
+			int max = await _context.Players.MaxAsync(p => p.Rating);
+			
+			return Math.Abs(max - min);
 		}
 
 		public async Task<int> RecordMatchAsync(IEnumerable<Player> playersWin, IEnumerable<Player> playersLose)
@@ -61,17 +72,18 @@ namespace QQbot.Api.Services
 			await _context.Matches.AddAsync(new Match { WinningTeam = teamWin, LosingTeam = teamLose });
 
 
-			// Calculate rating change, Create & Insert TeamPlayer rows, save rating before & after
+			// Create TeamPlayer rows, calculate rating change, save rating before & after, Insert rows
 
-			double winTeamRating  = _calc.TeamRating(playersWin);
-			double loseTeamRating = _calc.TeamRating(playersLose);
+			double winTeamRating       = _calc.TeamRating(playersWin);
+			double loseTeamRating      = _calc.TeamRating(playersLose);
+			int    maxRatingDifference = await this.GetMaxRatingDifferenceAsync();
 
 			foreach (Player player in playersWin)
 			{
 				TeamPlayer teamPlayer = new TeamPlayer { Player = player, RatingBefore = player.Rating, Team = teamWin };
 
 				player.Wins++;
-				player.Rating = _calc.PlayerRating(player.Rating, loseTeamRating, MatchResult.Win);
+				player.Rating = _calc.PlayerRating(player.Rating, loseTeamRating, maxRatingDifference, MatchResult.Win);
 				teamPlayer.RatingAfter = player.Rating;
 				await _context.AddAsync(teamPlayer);
 			}
@@ -80,7 +92,7 @@ namespace QQbot.Api.Services
 				TeamPlayer teamPlayer = new TeamPlayer { Player = player, RatingBefore = player.Rating, Team = teamLose };
 
 				player.Losses++;
-				player.Rating = _calc.PlayerRating(player.Rating, winTeamRating,  MatchResult.Lose);
+				player.Rating = _calc.PlayerRating(player.Rating, winTeamRating, maxRatingDifference, MatchResult.Lose);
 				teamPlayer.RatingAfter = player.Rating;
 				await _context.AddAsync(teamPlayer);
 			}

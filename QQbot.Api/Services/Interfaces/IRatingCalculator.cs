@@ -7,6 +7,6 @@ namespace QQbot.Api.Services.Interfaces
 	public interface IRatingCalculator
 	{
 		public double TeamRating(IEnumerable<Player> players);
-		public int PlayerRating(int playerRating, double opponentRating, MatchResult matchResult);
+		public int PlayerRating(int playerRating, double opponentRating, int maxRatingDiff, MatchResult matchResult);
 	}
 }
