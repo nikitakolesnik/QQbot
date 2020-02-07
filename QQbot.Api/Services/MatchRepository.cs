@@ -74,9 +74,9 @@ namespace QQbot.Api.Services
 
 			// Create TeamPlayer rows, calculate rating change, save rating before & after, Insert rows
 
-			double winTeamRating       = _calc.TeamRating(playersWin);
-			double loseTeamRating      = _calc.TeamRating(playersLose);
-			int    maxRatingDifference = await this.GetMaxRatingDifferenceAsync();
+			int winTeamRating       = _calc.TeamRating(playersWin);
+			int loseTeamRating      = _calc.TeamRating(playersLose);
+			int maxRatingDifference = await this.GetMaxRatingDifferenceAsync();
 
 			foreach (Player player in playersWin)
 			{
