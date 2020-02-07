@@ -10,20 +10,20 @@ namespace QQbot.Api.Controllers
 	[Route("api/match")]
 	public class MatchController : ControllerBase
 	{
-		private readonly IMatchRepository _matchRepository;
+		private readonly IMatchRepository _repository;
 
 		public MatchController(IMatchRepository matchRepository)
 		{
-			_matchRepository = matchRepository ?? throw new ArgumentNullException(nameof(matchRepository));
+			_repository = matchRepository ?? throw new ArgumentNullException(nameof(matchRepository));
 		}
 
 		[HttpGet]
 		[Route("?win={winningNames:string[]}&lose={losingNames:string[]}")]
 		public async Task<IActionResult> RecordMatch(string[] winningNames, string[] losingNames)
 		{
-			await _matchRepository.RecordMatchAsync(
-				await _matchRepository.GetPlayerInfoAsync(winningNames),
-				await _matchRepository.GetPlayerInfoAsync(losingNames)
+			await _repository.RecordMatchAsync(
+				await _repository.GetPlayerInfoAsync(winningNames),
+				await _repository.GetPlayerInfoAsync(losingNames)
 			);
 
 			return Ok();
@@ -33,9 +33,9 @@ namespace QQbot.Api.Controllers
 		[Route("?win={winningNameList:string}&lose={losingNameList:string}")]
 		public async Task<IActionResult> RecordMatch(string winningNameList, string losingNameList)
 		{
-			await _matchRepository.RecordMatchAsync(
-				await _matchRepository.GetPlayerInfoAsync(winningNameList),
-				await _matchRepository.GetPlayerInfoAsync(losingNameList)
+			await _repository.RecordMatchAsync(
+				await _repository.GetPlayerInfoAsync(winningNameList),
+				await _repository.GetPlayerInfoAsync(losingNameList)
 			);
 
 			return Ok();
@@ -45,9 +45,9 @@ namespace QQbot.Api.Controllers
 		[Route("?win={winningIds:int[]}&lose={losingIds:int[]}")]
 		public async Task<IActionResult> RecordMatch(int[] winningIds, int[] losingIds)
 		{
-			await _matchRepository.RecordMatchAsync(
-				await _matchRepository.GetPlayerInfoAsync(winningIds),
-				await _matchRepository.GetPlayerInfoAsync(losingIds)
+			await _repository.RecordMatchAsync(
+				await _repository.GetPlayerInfoAsync(winningIds),
+				await _repository.GetPlayerInfoAsync(losingIds)
 			);
 
 			return Ok();

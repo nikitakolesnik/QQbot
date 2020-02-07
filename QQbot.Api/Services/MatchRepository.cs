@@ -22,6 +22,8 @@ namespace QQbot.Api.Services
 			_calc    = calc    ?? throw new ArgumentNullException(nameof(calc));
 		}
 
+		//TODO: validate count of players
+
 		public async Task<IEnumerable<Player>> GetPlayerInfoAsync(string[] names)
 		{
 			return await _context.Players
@@ -74,16 +76,16 @@ namespace QQbot.Api.Services
 
 			// Create TeamPlayer rows, calculate rating change, save rating before & after, Insert rows
 
-			int winTeamRating       = _calc.TeamRating(playersWin);
-			int loseTeamRating      = _calc.TeamRating(playersLose);
-			int maxRatingDifference = await this.GetMaxRatingDifferenceAsync();
+			int winTeamRating  = _calc.TeamRating(playersWin);
+			int loseTeamRating = _calc.TeamRating(playersLose);
+			int maxRatingDiff  = await this.GetMaxRatingDifferenceAsync();
 
 			foreach (Player player in playersWin)
 			{
 				TeamPlayer teamPlayer = new TeamPlayer { Player = player, RatingBefore = player.Rating, Team = teamWin };
 
 				player.Wins++;
-				player.Rating = _calc.PlayerRating(player.Rating, loseTeamRating, maxRatingDifference, MatchResult.Win);
+				player.Rating = _calc.PlayerRating(player.Rating, loseTeamRating, maxRatingDiff, MatchResult.Win);
 				teamPlayer.RatingAfter = player.Rating;
 				await _context.AddAsync(teamPlayer);
 			}
@@ -92,7 +94,7 @@ namespace QQbot.Api.Services
 				TeamPlayer teamPlayer = new TeamPlayer { Player = player, RatingBefore = player.Rating, Team = teamLose };
 
 				player.Losses++;
-				player.Rating = _calc.PlayerRating(player.Rating, winTeamRating, maxRatingDifference, MatchResult.Lose);
+				player.Rating = _calc.PlayerRating(player.Rating, winTeamRating, maxRatingDiff, MatchResult.Lose);
 				teamPlayer.RatingAfter = player.Rating;
 				await _context.AddAsync(teamPlayer);
 			}

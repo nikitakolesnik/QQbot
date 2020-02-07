@@ -16,7 +16,7 @@ namespace QQbot.Api.Services
 
 		public int PlayerRating(int playerRating, int opponentRating, int maxRatingDiff, MatchResult matchResult)
 		{
-			// Huge thanks again to "Itheory" & Eight Bit for the formula & implementation
+			// Huge thanks again to Candyboy & Eight Bit for the formula & implementation
 
 			int ratingDiff = Math.Max(Math.Abs(playerRating - opponentRating), 100);
 			double quotient = ratingDiff / maxRatingDiff;
