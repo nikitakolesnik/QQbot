@@ -9,12 +9,18 @@ namespace QQbot.Api.Controllers
 	[Route("api/lobby")]
 	public class QueueController : ControllerBase
 	{
-		private IQueueRepository _repository;
+		private readonly IQueueRepository _repository;
 
 		public QueueController(IQueueRepository repository)
 		{
 			_repository = repository ?? throw new ArgumentNullException(nameof(repository));
 		}
+
+		//TODO: add player to queue by name/id/discord
+
+		//TODO: remove player from queue by name/id/discord
+
+		//TODO: set queued player's team by name/id/discord
 
 		[HttpGet]
 		[Route("clear")]

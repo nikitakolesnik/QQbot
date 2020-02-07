@@ -10,7 +10,7 @@ namespace QQbot.Api.Controllers
 	[Route("api/match")]
 	public class MatchController : ControllerBase
 	{
-		private IMatchRepository _matchRepository;
+		private readonly IMatchRepository _matchRepository;
 
 		public MatchController(IMatchRepository matchRepository)
 		{
@@ -18,6 +18,7 @@ namespace QQbot.Api.Controllers
 		}
 
 		[HttpGet]
+		[Route("?win={winningNames:string[]}&lose={losingNames:string[]}")]
 		public async Task<IActionResult> RecordMatch(string[] winningNames, string[] losingNames)
 		{
 			await _matchRepository.RecordMatchAsync(
@@ -29,6 +30,7 @@ namespace QQbot.Api.Controllers
 		}
 
 		[HttpGet]
+		[Route("?win={winningNameList:string}&lose={losingNameList:string}")]
 		public async Task<IActionResult> RecordMatch(string winningNameList, string losingNameList)
 		{
 			await _matchRepository.RecordMatchAsync(
@@ -40,6 +42,7 @@ namespace QQbot.Api.Controllers
 		}
 
 		[HttpGet]
+		[Route("?win={winningIds:int[]}&lose={losingIds:int[]}")]
 		public async Task<IActionResult> RecordMatch(int[] winningIds, int[] losingIds)
 		{
 			await _matchRepository.RecordMatchAsync(

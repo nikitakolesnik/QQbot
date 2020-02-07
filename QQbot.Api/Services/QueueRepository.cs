@@ -8,7 +8,7 @@ namespace QQbot.Api.Services
 {
 	public class QueueRepository : IQueueRepository
 	{
-		private ApplicationDbContext _context;
+		private readonly ApplicationDbContext _context;
 
 		public QueueRepository(ApplicationDbContext context)
 		{
