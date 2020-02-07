@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using QQbot.Api.Contexts;
 using QQbot.Api.Services.Interfaces;
 using System;
@@ -22,21 +21,31 @@ namespace QQbot.Api.Services
 			_calc    = calc    ?? throw new ArgumentNullException(nameof(calc));
 		}
 
-		private async Task<IEnumerable<Player>> GetPlayerInfoAsync(string[] names)
+		public async Task<IEnumerable<Player>> GetPlayerInfoAsync(string[] names)
 		{
 			return await _context.Players
 				.Where(p => names.Contains(p.Name, StringComparer.CurrentCultureIgnoreCase))
 				.ToListAsync();
 		}
 
-		public async Task<int> RecordMatchAsync(string[] winNameList, string[] loseNameList)
+		public async Task<IEnumerable<Player>> GetPlayerInfoAsync(string names)
 		{
-			// Get player info for both teams
+			string[] nameList = names.Split(',');
 
-			IEnumerable<Player> playersWin  = await GetPlayerInfoAsync(winNameList);
-			IEnumerable<Player> playersLose = await GetPlayerInfoAsync(loseNameList);
+			return await _context.Players
+				.Where(p => nameList.Contains(p.Name, StringComparer.CurrentCultureIgnoreCase))
+				.ToListAsync();
+		}
 
+		public async Task<IEnumerable<Player>> GetPlayerInfoAsync(int[] ids)
+		{
+			return await _context.Players
+				.Where(p => ids.Contains(p.Id))
+				.ToListAsync();
+		}
 
+		public async Task<int> RecordMatchAsync(IEnumerable<Player> playersWin, IEnumerable<Player> playersLose)
+		{
 			// Create & Insert new teams
 
 			Team teamWin  = new Team();
@@ -61,6 +70,7 @@ namespace QQbot.Api.Services
 			{
 				TeamPlayer teamPlayer = new TeamPlayer { Player = player, RatingBefore = player.Rating, Team = teamWin };
 
+				player.Wins++;
 				player.Rating = _calc.PlayerRating(player.Rating, loseTeamRating, MatchResult.Win);
 				teamPlayer.RatingAfter = player.Rating;
 				await _context.AddAsync(teamPlayer);
@@ -69,6 +79,7 @@ namespace QQbot.Api.Services
 			{
 				TeamPlayer teamPlayer = new TeamPlayer { Player = player, RatingBefore = player.Rating, Team = teamLose };
 
+				player.Losses++;
 				player.Rating = _calc.PlayerRating(player.Rating, winTeamRating,  MatchResult.Lose);
 				teamPlayer.RatingAfter = player.Rating;
 				await _context.AddAsync(teamPlayer);
