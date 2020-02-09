@@ -31,19 +31,26 @@ namespace QQbot.Api.Services
 				.ToListAsync();
 		}
 
-		public async Task<IEnumerable<Player>> GetPlayerInfoAsync(string names)
+		public async Task<IEnumerable<Player>> GetPlayerInfoAsync(string nameCommaString)
 		{
-			string[] nameList = names.ToLower().Split(',');
+			string[] nameList = nameCommaString.ToLower().Split(',');
 
 			return await _context.Players
 				.Where(p => nameList.Contains(p.Name))
 				.ToListAsync();
 		}
 
-		public async Task<IEnumerable<Player>> GetPlayerInfoAsync(int[] ids)
+		public async Task<IEnumerable<Player>> GetPlayerInfoAsync(int[] playerIds)
 		{
 			return await _context.Players
-				.Where(p => ids.Contains(p.Id))
+				.Where(p => playerIds.Contains(p.Id))
+				.ToListAsync();
+		}
+
+		public async Task<IEnumerable<Player>> GetPlayerInfoAsync(long[] discordIds)
+		{
+			return await _context.Players
+				.Where(p => discordIds.Contains(p.DiscordId))
 				.ToListAsync();
 		}
 

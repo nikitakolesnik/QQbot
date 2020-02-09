@@ -19,7 +19,7 @@ namespace QQbot.Api.Controllers
 
 		[HttpGet]
 		[Route("?win={winningNames:string[]}&lose={losingNames:string[]}")]
-		public async Task<IActionResult> RecordMatch(string[] winningNames, string[] losingNames)
+		public async Task<IActionResult> RecordMatch(string[] winningNames, string[] losingNames) // ["slam", "yoko", "candy", ...]
 		{
 			await _repository.RecordMatchAsync(
 				await _repository.GetPlayerInfoAsync(winningNames),
@@ -31,11 +31,11 @@ namespace QQbot.Api.Controllers
 
 		[HttpGet]
 		[Route("?win={winningNameList:string}&lose={losingNameList:string}")]
-		public async Task<IActionResult> RecordMatch(string winningNameList, string losingNameList)
+		public async Task<IActionResult> RecordMatch(string winningNameCommaString, string losingNameCommaString) // "slam,yoko,candy,..."
 		{
 			await _repository.RecordMatchAsync(
-				await _repository.GetPlayerInfoAsync(winningNameList),
-				await _repository.GetPlayerInfoAsync(losingNameList)
+				await _repository.GetPlayerInfoAsync(winningNameCommaString),
+				await _repository.GetPlayerInfoAsync(losingNameCommaString)
 			);
 
 			return Ok();
@@ -43,11 +43,23 @@ namespace QQbot.Api.Controllers
 
 		[HttpGet]
 		[Route("?win={winningIds:int[]}&lose={losingIds:int[]}")]
-		public async Task<IActionResult> RecordMatch(int[] winningIds, int[] losingIds)
+		public async Task<IActionResult> RecordMatch(int[] winningIds, int[] losingIds) // [1,2,3,...]
 		{
 			await _repository.RecordMatchAsync(
 				await _repository.GetPlayerInfoAsync(winningIds),
 				await _repository.GetPlayerInfoAsync(losingIds)
+			);
+
+			return Ok();
+		}
+
+		[HttpGet]
+		[Route("?win={winningIds:int[]}&lose={losingIds:int[]}")]
+		public async Task<IActionResult> RecordMatch(long[] winningDiscords, long[] losingDiscords) // [240413827718578177,175325337196953600,287275232236929026,...]
+		{
+			await _repository.RecordMatchAsync(
+				await _repository.GetPlayerInfoAsync(winningDiscords),
+				await _repository.GetPlayerInfoAsync(losingDiscords)
 			);
 
 			return Ok();
