@@ -12,9 +12,9 @@ namespace QQbot.Api.Controllers
 	{
 		private readonly IMatchRepository _repository;
 
-		public MatchController(IMatchRepository matchRepository)
+		public MatchController(IMatchRepository repository)
 		{
-			_repository = matchRepository ?? throw new ArgumentNullException(nameof(matchRepository));
+			_repository = repository ?? throw new ArgumentNullException(nameof(repository));
 		}
 
 		[HttpGet]

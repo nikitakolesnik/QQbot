@@ -11,17 +11,17 @@ namespace QQbot.Api.Controllers
 	[Route("/api/players")]
 	public class PlayerController : ControllerBase
 	{
-		private readonly IPlayerRepository _playerRepository;
+		private readonly IPlayerRepository _repository;
 
-		public PlayerController(IPlayerRepository playerRepository)
+		public PlayerController(IPlayerRepository repository)
 		{
-			_playerRepository = playerRepository ?? throw new ArgumentNullException(nameof(playerRepository));
+			_repository = repository ?? throw new ArgumentNullException(nameof(repository));
 		}
 
 		[HttpGet]
 		public async Task<ActionResult<IEnumerable<Player>>> GetPlayers()
 		{
-			var players = await _playerRepository.GetPlayersAsync();
+			var players = await _repository.GetPlayersAsync();
 
 			return Ok(players);
 		}
@@ -30,7 +30,7 @@ namespace QQbot.Api.Controllers
 		[Route("{id:int}")]
 		public async Task<ActionResult<Player>> GetPlayer(int id)
 		{
-			var player = await _playerRepository.GetPlayerAsync(id);
+			var player = await _repository.GetPlayerAsync(id);
 
 			if (player == null)
 				return BadRequest($"Player with ID#{id} not found.");
