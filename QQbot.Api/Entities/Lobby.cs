@@ -5,8 +5,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace QQbot.Api.Entities
 {
-	[Table("Queue")]
-	public class Queue
+	[Table("Lobby")]
+	public class Lobby
 	{
 		[Key]
 		public int Id { get; set; }

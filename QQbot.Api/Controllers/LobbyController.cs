@@ -7,11 +7,11 @@ namespace QQbot.Api.Controllers
 {
 	[ApiController]
 	[Route("api/lobby")]
-	public class QueueController : ControllerBase
+	public class LobbyController : ControllerBase
 	{
 		private readonly IQueueRepository _repository;
 
-		public QueueController(IQueueRepository repository)
+		public LobbyController(IQueueRepository repository)
 		{
 			_repository = repository ?? throw new ArgumentNullException(nameof(repository));
 		}

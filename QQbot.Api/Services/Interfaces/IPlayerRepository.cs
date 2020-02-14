@@ -6,7 +6,7 @@ namespace QQbot.Api.Services.Interfaces
 {
 	public interface IPlayerRepository
 	{
-		Task<Player> GetPlayerAsync(int id);
+		Task<Player> GetPlayerByIdAsync(int id);
 		Task<IEnumerable<Player>> GetPlayersAsync();
 	}
 }

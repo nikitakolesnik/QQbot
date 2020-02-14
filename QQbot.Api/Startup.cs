@@ -37,7 +37,7 @@ namespace QQbot.Api
 
 			services.AddScoped<IMatchRepository,  MatchRepository>();
 			services.AddScoped<IPlayerRepository, PlayerRepository>();
-			services.AddScoped<IQueueRepository,  QueueRepository>();
+			services.AddScoped<IQueueRepository,  LobbyRepository>();
 			services.AddScoped<IRatingCalculator, RatingCalculator>();
 		}
 

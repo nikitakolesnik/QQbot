@@ -18,9 +18,19 @@ namespace QQbot.Api.Services
 			_context = context ?? throw new ArgumentNullException(nameof(context));
 		}
 
-		public async Task<Player> GetPlayerAsync(int id)
+		public async Task<Player> GetPlayerByIdAsync(int id)
 		{
 			return await _context.Players.Where(p => p.Id == id).FirstAsync();
+		}
+
+		public async Task<Player> GetPlayerByNameAsync(string name)
+		{
+			return await _context.Players.Where(p => p.Name == name).FirstAsync();
+		}
+
+		public async Task<Player> GetPlayerByDiscordIdAsync(long discordId)
+		{
+			return await _context.Players.Where(p => p.DiscordId == discordId).FirstAsync();
 		}
 
 		public async Task<IEnumerable<Player>> GetPlayersAsync()

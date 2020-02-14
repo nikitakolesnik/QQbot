@@ -6,11 +6,11 @@ using QQbot.Api.Services.Interfaces;
 
 namespace QQbot.Api.Services
 {
-	public class QueueRepository : IQueueRepository
+	public class LobbyRepository : IQueueRepository
 	{
 		private readonly ApplicationDbContext _context;
 
-		public QueueRepository(ApplicationDbContext context)
+		public LobbyRepository(ApplicationDbContext context)
 		{
 			_context = context ?? throw new ArgumentNullException(nameof(context));
 		}

@@ -30,7 +30,7 @@ namespace QQbot.Api.Controllers
 		[Route("{id:int}")]
 		public async Task<ActionResult<Player>> GetPlayer(int id)
 		{
-			var player = await _repository.GetPlayerAsync(id);
+			var player = await _repository.GetPlayerByIdAsync(id);
 
 			if (player == null)
 				return BadRequest($"Player with ID#{id} not found.");
