@@ -9,7 +9,7 @@ namespace QQbot.Api.Contexts
 	{
 		public DbSet<Player> Players { get; set; }
 		public DbSet<Match> Matches { get; set; }
-		public DbSet<Lobby> Lobby { get; set; } // Singular - only one queue ever exists
+		public DbSet<Lobby> Lobby { get; set; } // Singular - only one lobby ever exists
 		public DbSet<Team> Teams { get; set; }
 		public DbSet<TeamPlayer> TeamPlayers { get; set; }
 
