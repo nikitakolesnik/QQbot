@@ -21,19 +21,19 @@ namespace QQbot.Api.Tests.Services
 		[TestMethod]
 		public async Task ShouldReturnPlayerByName()
 		{
-
+			
 		}
 
 		[TestMethod]
 		public async Task ShouldReturnPlayerById()
 		{
-
+			
 		}
 
 		[TestMethod]
 		public async Task ShouldReturnPlayerByDiscordId()
 		{
-
+			var player = await _repository.GetPlayerByDiscordIdAsync(240413827718578177);
 		}
 	}
 }

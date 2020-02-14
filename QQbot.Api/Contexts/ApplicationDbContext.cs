@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using QQbot.Api.Entities;
 using QQbot.Api.Data;
-using System.Collections;
 
 namespace QQbot.Api.Contexts
 {
@@ -15,7 +14,7 @@ namespace QQbot.Api.Contexts
 
 		public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
 		{
-			//Database.EnsureCreated();
+			Database.EnsureCreated();
 		}
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -24,7 +23,7 @@ namespace QQbot.Api.Contexts
 			
 			modelBuilder.Entity<Player>().HasIndex(p => p.DiscordId).IsUnique();
 
-			modelBuilder.Entity<Player>().HasData(new HardCodedPlayerData().GetPlayers());
+			modelBuilder.Entity<Player>().HasData(HardCodedPlayerData.GetPlayers());
 		}
 	}
 }

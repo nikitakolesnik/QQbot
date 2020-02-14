@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace QQbot.Api.Data
 {
-	public class HardCodedPlayerData
+	public static class HardCodedPlayerData
 	{
-		public IEnumerable<Player> GetPlayers()
+		public static IEnumerable<Player> GetPlayers()
 		{
 			IEnumerable<Player> players = Enumerable.Empty<Player>();
 
