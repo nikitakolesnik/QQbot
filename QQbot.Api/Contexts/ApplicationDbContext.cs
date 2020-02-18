@@ -14,16 +14,20 @@ namespace QQbot.Api.Contexts
 
 		public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
 		{
-			Database.EnsureCreated();
+			//Database.EnsureCreated();
 		}
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
 			modelBuilder.Entity<Player>().HasIndex(p => p.Name).IsUnique();
-			
 			modelBuilder.Entity<Player>().HasIndex(p => p.DiscordId).IsUnique();
 
-			modelBuilder.Entity<Player>().HasData(HardCodedPlayerData.GetPlayers());
+			var players = HardCodedPlayerData.GetPlayers();
+
+			foreach (var player in players)
+			{
+				modelBuilder.Entity<Player>().HasData(player);
+			}
 		}
 	}
 }

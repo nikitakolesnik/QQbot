@@ -24,14 +24,14 @@ namespace QQbot.Api.Services
 
 		//TODO: validate count of players
 
-		public async Task<IEnumerable<Player>> GetPlayerInfoAsync(string[] names) // ["slam", "yoko", "candy", ...]
+		public async Task<IEnumerable<Player>> GetPlayerAsync(string[] names) // ["slam", "yoko", "candy", ...]
 		{
 			return await _context.Players
 				.Where(p => names.Contains(p.Name, StringComparer.CurrentCultureIgnoreCase))
 				.ToListAsync();
 		}
 
-		public async Task<IEnumerable<Player>> GetPlayerInfoAsync(string nameCommaString) // "slam,yoko,candy,..."
+		public async Task<IEnumerable<Player>> GetPlayerAsync(string nameCommaString) // "slam,yoko,candy,..."
 		{
 			string[] nameList = nameCommaString.ToLower().Split(',');
 
@@ -40,14 +40,14 @@ namespace QQbot.Api.Services
 				.ToListAsync();
 		}
 
-		public async Task<IEnumerable<Player>> GetPlayerInfoAsync(int[] playerIds) // [1, 2, 3, ...]
+		public async Task<IEnumerable<Player>> GetPlayerAsync(int[] playerIds) // [1, 2, 3, ...]
 		{
 			return await _context.Players
 				.Where(p => playerIds.Contains(p.Id))
 				.ToListAsync();
 		}
 
-		public async Task<IEnumerable<Player>> GetPlayerInfoAsync(long[] discordIds) // [240413827718578177, 175325337196953600, 287275232236929026, ...]
+		public async Task<IEnumerable<Player>> GetPlayerAsync(long[] discordIds) // [240413827718578177, 175325337196953600, 287275232236929026, ...]
 		{
 			return await _context.Players
 				.Where(p => discordIds.Contains(p.DiscordId))

@@ -11,17 +11,17 @@ namespace QQbot.Api.Services
 {
 	public class PlayerRepository : IPlayerRepository
 	{
-		private readonly ApplicationDbContext _context;
+	private readonly ApplicationDbContext _context;
 
-		public PlayerRepository(ApplicationDbContext context)
-		{
-			_context = context ?? throw new ArgumentNullException(nameof(context));
-		}
+	public PlayerRepository(ApplicationDbContext context)
+	{
+		_context = context ?? throw new ArgumentNullException(nameof(context));
+	}
 
-		public async Task<Player> GetPlayerByIdAsync(int id)
-		{
-			return await _context.Players.Where(p => p.Id == id).FirstAsync();
-		}
+	public async Task<Player> GetPlayerByIdAsync(int id)
+	{
+		return await _context.Players.Where(p => p.Id == id).FirstAsync();
+	}
 
 		public async Task<Player> GetPlayerByNameAsync(string name)
 		{

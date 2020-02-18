@@ -1,7 +1,10 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using QQbot.Api.Data;
+using QQbot.Api.Entities;
 using QQbot.Api.Services.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -10,30 +13,27 @@ namespace QQbot.Api.Tests.Services
 	[TestClass]
 	public class PlayerRepositoryTests
 	{
-		private IPlayerRepository _repository;
-
 		[TestInitialize]
-		public async Task TestInitialize(IPlayerRepository repository)
+		public void TestInitialize()
 		{
-			_repository = repository;
+
 		}
 
 		[TestMethod]
-		public async Task ShouldReturnPlayerByName()
+		public void ShouldCreatePlayerData()
 		{
-			
+			var players = HardCodedPlayerData.GetPlayers();
+
+			Assert.AreEqual(players.First().Name, "Slam");
+			//Assert.AreEqual(1, 1);
 		}
 
-		[TestMethod]
-		public async Task ShouldReturnPlayerById()
-		{
-			
-		}
+		//[TestMethod]
+		//public async Task ShouldReturnPlayerByDiscordId()
+		//{
+		//	var player = await _repository.GetPlayerByDiscordIdAsync(240413827718578177);
 
-		[TestMethod]
-		public async Task ShouldReturnPlayerByDiscordId()
-		{
-			var player = await _repository.GetPlayerByDiscordIdAsync(240413827718578177);
-		}
+		//	Assert.AreEqual(player.Name, "Slam");
+		//}
 	}
 }
