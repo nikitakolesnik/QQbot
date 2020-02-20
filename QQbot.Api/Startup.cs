@@ -13,7 +13,6 @@ using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
 using QQbot.Api.Contexts;
 using QQbot.Api.Services;
-using QQbot.Api.Services.Interfaces;
 
 namespace QQbot.Api
 {
@@ -35,10 +34,19 @@ namespace QQbot.Api
 				o.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=QQbotDB;Trusted_Connection=true;")
 			);
 
+			// SL
+			services.AddScoped<IMatchService,  MatchService>();
+			services.AddScoped<IPlayerService, PlayerService>();
+			services.AddScoped<IQueueService,  QueueService>();
+
+			// BL
 			services.AddScoped<IMatchRepository,  MatchRepository>();
 			services.AddScoped<IPlayerRepository, PlayerRepository>();
-			services.AddScoped<IQueueRepository,  LobbyRepository>();
+			services.AddScoped<IQueueRepository,  QueueRepository>();
 			services.AddScoped<IRatingCalculator, RatingCalculator>();
+
+			// DAL
+			// ...
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

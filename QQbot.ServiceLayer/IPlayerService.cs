@@ -3,13 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace QQbot.Api.Enums
+namespace QQbot.ServiceLayer
 {
-	public enum Permissions
+	public interface IPlayerService
 	{
-		None = 0,
-		MiniMod,
-		Mod,
-		Admin
 	}
 }

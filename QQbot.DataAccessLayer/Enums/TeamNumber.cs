@@ -1,4 +1,4 @@
-﻿namespace QQbot.Api.Enums
+﻿namespace QQbot.DataAccessLayer.Enums
 {
 	public enum TeamNumber
 	{

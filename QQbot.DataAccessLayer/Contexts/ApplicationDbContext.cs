@@ -1,8 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using QQbot.Api.Entities;
-using QQbot.Api.Data;
 
-namespace QQbot.Api.Contexts
+namespace QQbot.DataAccessLayer.Contexts
 {
 	public class ApplicationDbContext : DbContext
 	{

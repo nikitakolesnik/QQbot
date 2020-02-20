@@ -1,7 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
 using QQbot.Api.Data;
 using QQbot.Api.Entities;
-using QQbot.Api.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,15 +25,6 @@ namespace QQbot.Api.Tests.Services
 			var players = HardCodedPlayerData.GetPlayers();
 
 			Assert.AreEqual(players.First().Name, "Slam");
-			//Assert.AreEqual(1, 1);
 		}
-
-		//[TestMethod]
-		//public async Task ShouldReturnPlayerByDiscordId()
-		//{
-		//	var player = await _repository.GetPlayerByDiscordIdAsync(240413827718578177);
-
-		//	Assert.AreEqual(player.Name, "Slam");
-		//}
 	}
 }

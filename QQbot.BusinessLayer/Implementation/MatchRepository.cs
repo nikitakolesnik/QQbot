@@ -1,15 +1,13 @@
-﻿using Microsoft.EntityFrameworkCore;
-using QQbot.Api.Contexts;
-using QQbot.Api.Services.Interfaces;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using QQbot.DataAccessLayer;
+using QQbot.DataAccessLayer.Contexts;
+using QQbot.DataAccessLayer.Enums;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using QQbot.Api.Entities;
-using QQbot.Api.Enums;
-using Microsoft.AspNetCore.Mvc;
 
-namespace QQbot.Api.Services
+namespace QQbot.BusinessLayer.Implementation
 {
 	public class MatchRepository : IMatchRepository
 	{
@@ -20,38 +18,6 @@ namespace QQbot.Api.Services
 		{
 			_context = context ?? throw new ArgumentNullException(nameof(context));
 			_calc    = calc    ?? throw new ArgumentNullException(nameof(calc));
-		}
-
-		//TODO: validate count of players
-
-		public async Task<IEnumerable<Player>> GetPlayerAsync(string[] names) // ["slam", "yoko", "candy", ...]
-		{
-			return await _context.Players
-				.Where(p => names.Contains(p.Name, StringComparer.CurrentCultureIgnoreCase))
-				.ToListAsync();
-		}
-
-		public async Task<IEnumerable<Player>> GetPlayerAsync(string nameCommaString) // "slam,yoko,candy,..."
-		{
-			string[] nameList = nameCommaString.ToLower().Split(',');
-
-			return await _context.Players
-				.Where(p => nameList.Contains(p.Name))
-				.ToListAsync();
-		}
-
-		public async Task<IEnumerable<Player>> GetPlayerAsync(int[] playerIds) // [1, 2, 3, ...]
-		{
-			return await _context.Players
-				.Where(p => playerIds.Contains(p.Id))
-				.ToListAsync();
-		}
-
-		public async Task<IEnumerable<Player>> GetPlayerAsync(long[] discordIds) // [240413827718578177, 175325337196953600, 287275232236929026, ...]
-		{
-			return await _context.Players
-				.Where(p => discordIds.Contains(p.DiscordId))
-				.ToListAsync();
 		}
 
 		// Consider caching this result? idk how long

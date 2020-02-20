@@ -22,8 +22,8 @@ namespace QQbot.Api.Controllers
 		public async Task<IActionResult> RecordMatch(string[] winningNames, string[] losingNames) // ["slam", "yoko", "candy", ...]
 		{
 			await _repository.RecordMatchAsync(
-				await _repository.GetPlayerAsync(winningNames),
-				await _repository.GetPlayerAsync(losingNames)
+				await _repository.GetPlayersAsync(winningNames),
+				await _repository.GetPlayersAsync(losingNames)
 			);
 
 			return Ok();
@@ -34,8 +34,8 @@ namespace QQbot.Api.Controllers
 		public async Task<IActionResult> RecordMatch(string winningNameCommaString, string losingNameCommaString) // "slam,yoko,candy,..."
 		{
 			await _repository.RecordMatchAsync(
-				await _repository.GetPlayerAsync(winningNameCommaString),
-				await _repository.GetPlayerAsync(losingNameCommaString)
+				await _repository.GetPlayersAsync(winningNameCommaString),
+				await _repository.GetPlayersAsync(losingNameCommaString)
 			);
 
 			return Ok();
@@ -46,8 +46,8 @@ namespace QQbot.Api.Controllers
 		public async Task<IActionResult> RecordMatch(int[] winningIds, int[] losingIds) // [1,2,3,...]
 		{
 			await _repository.RecordMatchAsync(
-				await _repository.GetPlayerAsync(winningIds),
-				await _repository.GetPlayerAsync(losingIds)
+				await _repository.GetPlayersAsync(winningIds),
+				await _repository.GetPlayersAsync(losingIds)
 			);
 
 			return Ok();
@@ -58,8 +58,8 @@ namespace QQbot.Api.Controllers
 		public async Task<IActionResult> RecordMatch(long[] winningDiscords, long[] losingDiscords) // [240413827718578177,175325337196953600,287275232236929026,...]
 		{
 			await _repository.RecordMatchAsync(
-				await _repository.GetPlayerAsync(winningDiscords),
-				await _repository.GetPlayerAsync(losingDiscords)
+				await _repository.GetPlayersAsync(winningDiscords),
+				await _repository.GetPlayersAsync(losingDiscords)
 			);
 
 			return Ok();

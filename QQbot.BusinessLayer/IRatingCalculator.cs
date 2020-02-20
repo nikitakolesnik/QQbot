@@ -1,8 +1,8 @@
-﻿using QQbot.Api.Entities;
-using QQbot.Api.Enums;
+﻿using QQbot.DataAccessLayer;
+using QQbot.DataAccessLayer.Enums;
 using System.Collections.Generic;
 
-namespace QQbot.Api.Services.Interfaces
+namespace QQbot.BusinessLayer
 {
 	public interface IRatingCalculator
 	{

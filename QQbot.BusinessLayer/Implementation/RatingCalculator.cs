@@ -1,11 +1,10 @@
-﻿using QQbot.Api.Entities;
-using QQbot.Api.Enums;
-using QQbot.Api.Services.Interfaces;
+﻿using QQbot.DataAccessLayer;
+using QQbot.DataAccessLayer.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace QQbot.Api.Services
+namespace QQbot.BusinessLayer.Implementation
 {
 	public class RatingCalculator : IRatingCalculator
 	{

@@ -1,16 +1,15 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using QQbot.Api.Contexts;
-using QQbot.Api.Services.Interfaces;
+using QQbot.DataAccessLayer.Contexts;
 
-namespace QQbot.Api.Services
+namespace QQbot.BusinessLayer.Implementation
 {
-	public class LobbyRepository : IQueueRepository
+	public class QueueRepository : IQueueRepository
 	{
 		private readonly ApplicationDbContext _context;
 
-		public LobbyRepository(ApplicationDbContext context)
+		public QueueRepository(ApplicationDbContext context)
 		{
 			_context = context ?? throw new ArgumentNullException(nameof(context));
 		}

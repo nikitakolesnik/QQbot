@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace QQbot.Api.Services.Interfaces
+namespace QQbot.BusinessLayer
 {
 	public interface IQueueRepository
 	{

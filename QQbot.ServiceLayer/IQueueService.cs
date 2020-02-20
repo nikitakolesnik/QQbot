@@ -3,12 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace QQbot.Api.Enums
+namespace QQbot.ServiceLayer
 {
-	public enum MatchStatus
+	public interface IQueueService
 	{
-		Disabled, 
-		PendingReview, 
-		Active
 	}
 }
