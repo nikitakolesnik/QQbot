@@ -1,4 +1,4 @@
-﻿using QQbot.Api.Enums;
+﻿using QQbot.DataAccessLayer.Enums;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;

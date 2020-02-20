@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace QQbot.BusinessLayer.Implementation
+namespace QQbot.BusinessLayer
 {
 	public class PlayerRepository : IPlayerRepository
 	{

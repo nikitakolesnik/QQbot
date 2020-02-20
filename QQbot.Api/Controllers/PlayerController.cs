@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using QQbot.Api.Entities;
-using QQbot.Api.Services.Interfaces;
+using QQbot.BusinessLayer;
+using QQbot.DataAccessLayer;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;

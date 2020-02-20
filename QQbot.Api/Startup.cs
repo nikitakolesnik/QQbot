@@ -11,8 +11,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
-using QQbot.Api.Contexts;
-using QQbot.Api.Services;
+using QQbot.DataAccessLayer.Contexts;
+using QQbot.ServiceLayer;
+using QQbot.BusinessLayer;
 
 namespace QQbot.Api
 {

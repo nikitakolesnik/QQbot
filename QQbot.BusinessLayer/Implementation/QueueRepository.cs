@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using QQbot.DataAccessLayer.Contexts;
 
-namespace QQbot.BusinessLayer.Implementation
+namespace QQbot.BusinessLayer
 {
 	public class QueueRepository : IQueueRepository
 	{

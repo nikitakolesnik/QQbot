@@ -1,15 +1,16 @@
-﻿using System;
+﻿using QQbot.BusinessLayer;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace QQbot.ServiceLayer.Implementation
+namespace QQbot.ServiceLayer
 {
 	public class PlayerService : IPlayerService
 	{
-		private readonly IMatchRepository _repository;
+		private readonly IPlayerRepository _repository;
 
-		public PlayerService(IMatchRepository repository)
+		public PlayerService(IPlayerRepository repository)
 		{
 			_repository = repository ?? throw new ArgumentNullException(nameof(repository));
 		}

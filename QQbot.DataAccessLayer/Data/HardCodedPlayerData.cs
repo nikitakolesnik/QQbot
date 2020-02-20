@@ -1,7 +1,6 @@
-﻿using QQbot.DataAccessLayer;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
-namespace QQbot.Api.Data
+namespace QQbot.DataAccessLayer.Data
 {
 	public static class HardCodedPlayerData
 	{
