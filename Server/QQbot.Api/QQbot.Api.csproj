@@ -17,4 +17,8 @@
     <ProjectReference Include="..\QQbot.ServiceLayer\QQbot.ServiceLayer.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\" />
+  </ItemGroup>
+
 </Project>
