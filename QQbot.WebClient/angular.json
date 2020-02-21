@@ -13,14 +13,15 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/QQbot",
+            //"outputPath": "dist/QQbot",
+            "outputPath": "../QQbot.Server/QQbot.Api/wwwroot",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "aot": false,
             "assets": [
-              "src/favicon.ico",
+              "src/bs16.ico",
               "src/assets"
             ],
             "styles": [
