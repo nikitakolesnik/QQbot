@@ -1,4 +1,4 @@
-﻿using QQbot.DataAccessLayer;
+﻿using QQbot.DataAccessLayer.Entities;
 using QQbot.DataAccessLayer.Enums;
 using System;
 using System.Collections.Generic;

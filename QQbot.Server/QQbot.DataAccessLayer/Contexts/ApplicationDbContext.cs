@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using QQbot.DataAccessLayer.Data;
+using QQbot.DataAccessLayer.Entities;
 
 namespace QQbot.DataAccessLayer.Contexts
 {

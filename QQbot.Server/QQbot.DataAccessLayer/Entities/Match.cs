@@ -3,7 +3,7 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace QQbot.DataAccessLayer
+namespace QQbot.DataAccessLayer.Entities
 {
 	[Table("Matches")]
 	public class Match

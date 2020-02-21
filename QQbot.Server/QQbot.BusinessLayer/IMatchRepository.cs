@@ -1,4 +1,4 @@
-﻿using QQbot.DataAccessLayer;
+﻿using QQbot.DataAccessLayer.Entities;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
