@@ -64,6 +64,9 @@ namespace QQbot.Api
 
 			app.UseAuthorization();
 
+			app.UseDefaultFiles(); // https://stackoverflow.com/a/49126167/10874809
+			app.UseStaticFiles();  // ^
+
 			app.UseEndpoints(endpoints =>
 			{
 				endpoints.MapControllers();
