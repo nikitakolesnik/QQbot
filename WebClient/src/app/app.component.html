@@ -1,3 +1,69 @@
-{{msg}}
+<br/><br/>
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm">
+      <div class="card">
+        <div class="card-header">
+          Lobby
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item" *ngFor='let player of lobby'>
+            <span [ngClass]="{'text-muted' : player.position > 16}">
+              {{player.position}}) {{player.name}} ({{player.joined | date: "HH:mm:ss"}})
+              <button class="text-danger" (click)="removeFromLobby(player)">X</button>
+              <button class="text-primary" (click)="lobbyToTeam1(player)">1</button>
+              <button class="text-success" (click)="lobbyToTeam2(player)">2</button>
+            </span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="col-sm">
+
+      <div class="card">
+        <div class="card-header text-white bg-primary">
+          Team 1
+        </div>
+        <ul class="list-group list-group-flush text-primary">
+          <li class="list-group-item" *ngFor='let player of team1'>
+          <button class="text-danger" (click)="team1ToLobby(player)">X</button>
+          <button class="text-success" (click)="team1ToTeam2(player)">↓</button>
+          &nbsp; {{player.name}}
+          </li>
+        </ul>
+      </div> <!--card-->
+
+      <br />
+
+      <div class="card">
+          <div class="card-header text-white bg-success">
+            Team 2
+          </div>
+          <ul class="list-group list-group-flush text-success">
+            <li class="list-group-item" *ngFor='let player of team2'>
+            <button class="text-danger" (click)="team2ToLobby(player)">X</button>
+            <button class="text-primary" (click)="team2ToTeam1(player)">↑</button>
+            &nbsp;{{player.name}}
+            </li>
+          </ul>
+        </div> <!--card-->
+
+      </div> <!--col-->
+
+    <div class="col-sm">
+      <div class="card">
+        <div class="card-header">
+          History
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item" *ngFor='let entry of history'>{{entry}}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  
+</div>
 
 <router-outlet></router-outlet>

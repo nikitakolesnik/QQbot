@@ -32,7 +32,7 @@ webpackEmptyAsyncContext.id = "./$$_lazy_route_resource lazy recursive";
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("{{msg}}\n\n<router-outlet></router-outlet>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<br/><br/>\r\n\r\n<div class=\"container\">\r\n  <div class=\"row\">\r\n    <div class=\"col-sm\">\r\n      <div class=\"card\">\r\n        <div class=\"card-header\">\r\n          Lobby\r\n        </div>\r\n        <ul class=\"list-group list-group-flush\">\r\n          <li class=\"list-group-item\" *ngFor='let player of lobby'>\r\n            <span [ngClass]=\"{'text-muted' : player.position > 16}\">\r\n              {{player.position}}) {{player.name}} ({{player.joined | date: \"HH:mm:ss\"}})\r\n              <button class=\"text-danger\" (click)=\"removeFromLobby(player)\">X</button>\r\n              <button class=\"text-primary\" (click)=\"lobbyToTeam1(player)\">1</button>\r\n              <button class=\"text-success\" (click)=\"lobbyToTeam2(player)\">2</button>\r\n            </span>\r\n          </li>\r\n        </ul>\r\n      </div>\r\n    </div>\r\n\r\n    <div class=\"col-sm\">\r\n\r\n      <div class=\"card\">\r\n        <div class=\"card-header text-white bg-primary\">\r\n          Team 1\r\n        </div>\r\n        <ul class=\"list-group list-group-flush text-primary\">\r\n          <li class=\"list-group-item\" *ngFor='let player of team1'>\r\n          <button class=\"text-danger\" (click)=\"team1ToLobby(player)\">X</button>\r\n          <button class=\"text-success\" (click)=\"team1ToTeam2(player)\">↓</button>\r\n          &nbsp; {{player.name}}\r\n          </li>\r\n        </ul>\r\n      </div> <!--card-->\r\n\r\n      <br />\r\n\r\n      <div class=\"card\">\r\n          <div class=\"card-header text-white bg-success\">\r\n            Team 2\r\n          </div>\r\n          <ul class=\"list-group list-group-flush text-success\">\r\n            <li class=\"list-group-item\" *ngFor='let player of team2'>\r\n            <button class=\"text-danger\" (click)=\"team2ToLobby(player)\">X</button>\r\n            <button class=\"text-primary\" (click)=\"team2ToTeam1(player)\">↑</button>\r\n            &nbsp;{{player.name}}\r\n            </li>\r\n          </ul>\r\n        </div> <!--card-->\r\n\r\n      </div> <!--col-->\r\n\r\n    <div class=\"col-sm\">\r\n      <div class=\"card\">\r\n        <div class=\"card-header\">\r\n          History\r\n        </div>\r\n        <ul class=\"list-group list-group-flush\">\r\n          <li class=\"list-group-item\" *ngFor='let entry of history'>{{entry}}</li>\r\n        </ul>\r\n      </div>\r\n    </div>\r\n  </div>\r\n  \r\n</div>\n\n<router-outlet></router-outlet>\n");
 
 /***/ }),
 
@@ -343,7 +343,99 @@ __webpack_require__.r(__webpack_exports__);
 
 let AppComponent = class AppComponent {
     constructor() {
-        this.msg = 'hey there\'s nothing here yet lol';
+        this.lobby = [
+            { name: 'Slam', /*picked: false,*/ position: null, joined: new Date(2020, 2, 23, 19, 17, 10) },
+            { name: 'Yoko', /*picked: false,*/ position: null, joined: new Date(2020, 2, 23, 19, 17, 15) },
+            { name: 'Candyboy', /*picked: false,*/ position: null, joined: new Date(2020, 2, 23, 19, 17, 23) },
+            { name: 'Godly', /*picked: false,*/ position: null, joined: new Date(2020, 2, 23, 19, 17, 24) },
+            { name: 'Santana', /*picked: false,*/ position: null, joined: new Date(2020, 2, 23, 19, 17, 56) },
+            { name: 'Purif', /*picked: false,*/ position: null, joined: new Date(2020, 2, 23, 19, 18, 2) },
+            { name: 'Chrona', /*picked: false,*/ position: null, joined: new Date(2020, 2, 23, 19, 18, 11) },
+            { name: 'Butters', /*picked: false,*/ position: null, joined: new Date(2020, 2, 23, 19, 18, 47) },
+            { name: 'Ice', /*picked: false,*/ position: null, joined: new Date(2020, 2, 23, 19, 18, 50) },
+            { name: 'Lisek', /*picked: false,*/ position: null, joined: new Date(2020, 2, 23, 19, 18, 59) },
+            { name: 'Oln', /*picked: false,*/ position: null, joined: new Date(2020, 2, 23, 19, 19, 30) },
+            { name: 'Rainy', /*picked: false,*/ position: null, joined: new Date(2020, 2, 23, 19, 19, 54) },
+            { name: 'Takida', /*picked: false,*/ position: null, joined: new Date(2020, 2, 23, 19, 20, 0) },
+            { name: 'Jo', /*picked: false,*/ position: null, joined: new Date(2020, 2, 23, 19, 20, 29) },
+            { name: 'Bounty', /*picked: false,*/ position: null, joined: new Date(2020, 2, 23, 19, 20, 30) },
+            { name: 'Cracks', /*picked: false,*/ position: null, joined: new Date(2020, 2, 23, 19, 20, 44) },
+            { name: 'Beware', /*picked: false,*/ position: null, joined: new Date(2020, 2, 23, 19, 21, 26) },
+            { name: 'Jonas', /*picked: false,*/ position: null, joined: new Date(2020, 2, 23, 19, 21, 47) },
+            { name: 'Dopos', /*picked: false,*/ position: null, joined: new Date(2020, 2, 23, 19, 22, 7) },
+            { name: 'Hemo', /*picked: false,*/ position: null, joined: new Date(2020, 2, 23, 19, 23, 16) },
+        ];
+        this.team1 = [];
+        this.team2 = [];
+        this.history = [
+            'Welcome!'
+        ];
+    }
+    ngOnInit() {
+        this.setLobbyPlayerNumbers();
+    }
+    // UTILITY
+    removeFromList(player, list) {
+        var index = list.indexOf(player);
+        list.splice(index, 1);
+    }
+    // PAGE FUNCTIONS
+    sortLobby() {
+        this.lobby.sort((a, b) => a.position - b.position);
+    }
+    setLobbyPlayerNumbers() {
+        for (var i = 0; i < this.lobby.length; i++)
+            this.lobby[i].position = i + 1;
+    }
+    addMessage(msg) {
+        if (this.history.length > 20)
+            this.history.splice(0, 1);
+        this.history.push(msg);
+    }
+    removeFromLobby(player) {
+        this.removeFromList(player, this.lobby);
+        this.setLobbyPlayerNumbers();
+        this.addMessage('You removed ' + player.name + ' from the lobby.');
+    }
+    lobbyToTeam1(player) {
+        if (this.team1.length == 8)
+            return;
+        this.removeFromList(player, this.lobby);
+        this.team1.push(player);
+        this.addMessage('You added ' + player.name + ' to Team 1.');
+    }
+    lobbyToTeam2(player) {
+        if (this.team2.length == 8)
+            return;
+        this.removeFromList(player, this.lobby);
+        this.team2.push(player);
+        this.addMessage('You added ' + player.name + ' to Team 2.');
+    }
+    team1ToLobby(player) {
+        this.removeFromList(player, this.team1);
+        this.lobby.push(player);
+        this.sortLobby();
+        this.addMessage('You removed ' + player.name + ' from Team 1.');
+    }
+    team2ToLobby(player) {
+        this.removeFromList(player, this.team2);
+        this.lobby.push(player);
+        this.sortLobby();
+        this.addMessage('You removed ' + player.name + ' from Team 2.');
+    }
+    team1ToTeam2(player) {
+        if (this.team2.length == 8)
+            return;
+        this.removeFromList(player, this.team1);
+        this.team2.push(player);
+        this.addMessage('You moved ' + player.name + ' to Team 2.');
+    }
+    team2ToTeam1(player) {
+        if (this.team1.length == 8)
+            return;
+        this.removeFromList(player, this.team2);
+        this.team1.push(player);
+        this.addMessage('You moved ' + player.name + ' to Team 1.');
     }
 };
 AppComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
