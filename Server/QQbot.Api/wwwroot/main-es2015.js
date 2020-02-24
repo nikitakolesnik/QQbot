@@ -32,7 +32,7 @@ webpackEmptyAsyncContext.id = "./$$_lazy_route_resource lazy recursive";
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<br/><br/>\r\n\r\n<div class=\"container\">\r\n  <div class=\"row\">\r\n    <div class=\"col-sm\">\r\n      <div class=\"card\">\r\n        <div class=\"card-header\">\r\n          Lobby\r\n        </div>\r\n        <ul class=\"list-group list-group-flush\">\r\n          <li class=\"list-group-item\" *ngFor='let player of lobby'>\r\n            <span [ngClass]=\"{'text-muted' : player.position > 16}\">\r\n              {{player.position}}) {{player.name}} ({{player.joined | date: \"HH:mm:ss\"}})\r\n              <button class=\"text-danger\" (click)=\"removeFromLobby(player)\">X</button>\r\n              <button class=\"text-primary\" (click)=\"lobbyToTeam1(player)\">1</button>\r\n              <button class=\"text-success\" (click)=\"lobbyToTeam2(player)\">2</button>\r\n            </span>\r\n          </li>\r\n        </ul>\r\n      </div>\r\n    </div>\r\n\r\n    <div class=\"col-sm\">\r\n\r\n      <div class=\"card\">\r\n        <div class=\"card-header text-white bg-primary\">\r\n          Team 1\r\n        </div>\r\n        <ul class=\"list-group list-group-flush text-primary\">\r\n          <li class=\"list-group-item\" *ngFor='let player of team1'>\r\n          <button class=\"text-danger\" (click)=\"team1ToLobby(player)\">X</button>\r\n          <button class=\"text-success\" (click)=\"team1ToTeam2(player)\">↓</button>\r\n          &nbsp; {{player.name}}\r\n          </li>\r\n        </ul>\r\n      </div> <!--card-->\r\n\r\n      <br />\r\n\r\n      <div class=\"card\">\r\n          <div class=\"card-header text-white bg-success\">\r\n            Team 2\r\n          </div>\r\n          <ul class=\"list-group list-group-flush text-success\">\r\n            <li class=\"list-group-item\" *ngFor='let player of team2'>\r\n            <button class=\"text-danger\" (click)=\"team2ToLobby(player)\">X</button>\r\n            <button class=\"text-primary\" (click)=\"team2ToTeam1(player)\">↑</button>\r\n            &nbsp;{{player.name}}\r\n            </li>\r\n          </ul>\r\n        </div> <!--card-->\r\n\r\n      </div> <!--col-->\r\n\r\n    <div class=\"col-sm\">\r\n      <div class=\"card\">\r\n        <div class=\"card-header\">\r\n          History\r\n        </div>\r\n        <ul class=\"list-group list-group-flush\">\r\n          <li class=\"list-group-item\" *ngFor='let entry of history'>{{entry}}</li>\r\n        </ul>\r\n      </div>\r\n    </div>\r\n  </div>\r\n  \r\n</div>\n\n<router-outlet></router-outlet>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<br/>\r\n\r\n<div class=\"container-fluid\">\r\n  <div class=\"row\">\r\n    <div class=\"col-sm\">\r\n      <div class=\"card\">\r\n        <div class=\"card-header\">\r\n          Lobby ({{lobby.length}})\r\n        </div>\r\n        <table class=\"table table-sm table-hover\">\r\n          <tbody>\r\n            <tr *ngFor='let player of lobby'>\r\n              <th scope=\"row\">\r\n                {{player.pos}}\r\n              </th>\r\n              <td>\r\n                <button class=\"text-danger\" (click)=\"removeFromLobby(player)\">X</button>&nbsp;\r\n                <button class=\"text-primary\" *ngIf=\"team1.length < 8\" (click)=\"lobbyToTeam1(player)\">1</button>&nbsp;\r\n                <button class=\"text-success\" *ngIf=\"team2.length < 8\" (click)=\"lobbyToTeam2(player)\">2</button>\r\n              </td>\r\n              <td>\r\n                <span [ngClass]=\"{'text-muted' : player.pos > 16}\">{{player.name}}</span>\r\n              </td>\r\n              <td>\r\n                <span *ngFor='let role of player.pref'>\r\n                  <img src=\"./assets/{{role}}.png\" />\r\n                </span>\r\n              </td>\r\n            </tr>\r\n          </tbody>\r\n        </table>\r\n      </div>\r\n    </div>\r\n\r\n\r\n    <div class=\"col-sm\">\r\n\r\n      <div class=\"card\">\r\n        <div class=\"card-header text-white bg-primary\">\r\n          Team 1 ({{team1.length}}/8)&nbsp;\r\n          <button class=\"text-danger\"  *ngIf=\"team1.length > 0\" (click)=\"team1Clear()\">X</button>&nbsp;\r\n          <button class=\"text-warning\" *ngIf=\"(team1.length == 8) && (team2.length == 8)\" (click)=\"team1Win()\">WIN</button>\r\n        </div>\r\n        <table class=\"table table-sm table-hover text-primary\">\r\n          <tbody>\r\n            <tr *ngFor='let player of team1'>\r\n              <td>\r\n                <button class=\"text-danger\" (click)=\"team1ToLobby(player)\">X</button>&nbsp;\r\n                <button class=\"text-success\" *ngIf=\"team2.length < 8\" (click)=\"team1ToTeam2(player)\">↓</button>&nbsp;\r\n                {{player.name}}\r\n              </td>\r\n            </tr>\r\n          </tbody>\r\n        </table>\r\n      </div> <!--card-->\r\n\r\n      <br />\r\n\r\n      <div class=\"card\">\r\n        <div class=\"card-header text-white bg-success\">\r\n          Team 2 ({{team2.length}}/8)&nbsp;\r\n          <button class=\"text-danger\"  *ngIf=\"team2.length > 0\" (click)=\"team2Clear()\">X</button>&nbsp;\r\n          <button class=\"text-warning\" *ngIf=\"(team1.length == 8) && (team2.length == 8)\" (click)=\"team2Win()\">WIN</button>\r\n        </div>\r\n        <table class=\"table table-sm table-hover text-success\">\r\n          <tbody>\r\n            <tr *ngFor='let player of team2'>\r\n              <td>\r\n                <button class=\"text-danger\" (click)=\"team2ToLobby(player)\">X</button>&nbsp;\r\n                <button class=\"text-primary\" *ngIf=\"team1.length < 8\" (click)=\"team2ToTeam1(player)\">↑</button>&nbsp;\r\n                {{player.name}}\r\n              </td>\r\n            </tr>\r\n          </tbody>\r\n        </table>\r\n      </div> <!--card-->\r\n\r\n    </div> <!--col-->\r\n\r\n    <div class=\"col-sm\">\r\n      <div class=\"card\">\r\n        <div class=\"card-header\">\r\n          History\r\n        </div>\r\n        <!--<ul class=\"list-group list-group-flush\">\r\n          <li class=\"list-group-item\" *ngFor='let entry of history'>{{entry}}</li>\r\n        </ul>-->\r\n        <table class=\"table table-sm\">\r\n          <tbody>\r\n            <tr *ngFor='let entry of history'>\r\n              <td>\r\n                {{entry}}\r\n              </td>\r\n            </tr>\r\n          </tbody>\r\n        </table>\r\n      </div>\r\n    </div>\r\n  </div>\r\n  \r\n</div>\n\n<router-outlet></router-outlet>\n");
 
 /***/ }),
 
@@ -343,36 +343,33 @@ __webpack_require__.r(__webpack_exports__);
 
 let AppComponent = class AppComponent {
     constructor() {
-        this.lobby = [
-            { name: 'Slam', /*picked: false,*/ position: null, joined: new Date(2020, 2, 23, 19, 17, 10) },
-            { name: 'Yoko', /*picked: false,*/ position: null, joined: new Date(2020, 2, 23, 19, 17, 15) },
-            { name: 'Candyboy', /*picked: false,*/ position: null, joined: new Date(2020, 2, 23, 19, 17, 23) },
-            { name: 'Godly', /*picked: false,*/ position: null, joined: new Date(2020, 2, 23, 19, 17, 24) },
-            { name: 'Santana', /*picked: false,*/ position: null, joined: new Date(2020, 2, 23, 19, 17, 56) },
-            { name: 'Purif', /*picked: false,*/ position: null, joined: new Date(2020, 2, 23, 19, 18, 2) },
-            { name: 'Chrona', /*picked: false,*/ position: null, joined: new Date(2020, 2, 23, 19, 18, 11) },
-            { name: 'Butters', /*picked: false,*/ position: null, joined: new Date(2020, 2, 23, 19, 18, 47) },
-            { name: 'Ice', /*picked: false,*/ position: null, joined: new Date(2020, 2, 23, 19, 18, 50) },
-            { name: 'Lisek', /*picked: false,*/ position: null, joined: new Date(2020, 2, 23, 19, 18, 59) },
-            { name: 'Oln', /*picked: false,*/ position: null, joined: new Date(2020, 2, 23, 19, 19, 30) },
-            { name: 'Rainy', /*picked: false,*/ position: null, joined: new Date(2020, 2, 23, 19, 19, 54) },
-            { name: 'Takida', /*picked: false,*/ position: null, joined: new Date(2020, 2, 23, 19, 20, 0) },
-            { name: 'Jo', /*picked: false,*/ position: null, joined: new Date(2020, 2, 23, 19, 20, 29) },
-            { name: 'Bounty', /*picked: false,*/ position: null, joined: new Date(2020, 2, 23, 19, 20, 30) },
-            { name: 'Cracks', /*picked: false,*/ position: null, joined: new Date(2020, 2, 23, 19, 20, 44) },
-            { name: 'Beware', /*picked: false,*/ position: null, joined: new Date(2020, 2, 23, 19, 21, 26) },
-            { name: 'Jonas', /*picked: false,*/ position: null, joined: new Date(2020, 2, 23, 19, 21, 47) },
-            { name: 'Dopos', /*picked: false,*/ position: null, joined: new Date(2020, 2, 23, 19, 22, 7) },
-            { name: 'Hemo', /*picked: false,*/ position: null, joined: new Date(2020, 2, 23, 19, 23, 16) },
-        ];
+        this.lobby = [];
         this.team1 = [];
         this.team2 = [];
-        this.history = [
-            'Welcome!'
-        ];
+        this.history = [];
     }
     ngOnInit() {
         this.setLobbyPlayerNumbers();
+        this.addToLobby({ name: 'Slam', pos: null, pref: ['w', 'd', 'r', 'e', 'n', 'me', 'prot', 'heal', 'a', 'p', 'rt'] });
+        this.addToLobby({ name: 'Yoko', pos: null, pref: ['w', 'd', 'e', 'n', 'me'] });
+        this.addToLobby({ name: 'Candyboy', pos: null, pref: ['w', 'me'] });
+        this.addToLobby({ name: 'Godly', pos: null, pref: ['a'] });
+        this.addToLobby({ name: 'Santana', pos: null, pref: ['heal'] });
+        this.addToLobby({ name: 'Purif', pos: null, pref: ['me', 'prot', 'heal'] });
+        this.addToLobby({ name: 'Chrona', pos: null, pref: ['w', 'r', 'e', 'me'] });
+        this.addToLobby({ name: 'Butters', pos: null, pref: ['w', 'd', 'e'] });
+        this.addToLobby({ name: 'Ice', pos: null, pref: ['w', 'heal'] });
+        this.addToLobby({ name: 'Lisek', pos: null, pref: ['r', 'me'] });
+        this.addToLobby({ name: 'Oln', pos: null, pref: ['heal'] });
+        this.addToLobby({ name: 'Rainy', pos: null, pref: ['prot'] });
+        this.addToLobby({ name: 'Takida', pos: null, pref: ['w'] });
+        this.addToLobby({ name: 'Jo', pos: null, pref: ['e'] });
+        this.addToLobby({ name: 'Bounty', pos: null, pref: ['w', 'p', 'me'] });
+        this.addToLobby({ name: 'Cracks', pos: null, pref: ['w'] });
+        this.addToLobby({ name: 'Beware', pos: null, pref: ['prot'] });
+        this.addToLobby({ name: 'Jonas', pos: null, pref: ['w', 'prot'] });
+        this.addToLobby({ name: 'Dopos', pos: null, pref: ['r', 'me'] });
+        this.addToLobby({ name: 'Hemo', pos: null, pref: ['w', 'd'] });
     }
     // UTILITY
     removeFromList(player, list) {
@@ -381,21 +378,26 @@ let AppComponent = class AppComponent {
     }
     // PAGE FUNCTIONS
     sortLobby() {
-        this.lobby.sort((a, b) => a.position - b.position);
+        this.lobby.sort((a, b) => a.pos - b.pos);
     }
     setLobbyPlayerNumbers() {
         for (var i = 0; i < this.lobby.length; i++)
-            this.lobby[i].position = i + 1;
+            this.lobby[i].pos = i + 1;
     }
     addMessage(msg) {
-        if (this.history.length > 20)
-            this.history.splice(0, 1);
-        this.history.push(msg);
+        if (this.history.length >= 22)
+            this.history.pop();
+        this.history.unshift('[' + new Date().toLocaleTimeString() + '] ' + msg);
+    }
+    addToLobby(player) {
+        player.pos = this.lobby.length + 1;
+        this.lobby.push(player);
+        this.addMessage(player.name + ' joined.');
     }
     removeFromLobby(player) {
         this.removeFromList(player, this.lobby);
         this.setLobbyPlayerNumbers();
-        this.addMessage('You removed ' + player.name + ' from the lobby.');
+        this.addMessage('You kicked ' + player.name + '.');
     }
     lobbyToTeam1(player) {
         if (this.team1.length == 8)
@@ -436,6 +438,30 @@ let AppComponent = class AppComponent {
         this.removeFromList(player, this.team2);
         this.team1.push(player);
         this.addMessage('You moved ' + player.name + ' to Team 1.');
+    }
+    team1Clear() {
+        if (this.team1.length == 0)
+            return;
+        this.lobby = this.lobby.concat(this.team1);
+        this.sortLobby();
+        this.team1 = [];
+        this.addMessage('You cleared Team 1.');
+    }
+    team2Clear() {
+        if (this.team2.length == 0)
+            return;
+        this.lobby = this.lobby.concat(this.team2);
+        this.sortLobby();
+        this.team2 = [];
+        this.addMessage('You cleared Team 2.');
+    }
+    team1Win() {
+        if (this.team1.length == 8 && this.team2.length == 8)
+            this.addMessage('You recorded a win for Team 1.');
+    }
+    team2Win() {
+        if (this.team1.length == 8 && this.team2.length == 8)
+            this.addMessage('You recorded a win for Team 2.');
     }
 };
 AppComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([

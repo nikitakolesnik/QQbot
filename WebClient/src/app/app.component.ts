@@ -7,38 +7,35 @@ import { IPlayer } from './player';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  lobby: IPlayer[] = [
-    { name:     'Slam', /*picked: false,*/ position: null, joined: new Date(2020, 2, 23, 19, 17, 10) },
-    { name:     'Yoko', /*picked: false,*/ position: null, joined: new Date(2020, 2, 23, 19, 17, 15) },
-    { name: 'Candyboy', /*picked: false,*/ position: null, joined: new Date(2020, 2, 23, 19, 17, 23) },
-    { name:    'Godly', /*picked: false,*/ position: null, joined: new Date(2020, 2, 23, 19, 17, 24) },
-    { name:  'Santana', /*picked: false,*/ position: null, joined: new Date(2020, 2, 23, 19, 17, 56) },
-    { name:    'Purif', /*picked: false,*/ position: null, joined: new Date(2020, 2, 23, 19, 18,  2) },
-    { name:   'Chrona', /*picked: false,*/ position: null, joined: new Date(2020, 2, 23, 19, 18, 11) },
-    { name:  'Butters', /*picked: false,*/ position: null, joined: new Date(2020, 2, 23, 19, 18, 47) },
-    { name:      'Ice', /*picked: false,*/ position: null, joined: new Date(2020, 2, 23, 19, 18, 50) },
-    { name:    'Lisek', /*picked: false,*/ position: null, joined: new Date(2020, 2, 23, 19, 18, 59) },
-    { name:      'Oln', /*picked: false,*/ position: null, joined: new Date(2020, 2, 23, 19, 19, 30) },
-    { name:    'Rainy', /*picked: false,*/ position: null, joined: new Date(2020, 2, 23, 19, 19, 54) },
-    { name:   'Takida', /*picked: false,*/ position: null, joined: new Date(2020, 2, 23, 19, 20,  0) },
-    { name:       'Jo', /*picked: false,*/ position: null, joined: new Date(2020, 2, 23, 19, 20, 29) },
-    { name:   'Bounty', /*picked: false,*/ position: null, joined: new Date(2020, 2, 23, 19, 20, 30) },
-    { name:   'Cracks', /*picked: false,*/ position: null, joined: new Date(2020, 2, 23, 19, 20, 44) },
-    { name:   'Beware', /*picked: false,*/ position: null, joined: new Date(2020, 2, 23, 19, 21, 26) },
-    { name:    'Jonas', /*picked: false,*/ position: null, joined: new Date(2020, 2, 23, 19, 21, 47) },
-    { name:    'Dopos', /*picked: false,*/ position: null, joined: new Date(2020, 2, 23, 19, 22,  7) },
-    { name:     'Hemo', /*picked: false,*/ position: null, joined: new Date(2020, 2, 23, 19, 23, 16) },
-  ];
-  team1: IPlayer[] = [];
-  team2: IPlayer[] = [];
-  history: string[] = [
-    'Welcome!'
-  ];
+  lobby:   IPlayer[] = [];
+  team1:   IPlayer[] = [];
+  team2:   IPlayer[] = [];
+  history: string[]  = [];
 
   constructor() { }
 
   ngOnInit(): void {
     this.setLobbyPlayerNumbers();
+    this.addToLobby({ name: 'Slam',     pos: null, pref: ['w', 'd', 'r', 'e', 'n', 'me', 'prot', 'heal', 'a', 'p', 'rt'] });
+    this.addToLobby({ name: 'Yoko',     pos: null, pref: ['w', 'd', 'e', 'n', 'me'] });
+    this.addToLobby({ name: 'Candyboy', pos: null, pref: ['w', 'me'] });
+    this.addToLobby({ name: 'Godly',    pos: null, pref: ['a'] });
+    this.addToLobby({ name: 'Santana',  pos: null, pref: ['heal'] });
+    this.addToLobby({ name: 'Purif',    pos: null, pref: ['me', 'prot', 'heal'] });
+    this.addToLobby({ name: 'Chrona',   pos: null, pref: ['w', 'r', 'e', 'me'] });
+    this.addToLobby({ name: 'Butters',  pos: null, pref: ['w', 'd', 'e'] });
+    this.addToLobby({ name: 'Ice',      pos: null, pref: ['w', 'heal'] });
+    this.addToLobby({ name: 'Lisek',    pos: null, pref: ['r', 'me'] });
+    this.addToLobby({ name: 'Oln',      pos: null, pref: ['heal'] });
+    this.addToLobby({ name: 'Rainy',    pos: null, pref: ['prot'] });
+    this.addToLobby({ name: 'Takida',   pos: null, pref: ['w'] });
+    this.addToLobby({ name: 'Jo',       pos: null, pref: ['e'] });
+    this.addToLobby({ name: 'Bounty',   pos: null, pref: ['w', 'p', 'me'] });
+    this.addToLobby({ name: 'Cracks',   pos: null, pref: ['w'] });
+    this.addToLobby({ name: 'Beware',   pos: null, pref: ['prot'] });
+    this.addToLobby({ name: 'Jonas',    pos: null, pref: ['w', 'prot'] });
+    this.addToLobby({ name: 'Dopos',    pos: null, pref: ['r', 'me'] });
+    this.addToLobby({ name: 'Hemo',     pos: null, pref: ['w', 'd'] });
   }
 
   // UTILITY
@@ -51,24 +48,30 @@ export class AppComponent {
   // PAGE FUNCTIONS
 
   sortLobby(): void {
-    this.lobby.sort((a,b) => a.position - b.position);
+    this.lobby.sort((a,b) => a.pos - b.pos);
   }
 
   setLobbyPlayerNumbers(): void {
     for (var i = 0; i < this.lobby.length; i++)
-      this.lobby[i].position = i + 1;
+      this.lobby[i].pos = i + 1;
   }
 
   addMessage(msg: string): void {
-    if (this.history.length > 20)
-      this.history.splice(0,1);
-    this.history.push(msg);
+    if (this.history.length >= 22)
+      this.history.pop();
+    this.history.unshift('[' + new Date().toLocaleTimeString() + '] ' + msg);
+  }
+
+  addToLobby(player: IPlayer): void {
+    player.pos = this.lobby.length + 1;
+    this.lobby.push(player);
+    this.addMessage(player.name + ' joined.');
   }
 
   removeFromLobby(player: IPlayer): void {
     this.removeFromList(player, this.lobby);
     this.setLobbyPlayerNumbers();
-    this.addMessage('You removed ' + player.name + ' from the lobby.');
+    this.addMessage('You kicked ' + player.name + '.');
   }
 
   lobbyToTeam1(player: IPlayer): void {
@@ -115,5 +118,33 @@ export class AppComponent {
     this.removeFromList(player, this.team2);
     this.team1.push(player);
     this.addMessage('You moved ' + player.name + ' to Team 1.');
+  }
+
+  team1Clear(): void {
+    if (this.team1.length == 0)
+      return;
+    this.lobby = this.lobby.concat(this.team1);
+    this.sortLobby();
+    this.team1 = [];
+    this.addMessage('You cleared Team 1.')
+  }
+
+  team2Clear(): void {
+    if (this.team2.length == 0)
+      return;
+    this.lobby = this.lobby.concat(this.team2);
+    this.sortLobby();
+    this.team2 = [];
+    this.addMessage('You cleared Team 2.')
+  }
+
+  team1Win(): void {
+    if (this.team1.length == 8 && this.team2.length == 8)
+      this.addMessage('You recorded a win for Team 1.')
+  }
+
+  team2Win(): void {
+    if (this.team1.length == 8 && this.team2.length == 8)
+      this.addMessage('You recorded a win for Team 2.')
   }
 }

@@ -1,65 +1,99 @@
-<br/><br/>
+<br/>
 
-<div class="container">
+<div class="container-fluid">
   <div class="row">
     <div class="col-sm">
       <div class="card">
         <div class="card-header">
-          Lobby
+          Lobby ({{lobby.length}})
         </div>
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item" *ngFor='let player of lobby'>
-            <span [ngClass]="{'text-muted' : player.position > 16}">
-              {{player.position}}) {{player.name}} ({{player.joined | date: "HH:mm:ss"}})
-              <button class="text-danger" (click)="removeFromLobby(player)">X</button>
-              <button class="text-primary" (click)="lobbyToTeam1(player)">1</button>
-              <button class="text-success" (click)="lobbyToTeam2(player)">2</button>
-            </span>
-          </li>
-        </ul>
+        <table class="table table-sm table-hover">
+          <tbody>
+            <tr *ngFor='let player of lobby'>
+              <th scope="row">
+                {{player.pos}}
+              </th>
+              <td>
+                <button class="text-danger" (click)="removeFromLobby(player)">X</button>&nbsp;
+                <button class="text-primary" *ngIf="team1.length < 8" (click)="lobbyToTeam1(player)">1</button>&nbsp;
+                <button class="text-success" *ngIf="team2.length < 8" (click)="lobbyToTeam2(player)">2</button>
+              </td>
+              <td>
+                <span [ngClass]="{'text-muted' : player.pos > 16}">{{player.name}}</span>
+              </td>
+              <td>
+                <span *ngFor='let role of player.pref'>
+                  <img src="./assets/{{role}}.png" />
+                </span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
+
 
     <div class="col-sm">
 
       <div class="card">
         <div class="card-header text-white bg-primary">
-          Team 1
+          Team 1 ({{team1.length}}/8)&nbsp;
+          <button class="text-danger"  *ngIf="team1.length > 0" (click)="team1Clear()">X</button>&nbsp;
+          <button class="text-warning" *ngIf="(team1.length == 8) && (team2.length == 8)" (click)="team1Win()">WIN</button>
         </div>
-        <ul class="list-group list-group-flush text-primary">
-          <li class="list-group-item" *ngFor='let player of team1'>
-          <button class="text-danger" (click)="team1ToLobby(player)">X</button>
-          <button class="text-success" (click)="team1ToTeam2(player)">↓</button>
-          &nbsp; {{player.name}}
-          </li>
-        </ul>
+        <table class="table table-sm table-hover text-primary">
+          <tbody>
+            <tr *ngFor='let player of team1'>
+              <td>
+                <button class="text-danger" (click)="team1ToLobby(player)">X</button>&nbsp;
+                <button class="text-success" *ngIf="team2.length < 8" (click)="team1ToTeam2(player)">↓</button>&nbsp;
+                {{player.name}}
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div> <!--card-->
 
       <br />
 
       <div class="card">
-          <div class="card-header text-white bg-success">
-            Team 2
-          </div>
-          <ul class="list-group list-group-flush text-success">
-            <li class="list-group-item" *ngFor='let player of team2'>
-            <button class="text-danger" (click)="team2ToLobby(player)">X</button>
-            <button class="text-primary" (click)="team2ToTeam1(player)">↑</button>
-            &nbsp;{{player.name}}
-            </li>
-          </ul>
-        </div> <!--card-->
+        <div class="card-header text-white bg-success">
+          Team 2 ({{team2.length}}/8)&nbsp;
+          <button class="text-danger"  *ngIf="team2.length > 0" (click)="team2Clear()">X</button>&nbsp;
+          <button class="text-warning" *ngIf="(team1.length == 8) && (team2.length == 8)" (click)="team2Win()">WIN</button>
+        </div>
+        <table class="table table-sm table-hover text-success">
+          <tbody>
+            <tr *ngFor='let player of team2'>
+              <td>
+                <button class="text-danger" (click)="team2ToLobby(player)">X</button>&nbsp;
+                <button class="text-primary" *ngIf="team1.length < 8" (click)="team2ToTeam1(player)">↑</button>&nbsp;
+                {{player.name}}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div> <!--card-->
 
-      </div> <!--col-->
+    </div> <!--col-->
 
     <div class="col-sm">
       <div class="card">
         <div class="card-header">
           History
         </div>
-        <ul class="list-group list-group-flush">
+        <!--<ul class="list-group list-group-flush">
           <li class="list-group-item" *ngFor='let entry of history'>{{entry}}</li>
-        </ul>
+        </ul>-->
+        <table class="table table-sm">
+          <tbody>
+            <tr *ngFor='let entry of history'>
+              <td>
+                {{entry}}
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>
