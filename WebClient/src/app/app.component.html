@@ -9,19 +9,23 @@
         </div>
         <table class="table table-sm table-hover">
           <tbody>
-            <tr *ngFor='let player of lobby'>
-              <th scope="row">
+            <tr class="d-flex" *ngFor='let player of lobby'>
+              <th class="col-1" scope="row">
                 {{player.pos}}
               </th>
-              <td>
+              <td class="col-1">
                 <button class="text-danger" (click)="removeFromLobby(player)">X</button>&nbsp;
+              </td>
+              <td class="col-1">
                 <button class="text-primary" *ngIf="team1.length < 8" (click)="lobbyToTeam1(player)">1</button>&nbsp;
+              </td>
+              <td class="col-1">
                 <button class="text-success" *ngIf="team2.length < 8" (click)="lobbyToTeam2(player)">2</button>
               </td>
-              <td>
+              <td class="col-3">
                 <span [ngClass]="{'text-muted' : player.pos > 16}">{{player.name}}</span>
               </td>
-              <td>
+              <td class="col-5">
                 <span *ngFor='let role of player.pref'>
                   <img src="./assets/{{role}}.png" />
                 </span>
@@ -43,10 +47,14 @@
         </div>
         <table class="table table-sm table-hover text-primary">
           <tbody>
-            <tr *ngFor='let player of team1'>
-              <td>
+            <tr class="d-flex" *ngFor='let player of team1'>
+              <td class="col-1">
                 <button class="text-danger" (click)="team1ToLobby(player)">X</button>&nbsp;
+              </td>
+              <td class="col-1">
                 <button class="text-success" *ngIf="team2.length < 8" (click)="team1ToTeam2(player)">↓</button>&nbsp;
+              </td>
+              <td class="col-10">
                 {{player.name}}
               </td>
             </tr>
@@ -64,10 +72,14 @@
         </div>
         <table class="table table-sm table-hover text-success">
           <tbody>
-            <tr *ngFor='let player of team2'>
-              <td>
+            <tr class="d-flex" *ngFor='let player of team2'>
+              <td class="col-1">
                 <button class="text-danger" (click)="team2ToLobby(player)">X</button>&nbsp;
+              </td>
+              <td class="col-1">
                 <button class="text-primary" *ngIf="team1.length < 8" (click)="team2ToTeam1(player)">↑</button>&nbsp;
+              </td>
+              <td class="col-10">
                 {{player.name}}
               </td>
             </tr>
