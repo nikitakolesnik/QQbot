@@ -1,6 +1,5 @@
 export interface IPlayer {
-  name: string;
-  pos: number;
-  role: string;
-  pref: string[];
+  name:  string;
+  pos?:  number;
+  team?: number;
 }

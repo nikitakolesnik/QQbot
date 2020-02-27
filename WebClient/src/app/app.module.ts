@@ -4,9 +4,12 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
+import { TeamPipe } from './teampipe';
+
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    TeamPipe
   ],
   imports: [
     BrowserModule,

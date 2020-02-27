@@ -1,22 +1,21 @@
-<br/>
-
-<div class="container-fluid">
+<div class="container">
   <div class="row">
     <div class="col-sm">
       <div class="card">
         <div class="card-header">
           Lobby ({{lobby.length}})
         </div> <!--card header-->
-        <table class="table table-sm table-hover"><tbody>
-          <tr class="d-flex" *ngFor='let player of lobby; index as i'>
-            <th class="col-1" scope="row">{{i+1}}</th>
-            <td class="col-1"><button class="text-danger" (click)="removeFromLobby(player)">X</button></td>
-            <td class="col-1"><button class="text-primary" *ngIf="team1.length < 8" (click)="lobbyToTeam1(player)">1</button></td>
-            <td class="col-1"><button class="text-success" *ngIf="team2.length < 8" (click)="lobbyToTeam2(player)">2</button></td>
-            <td class="col-3"><span [ngClass]="{'text-muted' : player.pos > 16}">{{player.name}}</span></td>
-            <td class="col-5"><span *ngFor='let role of player.pref'><img src="./assets/{{role}}.png" /></span></td>
-          </tr>
-        </tbody></table>
+        <table class="table table-sm table-hover">
+          <tbody>
+            <tr class="d-flex" *ngFor="let player of (lobby | teamfilter:0);">
+              <th class="col-2" scope="row">{{player.pos}}</th>
+              <td class="col-1"><button class="text-danger" (click)="removeFromLobby(player)">X</button></td>
+              <td class="col-1"><button class="text-primary" *ngIf="teamCount[1] < 8" (click)="setTeam(player,1)">1</button></td>
+              <td class="col-2"><button class="text-success" *ngIf="teamCount[2] < 8" (click)="setTeam(player,2)">2</button></td>
+              <td class="col-6"><span [ngClass]="{'text-muted' : player.pos > 16}">{{player.name}}</span></td>
+            </tr>
+          </tbody>
+        </table>
       </div> <!--card-->
     </div> <!--col-->
 
@@ -24,36 +23,38 @@
 
       <div class="card">
         <div class="card-header text-white bg-primary">
-          Team 1 ({{team1.length}}/8)&nbsp;
-          <button class="text-danger"  *ngIf="team1.length > 0" (click)="team1Clear()">X</button>&nbsp;
-          <button class="text-warning" *ngIf="(team1.length == 8) && (team2.length == 8)" (click)="team1Win()">WIN</button>
+          Team 1 ({{teamCount[1]}}/8)
+          <button class="text-danger" *ngIf="teamCount[1] > 0" (click)="teamClear(1)">X</button>&nbsp;
+          <button class="text-warning" *ngIf="teamCount[1] == 8 && teamCount[2] == 8" (click)="teamWin(1)">WIN</button>
         </div> <!--card header-->
-        <table class="table table-sm table-hover text-primary"><tbody>
-          <tr class="d-flex" *ngFor='let player of team1; index as i'>
-            <td class="col-1"><button class="text-danger" (click)="team1ToLobby(player)">X</button></td>
-            <td class="col-1"> <button class="text-success" *ngIf="team2.length < 8" (click)="team1ToTeam2(player)">↓</button></td>
-            <td class="col-3">{{player.name}}</td>
-            <td class="col-7"><span class="role-selector" *ngFor="let r of enum_roles"><input type="radio" name="a{{i}}-role" id="a{{i}}-{{r}}" value="{{r}}" (click)="setRole(player, r, 1)" /><label class="role {{r}}" for="a{{i}}-{{r}}"></label>&nbsp;</span></td>
-          </tr>
-        </tbody></table>
+        <table class="table table-sm table-hover text-primary">
+          <tbody>
+            <tr class="d-flex" *ngFor="let player of (lobby | teamfilter:1)">
+              <td class="col-1"><button class="text-danger" (click)="setNoTeam(player)">X</button></td>
+              <td class="col-2"> <button class="text-success" (click)="setTeam(player,2)" *ngIf="teamCount[2] < 8">↓</button></td>
+              <td class="col-9">{{player.name}}</td>
+            </tr>
+          </tbody>
+        </table>
       </div> <!--card-->
 
       <br />
 
       <div class="card">
         <div class="card-header text-white bg-success">
-          Team 2 ({{team2.length}}/8)&nbsp;
-          <button class="text-danger"  *ngIf="team2.length > 0" (click)="team2Clear()">X</button>&nbsp;
-          <button class="text-warning" *ngIf="(team1.length == 8) && (team2.length == 8)" (click)="team2Win()">WIN</button>
+          Team 2 ({{teamCount[2]}}/8)
+          <button class="text-danger" *ngIf="teamCount[2] > 0" (click)="teamClear(2)">X</button>&nbsp;
+          <button class="text-warning" *ngIf="teamCount[1] == 8 && teamCount[2] == 8" (click)="teamWin(2)">WIN</button>
         </div>
-        <table class="table table-sm table-hover text-success"><tbody>
-          <tr class="d-flex" *ngFor='let player of team2; index as i'>
-            <td class="col-1"><button class="text-danger" (click)="team2ToLobby(player)">X</button></td>
-            <td class="col-1"><button class="text-primary" *ngIf="team1.length < 8" (click)="team2ToTeam1(player)">↑</button></td>
-            <td class="col-3">{{player.name}}</td>
-            <td class="col-7"><span class="role-selector" *ngFor="let r of enum_roles"><input type="radio" name="b{{i}}-role" id="b{{i}}-{{r}}" value="{{r}}" (click)="setRole(player, r, 2)" /><label class="role {{r}}" for="b{{i}}-{{r}}"></label>&nbsp;</span></td>
-          </tr>
-        </tbody></table>
+        <table class="table table-sm table-hover text-success">
+          <tbody>
+            <tr class="d-flex" *ngFor="let player of (lobby | teamfilter:2)">
+              <td class="col-1"><button class="text-danger" (click)="setNoTeam(player)">X</button></td>
+              <td class="col-2"><button class="text-primary" (click)="setTeam(player,1)" *ngIf="teamCount[1] < 8">↑</button></td>
+              <td class="col-9">{{player.name}}</td>
+            </tr>
+          </tbody>
+        </table>
       </div> <!--card-->
 
     </div> <!--col-->
@@ -63,13 +64,15 @@
         <div class="card-header">
           History
         </div> <!--card header-->
-        <table class="table table-sm"><tbody>
-          <tr *ngFor='let entry of history'><td>{{entry}}</td></tr>
-        </tbody></table>
+        <table class="table table-sm">
+          <tbody>
+            <tr *ngFor='let entry of history'><td>{{entry}}</td></tr>
+          </tbody>
+        </table>
       </div> <!--card-->
     </div> <!--col-->
   </div> <!--row-->
-  
+
 </div> <!--container-->
 
 <router-outlet></router-outlet>
