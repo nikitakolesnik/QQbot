@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using QQbot.BusinessLayer;
 using System;
-
 using System.Threading.Tasks;
 
 namespace QQbot.Api.Controllers
@@ -10,56 +9,43 @@ namespace QQbot.Api.Controllers
 	[Route("api/match")]
 	public class MatchController : ControllerBase
 	{
-		private readonly IMatchRepository _repository;
+		private readonly IMatchRepository _matchRepository;
+		private readonly IPlayerRepository _playerRepository;
 
-		public MatchController(IMatchRepository repository)
+		public MatchController(IMatchRepository matchRepository, IPlayerRepository playerRepository)
 		{
-			_repository = repository ?? throw new ArgumentNullException(nameof(repository));
+			_matchRepository = matchRepository ?? throw new ArgumentNullException(nameof(matchRepository));
+			_playerRepository = playerRepository ?? throw new ArgumentNullException(nameof(playerRepository));
+		}
+
+		/*
+		 * Who played in match 45                          - api/match/45             GET
+		 * Get 10 last active matches                      - api/match/history/10     GET
+		 * Get 10 last active matches involving player 123 - api/match/history/10/123 GET
+		 * Submit match                                    - api/match                POST
+		 * Edit match 45                                   - api/match/45             PUT
+		 * Activate/disable match 45                       - api/match/45/action/1    PUT
+		 */ 
+
+		[HttpGet]
+		[Route("playerId")]
+		public async Task<IActionResult> RecordMatch([FromBody] int[] winningIds, [FromBody] int[] losingIds)
+		{
+			await _matchRepository.RecordMatchAsync(
+				await _playerRepository.GetPlayersByIdsAsync(winningIds),
+				await _playerRepository.GetPlayersByIdsAsync(losingIds)
+			);
+
+			return Ok();
 		}
 
 		//[HttpGet]
-		//[Route("?win={winningNames:string[]}&lose={losingNames:string[]}")]
-		//public async Task<IActionResult> RecordMatch(string[] winningNames, string[] losingNames) // ["slam", "yoko", "candy", ...]
+		//[Route("discordId")]
+		//public async Task<IActionResult> RecordMatch([FromBody] long[] winningDiscordIds, [FromBody] long[] losingDiscordIds)
 		//{
-		//	await _repository.RecordMatchAsync(
-		//		await _repository.GetPlayersAsync(winningNames),
-		//		await _repository.GetPlayersAsync(losingNames)
-		//	);
-
-		//	return Ok();
-		//}
-
-		//[HttpGet]
-		//[Route("?win={winningNameList:string}&lose={losingNameList:string}")]
-		//public async Task<IActionResult> RecordMatch(string winningNameCommaString, string losingNameCommaString) // "slam,yoko,candy,..."
-		//{
-		//	await _repository.RecordMatchAsync(
-		//		await _repository.GetPlayersAsync(winningNameCommaString),
-		//		await _repository.GetPlayersAsync(losingNameCommaString)
-		//	);
-
-		//	return Ok();
-		//}
-
-		//[HttpGet]
-		//[Route("?win={winningIds:int[]}&lose={losingIds:int[]}")]
-		//public async Task<IActionResult> RecordMatch(int[] winningIds, int[] losingIds) // [1,2,3,...]
-		//{
-		//	await _repository.RecordMatchAsync(
-		//		await _repository.GetPlayersAsync(winningIds),
-		//		await _repository.GetPlayersAsync(losingIds)
-		//	);
-
-		//	return Ok();
-		//}
-
-		//[HttpGet]
-		//[Route("?win={winningIds:int[]}&lose={losingIds:int[]}")]
-		//public async Task<IActionResult> RecordMatch(long[] winningDiscords, long[] losingDiscords) // [240413827718578177,175325337196953600,287275232236929026,...]
-		//{
-		//	await _repository.RecordMatchAsync(
-		//		await _repository.GetPlayersAsync(winningDiscords),
-		//		await _repository.GetPlayersAsync(losingDiscords)
+		//	await _matchRepository.RecordMatchAsync(
+		//		await _playerRepository.GetPlayersByDiscordIdsAsync(winningDiscordIds),
+		//		await _playerRepository.GetPlayersByDiscordIdsAsync(losingDiscordIds)
 		//	);
 
 		//	return Ok();

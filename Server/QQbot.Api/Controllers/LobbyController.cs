@@ -15,15 +15,14 @@ namespace QQbot.Api.Controllers
 		{
 			_repository = repository ?? throw new ArgumentNullException(nameof(repository));
 		}
+		/*
+		 * Add player 123 to lobby      - api/lobby       POST
+		 * Set player 123 to team 2     - api/lobby/123/2 PUT 
+		 * Remove player 123 from lobby - api/lobby/123   DEL
+		 * Clear lobby                  - api/lobby       DEL
+		 */
 
-		//TODO: add player to queue by name/id/discord
-
-		//TODO: remove player from queue by name/id/discord
-
-		//TODO: set queued player's team by name/id/discord
-
-		[HttpGet]
-		[Route("clear")]
+		[HttpDelete]
 		public async Task<IActionResult> Clear()
 		{
 			await _repository.ClearAsync();

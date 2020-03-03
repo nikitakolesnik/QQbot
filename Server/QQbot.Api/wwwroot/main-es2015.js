@@ -32,7 +32,7 @@ webpackEmptyAsyncContext.id = "./$$_lazy_route_resource lazy recursive";
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<br/>\r\n\r\n<div class=\"container-fluid\">\r\n  <div class=\"row\">\r\n    <div class=\"col-sm\">\r\n      <div class=\"card\">\r\n        <div class=\"card-header\">\r\n          Lobby ({{lobby.length}})\r\n        </div> <!--card header-->\r\n        <table class=\"table table-sm table-hover\"><tbody>\r\n          <tr class=\"d-flex\" *ngFor='let player of lobby; index as i'>\r\n            <th class=\"col-1\" scope=\"row\">{{i+1}}</th>\r\n            <td class=\"col-1\"><button class=\"text-danger\" (click)=\"removeFromLobby(player)\">X</button></td>\r\n            <td class=\"col-1\"><button class=\"text-primary\" *ngIf=\"team1.length < 8\" (click)=\"lobbyToTeam1(player)\">1</button></td>\r\n            <td class=\"col-1\"><button class=\"text-success\" *ngIf=\"team2.length < 8\" (click)=\"lobbyToTeam2(player)\">2</button></td>\r\n            <td class=\"col-3\"><span [ngClass]=\"{'text-muted' : player.pos > 16}\">{{player.name}}</span></td>\r\n            <td class=\"col-5\"><span *ngFor='let role of player.pref'><img src=\"./assets/{{role}}.png\" /></span></td>\r\n          </tr>\r\n        </tbody></table>\r\n      </div> <!--card-->\r\n    </div> <!--col-->\r\n\r\n    <div class=\"col-sm\">\r\n\r\n      <div class=\"card\">\r\n        <div class=\"card-header text-white bg-primary\">\r\n          Team 1 ({{team1.length}}/8)&nbsp;\r\n          <button class=\"text-danger\"  *ngIf=\"team1.length > 0\" (click)=\"team1Clear()\">X</button>&nbsp;\r\n          <button class=\"text-warning\" *ngIf=\"(team1.length == 8) && (team2.length == 8)\" (click)=\"team1Win()\">WIN</button>\r\n        </div> <!--card header-->\r\n        <table class=\"table table-sm table-hover text-primary\"><tbody>\r\n          <tr class=\"d-flex\" *ngFor='let player of team1; index as i'>\r\n            <td class=\"col-1\"><button class=\"text-danger\" (click)=\"team1ToLobby(player)\">X</button></td>\r\n            <td class=\"col-1\"> <button class=\"text-success\" *ngIf=\"team2.length < 8\" (click)=\"team1ToTeam2(player)\">↓</button></td>\r\n            <td class=\"col-3\">{{player.name}}</td>\r\n            <td class=\"col-7\"><span class=\"role-selector\" *ngFor=\"let r of enum_roles\"><input type=\"radio\" name=\"a{{i}}-role\" id=\"a{{i}}-{{r}}\" value=\"{{r}}\" (click)=\"setRole(player, r, 1)\" /><label class=\"role {{r}}\" for=\"a{{i}}-{{r}}\"></label>&nbsp;</span></td>\r\n          </tr>\r\n        </tbody></table>\r\n      </div> <!--card-->\r\n\r\n      <br />\r\n\r\n      <div class=\"card\">\r\n        <div class=\"card-header text-white bg-success\">\r\n          Team 2 ({{team2.length}}/8)&nbsp;\r\n          <button class=\"text-danger\"  *ngIf=\"team2.length > 0\" (click)=\"team2Clear()\">X</button>&nbsp;\r\n          <button class=\"text-warning\" *ngIf=\"(team1.length == 8) && (team2.length == 8)\" (click)=\"team2Win()\">WIN</button>\r\n        </div>\r\n        <table class=\"table table-sm table-hover text-success\"><tbody>\r\n          <tr class=\"d-flex\" *ngFor='let player of team2; index as i'>\r\n            <td class=\"col-1\"><button class=\"text-danger\" (click)=\"team2ToLobby(player)\">X</button></td>\r\n            <td class=\"col-1\"><button class=\"text-primary\" *ngIf=\"team1.length < 8\" (click)=\"team2ToTeam1(player)\">↑</button></td>\r\n            <td class=\"col-3\">{{player.name}}</td>\r\n            <td class=\"col-7\"><span class=\"role-selector\" *ngFor=\"let r of enum_roles\"><input type=\"radio\" name=\"b{{i}}-role\" id=\"b{{i}}-{{r}}\" value=\"{{r}}\" (click)=\"setRole(player, r, 2)\" /><label class=\"role {{r}}\" for=\"b{{i}}-{{r}}\"></label>&nbsp;</span></td>\r\n          </tr>\r\n        </tbody></table>\r\n      </div> <!--card-->\r\n\r\n    </div> <!--col-->\r\n\r\n    <div class=\"col-sm\">\r\n      <div class=\"card\">\r\n        <div class=\"card-header\">\r\n          History\r\n        </div> <!--card header-->\r\n        <table class=\"table table-sm\"><tbody>\r\n          <tr *ngFor='let entry of history'><td>{{entry}}</td></tr>\r\n        </tbody></table>\r\n      </div> <!--card-->\r\n    </div> <!--col-->\r\n  </div> <!--row-->\r\n  \r\n</div> <!--container-->\n\n<router-outlet></router-outlet>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"container\">\r\n  <div class=\"row\">\r\n    <div class=\"col-sm\">\r\n      <div class=\"card\">\r\n        <div class=\"card-header\">\r\n          Lobby ({{lobby.length}})\r\n        </div> <!--card header-->\r\n        <table class=\"table table-sm table-hover\">\r\n          <tbody>\r\n            <tr class=\"d-flex\" *ngFor=\"let player of (lobby | teamfilter:0);\">\r\n              <th class=\"col-2\" scope=\"row\">{{player.pos}}</th>\r\n              <td class=\"col-1\"><button class=\"text-danger\" (click)=\"removeFromLobby(player)\">X</button></td>\r\n              <td class=\"col-1\"><button class=\"text-primary\" *ngIf=\"teamCount[1] < 8\" (click)=\"setTeam(player,1)\">1</button></td>\r\n              <td class=\"col-2\"><button class=\"text-success\" *ngIf=\"teamCount[2] < 8\" (click)=\"setTeam(player,2)\">2</button></td>\r\n              <td class=\"col-6\"><span [ngClass]=\"{'text-muted' : player.pos > 16}\">{{player.name}}</span></td>\r\n            </tr>\r\n          </tbody>\r\n        </table>\r\n      </div> <!--card-->\r\n    </div> <!--col-->\r\n\r\n    <div class=\"col-sm\">\r\n\r\n      <div class=\"card\">\r\n        <div class=\"card-header text-white bg-primary\">\r\n          Team 1 ({{teamCount[1]}}/8)\r\n          <button class=\"text-danger\" *ngIf=\"teamCount[1] > 0\" (click)=\"teamClear(1)\">X</button>&nbsp;\r\n          <button class=\"text-warning\" *ngIf=\"teamCount[1] == 8 && teamCount[2] == 8\" (click)=\"teamWin(1)\">WIN</button>\r\n        </div> <!--card header-->\r\n        <table class=\"table table-sm table-hover text-primary\">\r\n          <tbody>\r\n            <tr class=\"d-flex\" *ngFor=\"let player of (lobby | teamfilter:1)\">\r\n              <td class=\"col-1\"><button class=\"text-danger\" (click)=\"setNoTeam(player)\">X</button></td>\r\n              <td class=\"col-2\"> <button class=\"text-success\" (click)=\"setTeam(player,2)\" *ngIf=\"teamCount[2] < 8\">↓</button></td>\r\n              <td class=\"col-9\">{{player.name}}</td>\r\n            </tr>\r\n          </tbody>\r\n        </table>\r\n      </div> <!--card-->\r\n\r\n      <br />\r\n\r\n      <div class=\"card\">\r\n        <div class=\"card-header text-white bg-success\">\r\n          Team 2 ({{teamCount[2]}}/8)\r\n          <button class=\"text-danger\" *ngIf=\"teamCount[2] > 0\" (click)=\"teamClear(2)\">X</button>&nbsp;\r\n          <button class=\"text-warning\" *ngIf=\"teamCount[1] == 8 && teamCount[2] == 8\" (click)=\"teamWin(2)\">WIN</button>\r\n        </div>\r\n        <table class=\"table table-sm table-hover text-success\">\r\n          <tbody>\r\n            <tr class=\"d-flex\" *ngFor=\"let player of (lobby | teamfilter:2)\">\r\n              <td class=\"col-1\"><button class=\"text-danger\" (click)=\"setNoTeam(player)\">X</button></td>\r\n              <td class=\"col-2\"><button class=\"text-primary\" (click)=\"setTeam(player,1)\" *ngIf=\"teamCount[1] < 8\">↑</button></td>\r\n              <td class=\"col-9\">{{player.name}}</td>\r\n            </tr>\r\n          </tbody>\r\n        </table>\r\n      </div> <!--card-->\r\n\r\n    </div> <!--col-->\r\n\r\n    <div class=\"col-sm\">\r\n      <div class=\"card\">\r\n        <div class=\"card-header\">\r\n          History\r\n        </div> <!--card header-->\r\n        <table class=\"table table-sm\">\r\n          <tbody>\r\n            <tr *ngFor='let entry of history'><td>{{entry}}</td></tr>\r\n          </tbody>\r\n        </table>\r\n      </div> <!--card-->\r\n    </div> <!--col-->\r\n  </div> <!--row-->\r\n\r\n</div> <!--container-->\r\n\r\n<router-outlet></router-outlet>\r\n");
 
 /***/ }),
 
@@ -323,7 +323,7 @@ AppRoutingModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (".role-selector input {\r\n  margin: 0;\r\n  padding: 0;\r\n  -webkit-appearance: none;\r\n  -moz-appearance: none;\r\n  /*appearance: none;*/\r\n}\r\n\r\n.w    { background-image: url('w.png'); }\r\n\r\n.d    { background-image: url('d.png'); }\r\n\r\n.a    { background-image: url('a.png'); }\r\n\r\n.p    { background-image: url('p.png'); }\r\n\r\n.r    { background-image: url('r.png'); }\r\n\r\n.e    { background-image: url('e.png'); }\r\n\r\n.n    { background-image: url('n.png'); }\r\n\r\n.me   { background-image: url('me.png'); }\r\n\r\n.prot { background-image: url('prot.png'); }\r\n\r\n.heal { background-image: url('heal.png'); }\r\n\r\n.rt   { background-image: url('rt.png'); }\r\n\r\n.role-selector input:active + .role {\r\n  opacity: .9;\r\n}\r\n\r\n.role-selector input:checked + .role {\r\n  -webkit-filter: none;\r\n  -moz-filter: none;\r\n  filter: none;\r\n}\r\n\r\n.role {\r\n  cursor: pointer;\r\n  background-size: contain;\r\n  background-repeat: no-repeat;\r\n  display: inline-block;\r\n  width: 20px;\r\n  height: 20px;\r\n  /*-webkit-transition: all 100ms ease-in;\r\n  -moz-transition: all 100ms ease-in;\r\n  transition: all 100ms ease-in;*/\r\n  -webkit-filter: brightness(0.5) grayscale(1);\r\n  -moz-filter:    brightness(0.5) grayscale(1);\r\n  filter:         brightness(0.5) grayscale(1);\r\n}\r\n\r\n.role:hover {\r\n  -webkit-filter: brightness(1.50) grayscale(0.5);\r\n  -moz-filter:    brightness(1.50) grayscale(0.5);\r\n  filter:         brightness(1.50) grayscale(0.5);\r\n}\r\n\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvYXBwLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxTQUFTO0VBQ1QsVUFBVTtFQUNWLHdCQUF3QjtFQUN4QixxQkFBcUI7RUFDckIsb0JBQW9CO0FBQ3RCOztBQUVBLFFBQVEsOEJBQXdDLEVBQUU7O0FBQ2xELFFBQVEsOEJBQXdDLEVBQUU7O0FBQ2xELFFBQVEsOEJBQXdDLEVBQUU7O0FBQ2xELFFBQVEsOEJBQXdDLEVBQUU7O0FBQ2xELFFBQVEsOEJBQXdDLEVBQUU7O0FBQ2xELFFBQVEsOEJBQXdDLEVBQUU7O0FBQ2xELFFBQVEsOEJBQXdDLEVBQUU7O0FBQ2xELFFBQVEsK0JBQXlDLEVBQUU7O0FBQ25ELFFBQVEsaUNBQTJDLEVBQUU7O0FBQ3JELFFBQVEsaUNBQTJDLEVBQUU7O0FBQ3JELFFBQVEsK0JBQXlDLEVBQUU7O0FBRW5EO0VBQ0UsV0FBVztBQUNiOztBQUVBO0VBQ0Usb0JBQW9CO0VBQ3BCLGlCQUFpQjtFQUNqQixZQUFZO0FBQ2Q7O0FBRUE7RUFDRSxlQUFlO0VBQ2Ysd0JBQXdCO0VBQ3hCLDRCQUE0QjtFQUM1QixxQkFBcUI7RUFDckIsV0FBVztFQUNYLFlBQVk7RUFDWjs7aUNBRStCO0VBQy9CLDRDQUE0QztFQUM1Qyw0Q0FBNEM7RUFDNUMsNENBQTRDO0FBQzlDOztBQUVBO0VBQ0UsK0NBQStDO0VBQy9DLCtDQUErQztFQUMvQywrQ0FBK0M7QUFDakQiLCJmaWxlIjoic3JjL2FwcC9hcHAuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIi5yb2xlLXNlbGVjdG9yIGlucHV0IHtcclxuICBtYXJnaW46IDA7XHJcbiAgcGFkZGluZzogMDtcclxuICAtd2Via2l0LWFwcGVhcmFuY2U6IG5vbmU7XHJcbiAgLW1vei1hcHBlYXJhbmNlOiBub25lO1xyXG4gIC8qYXBwZWFyYW5jZTogbm9uZTsqL1xyXG59XHJcblxyXG4udyAgICB7IGJhY2tncm91bmQtaW1hZ2U6IHVybChcIi4uL2Fzc2V0cy93LnBuZ1wiKTsgfVxyXG4uZCAgICB7IGJhY2tncm91bmQtaW1hZ2U6IHVybChcIi4uL2Fzc2V0cy9kLnBuZ1wiKTsgfVxyXG4uYSAgICB7IGJhY2tncm91bmQtaW1hZ2U6IHVybChcIi4uL2Fzc2V0cy9hLnBuZ1wiKTsgfVxyXG4ucCAgICB7IGJhY2tncm91bmQtaW1hZ2U6IHVybChcIi4uL2Fzc2V0cy9wLnBuZ1wiKTsgfVxyXG4uciAgICB7IGJhY2tncm91bmQtaW1hZ2U6IHVybChcIi4uL2Fzc2V0cy9yLnBuZ1wiKTsgfVxyXG4uZSAgICB7IGJhY2tncm91bmQtaW1hZ2U6IHVybChcIi4uL2Fzc2V0cy9lLnBuZ1wiKTsgfVxyXG4ubiAgICB7IGJhY2tncm91bmQtaW1hZ2U6IHVybChcIi4uL2Fzc2V0cy9uLnBuZ1wiKTsgfVxyXG4ubWUgICB7IGJhY2tncm91bmQtaW1hZ2U6IHVybChcIi4uL2Fzc2V0cy9tZS5wbmdcIik7IH1cclxuLnByb3QgeyBiYWNrZ3JvdW5kLWltYWdlOiB1cmwoXCIuLi9hc3NldHMvcHJvdC5wbmdcIik7IH1cclxuLmhlYWwgeyBiYWNrZ3JvdW5kLWltYWdlOiB1cmwoXCIuLi9hc3NldHMvaGVhbC5wbmdcIik7IH1cclxuLnJ0ICAgeyBiYWNrZ3JvdW5kLWltYWdlOiB1cmwoXCIuLi9hc3NldHMvcnQucG5nXCIpOyB9XHJcblxyXG4ucm9sZS1zZWxlY3RvciBpbnB1dDphY3RpdmUgKyAucm9sZSB7XHJcbiAgb3BhY2l0eTogLjk7XHJcbn1cclxuXHJcbi5yb2xlLXNlbGVjdG9yIGlucHV0OmNoZWNrZWQgKyAucm9sZSB7XHJcbiAgLXdlYmtpdC1maWx0ZXI6IG5vbmU7XHJcbiAgLW1vei1maWx0ZXI6IG5vbmU7XHJcbiAgZmlsdGVyOiBub25lO1xyXG59XHJcblxyXG4ucm9sZSB7XHJcbiAgY3Vyc29yOiBwb2ludGVyO1xyXG4gIGJhY2tncm91bmQtc2l6ZTogY29udGFpbjtcclxuICBiYWNrZ3JvdW5kLXJlcGVhdDogbm8tcmVwZWF0O1xyXG4gIGRpc3BsYXk6IGlubGluZS1ibG9jaztcclxuICB3aWR0aDogMjBweDtcclxuICBoZWlnaHQ6IDIwcHg7XHJcbiAgLyotd2Via2l0LXRyYW5zaXRpb246IGFsbCAxMDBtcyBlYXNlLWluO1xyXG4gIC1tb3otdHJhbnNpdGlvbjogYWxsIDEwMG1zIGVhc2UtaW47XHJcbiAgdHJhbnNpdGlvbjogYWxsIDEwMG1zIGVhc2UtaW47Ki9cclxuICAtd2Via2l0LWZpbHRlcjogYnJpZ2h0bmVzcygwLjUpIGdyYXlzY2FsZSgxKTtcclxuICAtbW96LWZpbHRlcjogICAgYnJpZ2h0bmVzcygwLjUpIGdyYXlzY2FsZSgxKTtcclxuICBmaWx0ZXI6ICAgICAgICAgYnJpZ2h0bmVzcygwLjUpIGdyYXlzY2FsZSgxKTtcclxufVxyXG5cclxuLnJvbGU6aG92ZXIge1xyXG4gIC13ZWJraXQtZmlsdGVyOiBicmlnaHRuZXNzKDEuNTApIGdyYXlzY2FsZSgwLjUpO1xyXG4gIC1tb3otZmlsdGVyOiAgICBicmlnaHRuZXNzKDEuNTApIGdyYXlzY2FsZSgwLjUpO1xyXG4gIGZpbHRlcjogICAgICAgICBicmlnaHRuZXNzKDEuNTApIGdyYXlzY2FsZSgwLjUpO1xyXG59XHJcbiJdfQ== */");
+/* harmony default export */ __webpack_exports__["default"] = ("\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2FwcC5jb21wb25lbnQuY3NzIn0= */");
 
 /***/ }),
 
@@ -344,157 +344,77 @@ __webpack_require__.r(__webpack_exports__);
 let AppComponent = class AppComponent {
     constructor() {
         this.lobby = [];
-        this.team1 = [];
-        this.team2 = [];
         this.history = [];
-        this.enum_roles = ['w', 'd', 'a', 'p', 'r', 'e', 'n', 'me', 'prot', 'heal', 'rt'];
+        this.teamCount = [0, 0, 0];
     }
     ngOnInit() {
-        //this.setLobbyPlayerNumbers();
-        var count = 1;
-        //this.addToLobby({ name: 'Holye',     pos: count++, role: null, pref: ['w', 'd', 'a', 'p', 'r', 'e', 'n', 'me', 'prot', 'heal', 'rt'] });
-        //this.addToLobby({ name: 'Yoko',     pos: count++, role: null, pref: ['w', 'd', 'p', 'e', 'n', 'me'] });
-        //this.addToLobby({ name: 'Candyboy', pos: count++, role: null, pref: ['w', 'me'] });
-        //this.addToLobby({ name: 'Godly',    pos: count++, role: null, pref: ['a'] });
-        //this.addToLobby({ name: 'Santana',  pos: count++, role: null, pref: ['heal'] });
-        //this.addToLobby({ name: 'Purif',    pos: count++, role: null, pref: ['me', 'prot', 'heal'] });
-        //this.addToLobby({ name: 'Chrona',   pos: count++, role: null, pref: ['w', 'r', 'e', 'me'] });
-        //this.addToLobby({ name: 'Butters',  pos: count++, role: null, pref: ['w', 'd', 'e'] });
-        //this.addToLobby({ name: 'Ice',      pos: count++, role: null, pref: ['w', 'heal'] });
-        //this.addToLobby({ name: 'Lisek',    pos: count++, role: null, pref: ['r', 'me'] });
-        //this.addToLobby({ name: 'Oln',      pos: count++, role: null, pref: ['heal'] });
-        //this.addToLobby({ name: 'Rainy',    pos: count++, role: null, pref: ['prot'] });
-        //this.addToLobby({ name: 'Takida',   pos: count++, role: null, pref: ['w'] });
-        //this.addToLobby({ name: 'Jo',       pos: count++, role: null, pref: ['e'] });
-        //this.addToLobby({ name: 'Bounty',   pos: count++, role: null, pref: ['w', 'p', 'me'] });
-        //this.addToLobby({ name: 'Cracks',   pos: count++, role: null, pref: ['w'] });
-        //this.addToLobby({ name: 'Beware',   pos: count++, role: null, pref: ['prot'] });
-        //this.addToLobby({ name: 'Jonas',    pos: count++, role: null, pref: ['w', 'prot'] });
-        //this.addToLobby({ name: 'Dopos',    pos: count++, role: null, pref: ['r', 'me'] });
-        //this.addToLobby({ name: 'Hemo',     pos: count++, role: null, pref: ['w', 'd'] });
-        this.addToLobby({ name: 'Slam', pos: count++, role: null, pref: ['w'] });
-        this.addToLobby({ name: 'Candy', pos: count++, role: null, pref: ['w', 'me'] });
-        this.addToLobby({ name: 'Yoko', pos: count++, role: null, pref: ['w', 'd', 'p', 'e', 'me'] });
-        this.addToLobby({ name: 'Takida', pos: count++, role: null, pref: ['w'] });
-        this.addToLobby({ name: 'Bounty', pos: count++, role: null, pref: ['w', 'p', 'me', 'prot'] });
-        this.addToLobby({ name: 'Godly', pos: count++, role: null, pref: ['me'] });
-        this.addToLobby({ name: 'Hemo', pos: count++, role: null, pref: ['w', 'd', 'me'] });
-        this.addToLobby({ name: 'Martin', pos: count++, role: null, pref: ['heal', 'prot'] });
-        this.addToLobby({ name: 'Dopos', pos: count++, role: null, pref: ['r', 'me'] });
-        this.addToLobby({ name: 'Rainy', pos: count++, role: null, pref: ['prot'] });
-        this.addToLobby({ name: 'Holye', pos: count++, role: null, pref: ['d', 'e', 'heal'] });
-        this.addToLobby({ name: 'Yoshi', pos: count++, role: null, pref: ['prot'] });
-        this.addToLobby({ name: 'Oln', pos: count++, role: null, pref: ['heal'] });
-        this.addToLobby({ name: 'Santana', pos: count++, role: null, pref: ['heal'] });
-        this.addToLobby({ name: 'Beware', pos: count++, role: null, pref: ['prot'] });
-        this.addToLobby({ name: 'Purif', pos: count++, role: null, pref: ['me', 'prot', 'heal'] });
-        this.addToLobby({ name: 'Ice', pos: count++, role: null, pref: ['w', 'heal'] });
-        this.addToLobby({ name: 'Cracks', pos: count++, role: null, pref: ['w'] });
-        this.addToLobby({ name: 'Butters', pos: count++, role: null, pref: ['w', 'd', 'e', 'me'] });
-        this.addToLobby({ name: 'Roken', pos: count++, role: null, pref: ['w'] });
+        this.addToLobby({ name: 'Holye' });
+        this.addToLobby({ name: 'Yoko' });
+        this.addToLobby({ name: 'Candyboy' });
+        this.addToLobby({ name: 'Godly' });
+        this.addToLobby({ name: 'Santana' });
+        this.addToLobby({ name: 'Purif' });
+        this.addToLobby({ name: 'Chrona' });
+        this.addToLobby({ name: 'Butters' });
+        this.addToLobby({ name: 'Ice' });
+        this.addToLobby({ name: 'Lisek' });
+        this.addToLobby({ name: 'Oln' });
+        this.addToLobby({ name: 'Rainy' });
+        this.addToLobby({ name: 'Takida' });
+        this.addToLobby({ name: 'Jo' });
+        this.addToLobby({ name: 'Bounty' });
+        this.addToLobby({ name: 'Cracks' });
+        this.addToLobby({ name: 'Beware' });
+        this.addToLobby({ name: 'Jonas' });
+        this.addToLobby({ name: 'Dopos' });
+        this.addToLobby({ name: 'Hemo' });
     }
-    // UTILITY
-    removeFromList(player, list) {
-        var index = list.indexOf(player);
-        list.splice(index, 1);
-    }
-    // PAGE FUNCTIONS
-    setRole(player, role, team) {
-        console.log('player: ' + player.name + ', team: ' + team);
-        if (team == 1) {
-            var index = this.team1.indexOf(player);
-            this.team1[index].role = role;
-        }
-        else if (team == 2) {
-            var index = this.team2.indexOf(player);
-            this.team2[index].role = role;
-        }
-    }
-    sortLobby() {
-        this.lobby.sort((a, b) => a.pos - b.pos);
-    }
-    //setLobbyPlayerNumbers(): void {
-    //  for (var i = 0; i < this.lobby.length; i++)
-    //    this.lobby[i].pos = i + 1;
-    //}
     addMessage(msg) {
         if (this.history.length >= 22)
             this.history.pop();
         this.history.unshift('[' + new Date().toLocaleTimeString() + '] ' + msg);
     }
+    // LOBBY
+    numberLobby() {
+        for (var i = 0; i < this.lobby.length; i++)
+            this.lobby[i].pos = i + 1;
+    }
     addToLobby(player) {
+        player.team = 0;
         player.pos = this.lobby.length + 1;
         this.lobby.push(player);
         this.addMessage(player.name + ' joined.');
     }
     removeFromLobby(player) {
-        this.removeFromList(player, this.lobby);
-        //this.setLobbyPlayerNumbers();
+        this.lobby.splice(this.lobby.indexOf(player), 1);
         this.addMessage('You kicked ' + player.name + '.');
+        this.numberLobby();
     }
-    lobbyToTeam1(player) {
-        if (this.team1.length == 8)
+    // TEAM
+    setTeam(player, team) {
+        if (this.teamCount[team] == 8)
             return;
-        this.removeFromList(player, this.lobby);
-        this.team1.push(player);
-        this.addMessage('You added ' + player.name + ' to Team 1.');
+        this.teamCount[team]++;
+        var message = 'You ' + (player.team == 0 ? 'added ' : 'moved ') + player.name + ' to Team ' + team;
+        this.lobby[this.lobby.indexOf(player)].team = team;
+        this.addMessage(message);
     }
-    lobbyToTeam2(player) {
-        if (this.team2.length == 8)
-            return;
-        this.removeFromList(player, this.lobby);
-        this.team2.push(player);
-        this.addMessage('You added ' + player.name + ' to Team 2.');
+    setNoTeam(player) {
+        this.teamCount[player.team]--;
+        var message = 'You removed ' + player.name + ' from Team ' + player.team + '.';
+        this.lobby[this.lobby.indexOf(player)].team = 0;
+        this.addMessage(message);
     }
-    team1ToLobby(player) {
-        this.removeFromList(player, this.team1);
-        this.lobby.push(player);
-        this.sortLobby();
-        this.addMessage('You removed ' + player.name + ' from Team 1.');
+    teamClear(team) {
+        this.teamCount[team] = 0;
+        this.lobby.forEach(function (player) { if (player.team == team)
+            player.team = 0; });
+        this.addMessage('You cleared Team ' + team + '.');
     }
-    team2ToLobby(player) {
-        this.removeFromList(player, this.team2);
-        this.lobby.push(player);
-        this.sortLobby();
-        this.addMessage('You removed ' + player.name + ' from Team 2.');
-    }
-    team1ToTeam2(player) {
-        if (this.team2.length == 8)
-            return;
-        this.removeFromList(player, this.team1);
-        this.team2.push(player);
-        this.addMessage('You moved ' + player.name + ' to Team 2.');
-    }
-    team2ToTeam1(player) {
-        if (this.team1.length == 8)
-            return;
-        this.removeFromList(player, this.team2);
-        this.team1.push(player);
-        this.addMessage('You moved ' + player.name + ' to Team 1.');
-    }
-    team1Clear() {
-        if (this.team1.length == 0)
-            return;
-        this.lobby = this.lobby.concat(this.team1);
-        this.sortLobby();
-        this.team1 = [];
-        this.addMessage('You cleared Team 1.');
-    }
-    team2Clear() {
-        if (this.team2.length == 0)
-            return;
-        this.lobby = this.lobby.concat(this.team2);
-        this.sortLobby();
-        this.team2 = [];
-        this.addMessage('You cleared Team 2.');
-    }
-    team1Win() {
-        if (this.team1.length == 8 && this.team2.length == 8)
-            this.addMessage('You recorded a win for Team 1.');
-    }
-    team2Win() {
-        if (this.team1.length == 8 && this.team2.length == 8)
-            this.addMessage('You recorded a win for Team 2.');
+    // RESULT
+    teamWin(team) {
+        if (this.teamCount[1] == 8 && this.teamCount[2] == 8)
+            this.addMessage('You recorded a win for Team ' + team + '.');
     }
 };
 AppComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
@@ -524,6 +444,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var _app_routing_module__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./app-routing.module */ "./src/app/app-routing.module.ts");
 /* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./app.component */ "./src/app/app.component.ts");
+/* harmony import */ var _teampipe__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./teampipe */ "./src/app/teampipe.ts");
+
 
 
 
@@ -534,7 +456,8 @@ let AppModule = class AppModule {
 AppModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["NgModule"])({
         declarations: [
-            _app_component__WEBPACK_IMPORTED_MODULE_4__["AppComponent"]
+            _app_component__WEBPACK_IMPORTED_MODULE_4__["AppComponent"],
+            _teampipe__WEBPACK_IMPORTED_MODULE_5__["TeamPipe"]
         ],
         imports: [
             _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"],
@@ -544,6 +467,39 @@ AppModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_4__["AppComponent"]]
     })
 ], AppModule);
+
+
+
+/***/ }),
+
+/***/ "./src/app/teampipe.ts":
+/*!*****************************!*\
+  !*** ./src/app/teampipe.ts ***!
+  \*****************************/
+/*! exports provided: TeamPipe */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TeamPipe", function() { return TeamPipe; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+
+
+let TeamPipe = class TeamPipe {
+    transform(items, team) {
+        if (!items) {
+            return items;
+        }
+        return items.filter(item => item.team == team);
+    }
+};
+TeamPipe = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Pipe"])({
+        name: 'teamfilter',
+        pure: false
+    })
+], TeamPipe);
 
 
 

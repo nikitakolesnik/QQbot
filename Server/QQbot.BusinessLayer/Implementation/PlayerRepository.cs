@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using QQbot.DataAccessLayer.Models;
 
 namespace QQbot.BusinessLayer
 {
@@ -22,30 +23,9 @@ namespace QQbot.BusinessLayer
 			return await _context.Players.Where(p => p.Id == id).FirstAsync();
 		}
 
-		public async Task<Player> GetPlayerByNameAsync(string name)
-		{
-			return await _context.Players.Where(p => p.Name == name).FirstAsync();
-		}
-
 		public async Task<Player> GetPlayerByDiscordIdAsync(long discordId)
 		{
 			return await _context.Players.Where(p => p.DiscordId == discordId).FirstAsync();
-		}
-
-		public async Task<IEnumerable<Player>> GetPlayersByNamesAsync(string[] names) // ["slam", "yoko", "candy", ...]
-		{
-			return await _context.Players
-				.Where(p => names.Contains(p.Name, StringComparer.CurrentCultureIgnoreCase))
-				.ToListAsync();
-		}
-
-		public async Task<IEnumerable<Player>> GetPlayersByNameStringAsync(string nameString) // "slam,yoko,candy,..."
-		{
-			string[] nameList = nameString.ToLower().Split(',');
-
-			return await _context.Players
-				.Where(p => nameList.Contains(p.Name))
-				.ToListAsync();
 		}
 
 		public async Task<IEnumerable<Player>> GetPlayersByIdsAsync(int[] playerIds) // [1, 2, 3, ...]
@@ -62,9 +42,10 @@ namespace QQbot.BusinessLayer
 				.ToListAsync();
 		}
 
-		public async Task<IEnumerable<Player>> GetAllPlayersAsync()
+		public async Task<IEnumerable<LeaderboardPlayer>> GetLeaderboardAsync()
 		{
-			return await _context.Players.ToListAsync();
+			throw new NotImplementedException();
+			//return await _context.Players.ToListAsync();
 		}
 	}
 }

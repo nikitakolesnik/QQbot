@@ -19,10 +19,19 @@ namespace QQbot.Api.Controllers
 			_repository = repository ?? throw new ArgumentNullException(nameof(repository));
 		}
 
+		/*
+		 * Get leaderboard                                      - api/players                  GET
+		 * Get player 123 summary                               - api/players/123              GET
+		 * Get full player 123 profile, with 10 past match data - api/players/123/profile(/10) GET
+		 * Submit a player                                      - api/players                  POST
+		 * Edit player 123                                      - api/players/123              PUT
+		 * Activate/disable player 123                          - api/players/123/action/1     PUT
+		 */
+
 		[HttpGet]
 		public async Task<ActionResult<IEnumerable<Player>>> GetPlayers()
 		{
-			var players = await _repository.GetAllPlayersAsync();
+			var players = await _repository.GetLeaderboardAsync();
 
 			return Ok(players);
 		}

@@ -17,6 +17,6 @@ namespace QQbot.DataAccessLayer.Entities
 
 		public Team LosingTeam { get; set; }
 
-		public MatchStatus Status { get; set; } = MatchStatus.Active;
+		public Status Status { get; set; } = Status.Active;
 	}
 }

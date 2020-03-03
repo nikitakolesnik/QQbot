@@ -15,29 +15,6 @@ namespace QQbot.DataAccessLayer.Entities
 		[MaxLength(20)]
 		public string Name { get; set; }
 
-		public int WarriorRating { get; set; }
-
-		public int RangerRating { get; set; }
-
-		public int MonkRating { get; set; }
-
-		public int NecromancerRating { get; set; }
-
-		public int MesmerRating { get; set; }
-
-		public int ElementalistRating { get; set; }
-
-		public int AssassinRating { get; set; }
-
-		public int RitualistRating { get; set; }
-
-		public int ParagonRating { get; set; }
-
-		public int DervishRating { get; set; }
-
-		/* Achievements/badges/stats?
-			- win/loss count & winrate & winstreak counted from match table
-			- rank? bronze/silver/gold/etc
-		 */
+		public int Rating { get; set; }
 	}
 }

@@ -1,6 +1,6 @@
 ﻿namespace QQbot.DataAccessLayer.Enums
 {
-	public enum MatchStatus
+	public enum Status
 	{
 		Disabled,
 		PendingReview,

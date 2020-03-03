@@ -10,9 +10,7 @@ namespace QQbot.BusinessLayer
 	{
 		public int TeamRating(IEnumerable<Player> players)
 		{
-			throw new NotImplementedException();
-
-			//return players.Sum(p => p.Rating) / players.Count();
+			return players.Sum(p => p.Rating) / players.Count();
 		}
 
 		public int PlayerRating(int playerRating, int opponentRating, int maxRatingDiff, MatchResult matchResult)
