@@ -27,8 +27,7 @@ namespace QQbot.Api.Controllers
 		 * Activate/disable match 45                       - api/match/45/action/1    PUT
 		 */ 
 
-		[HttpGet]
-		[Route("playerId")]
+		[HttpPost]
 		public async Task<IActionResult> RecordMatch([FromBody] int[] winningIds, [FromBody] int[] losingIds)
 		{
 			await _matchRepository.RecordMatchAsync(

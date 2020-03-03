@@ -12,9 +12,5 @@ namespace QQbot.DataAccessLayer.Entities
 		public Player Player { get; set; }
 
 		public Team Team { get; set; }
-
-		public int RatingBefore { get; set; }
-
-		public int RatingAfter { get; set; }
 	}
 }
