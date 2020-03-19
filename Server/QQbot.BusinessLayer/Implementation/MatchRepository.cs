@@ -47,7 +47,7 @@ namespace QQbot.BusinessLayer
 			await _context.Matches.AddAsync(new Match { WinningTeam = teamWin, LosingTeam = teamLose });
 
 
-			// Create TeamPlayer rows, calculate rating change, save rating before & after, Insert rows
+			// Create TeamPlayer rows, calculate rating change, Insert rows
 
 			int winTeamRating = _calc.TeamRating(playersWin);
 			int loseTeamRating = _calc.TeamRating(playersLose);
@@ -55,19 +55,13 @@ namespace QQbot.BusinessLayer
 
 			foreach (Player player in playersWin)
 			{
-				TeamPlayer teamPlayer = new TeamPlayer { Player = player, RatingBefore = player.Rating, Team = teamWin };
-
 				player.Rating = _calc.PlayerRating(player.Rating, loseTeamRating, maxRatingDiff, MatchResult.Win);
-				teamPlayer.RatingAfter = player.Rating;
-				await _context.AddAsync(teamPlayer);
+				await _context.AddAsync(new TeamPlayer { Player = player, Team = teamWin });
 			}
 			foreach (Player player in playersLose)
 			{
-				TeamPlayer teamPlayer = new TeamPlayer { Player = player, RatingBefore = player.Rating, Team = teamLose };
-
 				player.Rating = _calc.PlayerRating(player.Rating, winTeamRating, maxRatingDiff, MatchResult.Lose);
-				teamPlayer.RatingAfter = player.Rating;
-				await _context.AddAsync(teamPlayer);
+				await _context.AddAsync(new TeamPlayer { Player = player, Team = teamLose });
 			}
 
 

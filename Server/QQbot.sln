@@ -7,11 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QQbot.Api", "QQbot.Api\QQbo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QQbot.Api.Tests", "QQbot.Api.Tests\QQbot.Api.Tests.csproj", "{CFFBF475-C2D8-4B2C-8FFA-7B9F7D87D4DF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QQbot.BusinessLayer", "QQbot.BusinessLayer\QQbot.BusinessLayer.csproj", "{0F87B38A-BA60-4E6A-BAF5-DEBAC9848AAF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QQbot.BusinessLayer", "QQbot.BusinessLayer\QQbot.BusinessLayer.csproj", "{0F87B38A-BA60-4E6A-BAF5-DEBAC9848AAF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QQbot.ServiceLayer", "QQbot.ServiceLayer\QQbot.ServiceLayer.csproj", "{30D96EB7-C63D-47B7-A66C-903D76C8FB3A}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QQbot.DataAccessLayer", "QQbot.DataAccessLayer\QQbot.DataAccessLayer.csproj", "{27BBC2F3-184D-42D4-A882-9608855ACB3D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QQbot.DataAccessLayer", "QQbot.DataAccessLayer\QQbot.DataAccessLayer.csproj", "{27BBC2F3-184D-42D4-A882-9608855ACB3D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,10 +29,6 @@ Global
 		{0F87B38A-BA60-4E6A-BAF5-DEBAC9848AAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0F87B38A-BA60-4E6A-BAF5-DEBAC9848AAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0F87B38A-BA60-4E6A-BAF5-DEBAC9848AAF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{30D96EB7-C63D-47B7-A66C-903D76C8FB3A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{30D96EB7-C63D-47B7-A66C-903D76C8FB3A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{30D96EB7-C63D-47B7-A66C-903D76C8FB3A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{30D96EB7-C63D-47B7-A66C-903D76C8FB3A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{27BBC2F3-184D-42D4-A882-9608855ACB3D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{27BBC2F3-184D-42D4-A882-9608855ACB3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{27BBC2F3-184D-42D4-A882-9608855ACB3D}.Release|Any CPU.ActiveCfg = Release|Any CPU

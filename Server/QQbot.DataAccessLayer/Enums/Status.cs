@@ -4,6 +4,6 @@
 	{
 		Disabled,
 		PendingReview,
-		Active
+		Approved
 	}
 }

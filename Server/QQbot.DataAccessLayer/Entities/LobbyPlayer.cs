@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace QQbot.DataAccessLayer.Entities
 {
 	[Table("Lobby")]
-	public class Lobby
+	public class LobbyPlayer
 	{
 		[Key]
 		public int Id { get; set; }

@@ -1,10 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using QQbot.DataAccessLayer.Entities.Base;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace QQbot.DataAccessLayer.Entities
 {
 	[Table("Players")]
-	public class Player
+	public class Player : AdminActionBase
 	{
 		[Key]
 		public int Id { get; set; }

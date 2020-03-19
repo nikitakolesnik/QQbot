@@ -12,7 +12,6 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
 using QQbot.DataAccessLayer.Contexts;
-using QQbot.ServiceLayer;
 using QQbot.BusinessLayer;
 
 namespace QQbot.Api
@@ -30,47 +29,24 @@ namespace QQbot.Api
 		public void ConfigureServices(IServiceCollection services)
 		{
 			services.AddControllers();
+			services.AddDbContext<ApplicationDbContext>(o => o.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=QQbotDB;Trusted_Connection=true;"));
 
-			services.AddDbContext<ApplicationDbContext>(o =>
-				o.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=QQbotDB;Trusted_Connection=true;")
-			);
-
-			// SL
-			services.AddScoped<IMatchService,  MatchService>();
-			services.AddScoped<IPlayerService, PlayerService>();
-			services.AddScoped<IQueueService,  QueueService>();
-
-			// BL
 			services.AddScoped<IMatchRepository,  MatchRepository>();
 			services.AddScoped<IPlayerRepository, PlayerRepository>();
-			services.AddScoped<IQueueRepository,  QueueRepository>();
+			services.AddScoped<ILobbyRepository,  LobbyRepository>();
 			services.AddScoped<IRatingCalculator, RatingCalculator>();
-
-			// DAL
-			// ...
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
 		{
-			if (env.IsDevelopment())
-			{
-				app.UseDeveloperExceptionPage();
-			}
-
+			if (env.IsDevelopment()) { app.UseDeveloperExceptionPage(); }
 			app.UseHttpsRedirection();
-
 			app.UseRouting();
-
 			app.UseAuthorization();
-
 			app.UseDefaultFiles(); // https://stackoverflow.com/a/49126167/10874809
 			app.UseStaticFiles();  // ^
-
-			app.UseEndpoints(endpoints =>
-			{
-				endpoints.MapControllers();
-			});
+			app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
 		}
 	}
 }

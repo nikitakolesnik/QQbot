@@ -8,9 +8,9 @@ namespace QQbot.ServiceLayer
 {
 	public class QueueService : IQueueService
 	{
-		private readonly IQueueRepository _repository;
+		private readonly ILobbyRepository _repository;
 
-		public QueueService(IQueueRepository repository)
+		public QueueService(ILobbyRepository repository)
 		{
 			_repository = repository ?? throw new ArgumentNullException(nameof(repository));
 		}

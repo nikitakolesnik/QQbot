@@ -8,7 +8,7 @@ namespace QQbot.DataAccessLayer.Contexts
 	{
 		public DbSet<Player> Players { get; set; }
 		public DbSet<Match> Matches { get; set; }
-		public DbSet<Lobby> Lobby { get; set; } // Singular - only one lobby ever exists
+		public DbSet<LobbyPlayer> LobbyPlayers { get; set; }
 		public DbSet<Team> Teams { get; set; }
 		public DbSet<TeamPlayer> TeamPlayers { get; set; }
 
@@ -21,6 +21,7 @@ namespace QQbot.DataAccessLayer.Contexts
 		{
 			modelBuilder.Entity<Player>().HasIndex(p => p.Name).IsUnique();
 			modelBuilder.Entity<Player>().HasIndex(p => p.DiscordId).IsUnique();
+			modelBuilder.Entity<LobbyPlayer>().HasIndex(p => p.Player).IsUnique();
 
 			var players = HardCodedPlayerData.GetPlayers();
 

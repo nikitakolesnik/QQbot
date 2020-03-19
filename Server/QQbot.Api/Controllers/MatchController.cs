@@ -22,32 +22,10 @@ namespace QQbot.Api.Controllers
 		 * Who played in match 45                          - api/match/45             GET
 		 * Get 10 last active matches                      - api/match/history/10     GET
 		 * Get 10 last active matches involving player 123 - api/match/history/10/123 GET
-		 * Submit match                                    - api/match                POST
+		 * Submit match                                    - api/match                POST (with body)
 		 * Edit match 45                                   - api/match/45             PUT
 		 * Activate/disable match 45                       - api/match/45/action/1    PUT
-		 */ 
+		 */
 
-		[HttpPost]
-		public async Task<IActionResult> RecordMatch([FromBody] int[] winningIds, [FromBody] int[] losingIds)
-		{
-			await _matchRepository.RecordMatchAsync(
-				await _playerRepository.GetPlayersByIdsAsync(winningIds),
-				await _playerRepository.GetPlayersByIdsAsync(losingIds)
-			);
-
-			return Ok();
-		}
-
-		//[HttpGet]
-		//[Route("discordId")]
-		//public async Task<IActionResult> RecordMatch([FromBody] long[] winningDiscordIds, [FromBody] long[] losingDiscordIds)
-		//{
-		//	await _matchRepository.RecordMatchAsync(
-		//		await _playerRepository.GetPlayersByDiscordIdsAsync(winningDiscordIds),
-		//		await _playerRepository.GetPlayersByDiscordIdsAsync(losingDiscordIds)
-		//	);
-
-		//	return Ok();
-		//}
 	}
 }

@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using QQbot.DataAccessLayer.Models;
+using QQbot.DataAccessLayer.Enums;
 
 namespace QQbot.BusinessLayer
 {
@@ -18,34 +19,50 @@ namespace QQbot.BusinessLayer
 			_context = context ?? throw new ArgumentNullException(nameof(context));
 		}
 
-		public async Task<Player> GetPlayerByIdAsync(int id)
+		//public async Task<Player> ActionPlayerAsync(int id, Status action)
+		//{
+		//	throw new NotImplementedException();
+		//}
+
+		public async Task AddPlayerAsync(Player player)
 		{
-			return await _context.Players.Where(p => p.Id == id).FirstAsync();
+			await _context.Players.AddAsync(player);
+			await _context.SaveChangesAsync();
 		}
 
-		public async Task<Player> GetPlayerByDiscordIdAsync(long discordId)
+		public async Task<Player> ChangeDiscordAsync(int id, long newDiscord)
 		{
-			return await _context.Players.Where(p => p.DiscordId == discordId).FirstAsync();
+			Player player = await _context.Players.Where(p => p.Id == id).SingleAsync();
+			player.DiscordId = newDiscord;
+			await _context.SaveChangesAsync();
+			return player;
 		}
 
-		public async Task<IEnumerable<Player>> GetPlayersByIdsAsync(int[] playerIds) // [1, 2, 3, ...]
+		public async Task<Player> ChangeNameAsync(int id, string newName)
 		{
-			return await _context.Players
-				.Where(p => playerIds.Contains(p.Id))
-				.ToListAsync();
-		}
-
-		public async Task<IEnumerable<Player>> GetPlayersByDiscordIdsAsync(long[] discordIds) // [240413827718578177, 175325337196953600, 287275232236929026, ...]
-		{
-			return await _context.Players
-				.Where(p => discordIds.Contains(p.DiscordId))
-				.ToListAsync();
+			Player player = await _context.Players.Where(p => p.Id == id).SingleAsync();
+			player.Name = newName;
+			await _context.SaveChangesAsync();
+			return player;
 		}
 
 		public async Task<IEnumerable<LeaderboardPlayer>> GetLeaderboardAsync()
 		{
-			throw new NotImplementedException();
-			//return await _context.Players.ToListAsync();
+			List<Player> players = await _context.Players.OrderByDescending(x => x.Rating).ToListAsync();
+			
+			List<LeaderboardPlayer> leaderboard = new List<LeaderboardPlayer>();
+			int rank = 1;
+			foreach (var player in players)
+			{
+				leaderboard.Add(new LeaderboardPlayer { Rank = rank++, Name = player.Name, Rating = player.Rating });
+			}
+
+			return leaderboard;
 		}
+
+		//public async Task<PlayerProfile> GetProfileByIdAsync(int id)
+		//{
+		//	throw new NotImplementedException();
+		//}
 	}
 }
