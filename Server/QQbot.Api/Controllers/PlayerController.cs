@@ -27,13 +27,19 @@ namespace QQbot.Api.Controllers
 		 * Activate/disable player 123                          - api/players/123/action/1     PUT
 		 */
 
-		//[HttpGet]
-		//public async Task<ActionResult<IEnumerable<Player>>> Leaderboard()
-		//{
-		//	var players = await _repository.GetLeaderboardAsync();
-
-		//	return Ok(players);
-		//}
+		[HttpGet]
+		public async Task<ActionResult<IEnumerable<Player>>> Leaderboard()
+		{
+			try
+			{
+				var players = await _repository.GetLeaderboardAsync();
+				return Ok(players);
+			}
+			catch (Exception ex)
+			{
+				return BadRequest(ex.Message);
+			}
+		}
 
 		//[HttpGet]
 		//[Route("{id:int}/profile/{results:int}")]
@@ -42,11 +48,19 @@ namespace QQbot.Api.Controllers
 		//	throw new NotImplementedException();
 		//}
 
-		//[HttpPost]
-		//public async Task<ActionResult<Player>> RegisterPlayer()
-		//{
-		//	throw new NotImplementedException();
-		//}
+		[HttpPost]
+		public async Task<ActionResult<Player>> RegisterPlayer([FromBody]SubmittedPlayer playerInfo)
+		{
+			try
+			{
+				Player newPlayer = await _repository.AddPlayerAsync(playerInfo);
+				return Ok(newPlayer);
+			}	
+			catch (Exception ex)
+			{
+				return BadRequest(ex.Message);
+			}
+		}
 
 		//[HttpPut]
 		//[Route("{id:int}")]

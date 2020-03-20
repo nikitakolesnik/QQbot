@@ -5,8 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using QQbot.DataAccessLayer.Models;
 using QQbot.DataAccessLayer.Enums;
+using QQbot.DataAccessLayer.Models;
 
 namespace QQbot.BusinessLayer
 {
@@ -24,10 +24,12 @@ namespace QQbot.BusinessLayer
 		//	throw new NotImplementedException();
 		//}
 
-		public async Task AddPlayerAsync(Player player)
+		public async Task<Player> AddPlayerAsync(SubmittedPlayer playerInfo)
 		{
-			await _context.Players.AddAsync(player);
+			Player newPlayer = new Player { Name = playerInfo.Name, DiscordId = playerInfo.Discord, Status = Status.PendingReview };
+			await _context.Players.AddAsync(newPlayer);
 			await _context.SaveChangesAsync();
+			return newPlayer;
 		}
 
 		public async Task<Player> ChangeDiscordAsync(int id, long newDiscord)

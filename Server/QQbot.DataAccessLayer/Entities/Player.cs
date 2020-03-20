@@ -16,6 +16,6 @@ namespace QQbot.DataAccessLayer.Entities
 		[MaxLength(20)]
 		public string Name { get; set; }
 
-		public int Rating { get; set; }
+		public int Rating { get; set; } = 1000; // some default value
 	}
 }
