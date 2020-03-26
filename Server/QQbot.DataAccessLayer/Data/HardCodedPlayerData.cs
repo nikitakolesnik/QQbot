@@ -7,23 +7,8 @@ namespace QQbot.DataAccessLayer.Data
 {
 	public static class HardCodedPlayerData
 	{
-		//public static Player GetAdmin()
-		//{
-		//	return new Player()
-		//	{
-		//		Name = "Slam",
-		//		DiscordId = 240413827718578177,
-		//		Id = 1,
-		//		Status = Status.Approved,
-		//		ActionDate = DateTime.Now,
-		//		ActionedBy = null
-		//	};
-		//}
-
 		public static IEnumerable<Player> GetPlayers()
 		{
-			//Player admin = GetAdmin();
-
 			List<Player> players = new List<Player>
 			{ 
 				new Player()
@@ -127,9 +112,6 @@ namespace QQbot.DataAccessLayer.Data
 			{
 				player.Id = count++;
 				player.Status = Status.Approved;
-				player.ActionDate = DateTime.Now;
-				//player.ActionedBy = admin;
-				player.ActionedById = 1;
 			}
 
 			return players;
