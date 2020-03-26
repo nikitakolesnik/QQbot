@@ -30,7 +30,7 @@ namespace QQbot.BusinessLayer
 
 		public async Task<LobbyPlayer> AddPlayerByDiscordIdAsync(long discordId)
 		{
-			Player player = await _context.Players.Where(p => p.DiscordId == discordId).SingleAsync();
+			Player player = await _context.Players.Where(p => p.Discord == discordId).SingleAsync();
 			LobbyPlayer lobbyPlayer = new LobbyPlayer { Player = player };
 
 			await _context.LobbyPlayers.AddAsync(lobbyPlayer);
@@ -63,7 +63,7 @@ namespace QQbot.BusinessLayer
 				throw new ArgumentException();
 			}
 
-			Player player = await _context.Players.Where(p => p.DiscordId == discordId).SingleAsync();
+			Player player = await _context.Players.Where(p => p.Discord == discordId).SingleAsync();
 			LobbyPlayer lobbyPlayer = await _context.LobbyPlayers.Where(p => p.Player == player).SingleAsync();
 
 			lobbyPlayer.TeamNumber = (TeamNumber)team;
@@ -84,7 +84,7 @@ namespace QQbot.BusinessLayer
 
 		public async Task KickPlayerByDiscordIdAsync(long discordId)
 		{
-			Player player = await _context.Players.Where(p => p.DiscordId == discordId).SingleAsync();
+			Player player = await _context.Players.Where(p => p.Discord == discordId).SingleAsync();
 			LobbyPlayer lobbyPlayer = new LobbyPlayer { Player = player };
 
 			_context.LobbyPlayers.Remove(lobbyPlayer);

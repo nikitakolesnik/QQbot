@@ -9,8 +9,10 @@ namespace QQbot.DataAccessLayer.Entities
 		[Key]
 		public int Id { get; set; }
 
+		public Team Team { get; set; }
+
 		public Player Player { get; set; }
 
-		public Team Team { get; set; }
+		public int PlayerId { get; set; }
 	}
 }

@@ -13,6 +13,8 @@ namespace QQbot.DataAccessLayer.Entities
 
 		public Player Player { get; set; }
 
+		public int PlayerId { get; set; }
+
 		public TeamNumber TeamNumber { get; set; } = TeamNumber.None;
 
 		public DateTime Joined { get; set; } = DateTime.UtcNow;

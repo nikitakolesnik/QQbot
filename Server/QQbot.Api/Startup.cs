@@ -29,7 +29,7 @@ namespace QQbot.Api
 		public void ConfigureServices(IServiceCollection services)
 		{
 			services.AddControllers();
-			services.AddDbContext<ApplicationDbContext>(o => o.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=QQbotDB;Trusted_Connection=true;"));
+			services.AddDbContext<ApplicationDbContext>(a => a.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=QQbotDB;Trusted_Connection=true;", b => b.MigrationsAssembly("QQbot.Api")));
 
 			services.AddScoped<IMatchRepository,  MatchRepository>();
 			services.AddScoped<IPlayerRepository, PlayerRepository>();

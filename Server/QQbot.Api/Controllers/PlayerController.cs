@@ -51,6 +51,9 @@ namespace QQbot.Api.Controllers
 		[HttpPost]
 		public async Task<ActionResult<Player>> RegisterPlayer([FromBody]SubmittedPlayer playerInfo)
 		{
+			if (!ModelState.IsValid)
+				return BadRequest("Invalid input!");
+
 			try
 			{
 				Player newPlayer = await _repository.AddPlayerAsync(playerInfo);

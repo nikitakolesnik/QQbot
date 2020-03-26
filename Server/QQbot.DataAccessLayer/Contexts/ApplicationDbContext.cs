@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using QQbot.DataAccessLayer.Data;
 using QQbot.DataAccessLayer.Entities;
+using System.Collections.Generic;
 
 namespace QQbot.DataAccessLayer.Contexts
 {
@@ -19,12 +20,13 @@ namespace QQbot.DataAccessLayer.Contexts
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
-			modelBuilder.Entity<Player>().HasIndex(p => p.Name).IsUnique();
-			modelBuilder.Entity<Player>().HasIndex(p => p.DiscordId).IsUnique();
-			modelBuilder.Entity<LobbyPlayer>().HasIndex(p => p.Player).IsUnique();
+			modelBuilder.Entity<Player>(b =>
+			{
+				b.HasIndex(p => p.Name).IsUnique();
+				b.HasIndex(p => p.Discord).IsUnique();
+			});
 
-			var players = HardCodedPlayerData.GetPlayers();
-
+			IEnumerable<Player> players = HardCodedPlayerData.GetPlayers();
 			foreach (var player in players)
 			{
 				modelBuilder.Entity<Player>().HasData(player);

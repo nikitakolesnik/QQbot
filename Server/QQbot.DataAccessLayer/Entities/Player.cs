@@ -10,7 +10,7 @@ namespace QQbot.DataAccessLayer.Entities
 		[Key]
 		public int Id { get; set; }
 
-		public long DiscordId { get; set; } // example: 240413827718578177
+		public long Discord { get; set; } // example: 240413827718578177
 
 		[Required]
 		[MaxLength(20)]
