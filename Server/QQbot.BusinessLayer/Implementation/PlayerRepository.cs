@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using QQbot.DataAccessLayer.Enums;
 using QQbot.DataAccessLayer.Models;
 
-namespace QQbot.BusinessLayer
+namespace QQbot.BusinessLayer.Implementation
 {
 	public class PlayerRepository : IPlayerRepository
 	{

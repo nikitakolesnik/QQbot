@@ -13,6 +13,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
 using QQbot.DataAccessLayer.Contexts;
 using QQbot.BusinessLayer;
+using QQbot.BusinessLayer.Implementation;
 
 namespace QQbot.Api
 {
@@ -35,6 +36,7 @@ namespace QQbot.Api
 			services.AddScoped<IPlayerRepository, PlayerRepository>();
 			services.AddScoped<ILobbyRepository,  LobbyRepository>();
 			services.AddScoped<IRatingCalculator, RatingCalculator>();
+			services.AddScoped<IAdminRepository,  AdminRepository>();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

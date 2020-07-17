@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace QQbot.BusinessLayer
+namespace QQbot.BusinessLayer.Implementation
 {
 	public class RatingCalculator : IRatingCalculator
 	{

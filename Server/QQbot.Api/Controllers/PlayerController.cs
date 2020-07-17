@@ -12,11 +12,13 @@ namespace QQbot.Api.Controllers
 	[Route("/api/players")]
 	public class PlayerController : ControllerBase
 	{
-		private readonly IPlayerRepository _repository;
+		private readonly IAdminRepository _adminRepository;
+		private readonly IPlayerRepository _playerRepository;
 
-		public PlayerController(IPlayerRepository repository)
+		public PlayerController(IAdminRepository adminRepository, IPlayerRepository playerRepository)
 		{
-			_repository = repository ?? throw new ArgumentNullException(nameof(repository));
+			_adminRepository = adminRepository ?? throw new ArgumentNullException(nameof(adminRepository));
+			_playerRepository = playerRepository ?? throw new ArgumentNullException(nameof(playerRepository));
 		}
 
 		/*
@@ -32,7 +34,7 @@ namespace QQbot.Api.Controllers
 		{
 			try
 			{
-				var players = await _repository.GetLeaderboardAsync();
+				var players = await _playerRepository.GetLeaderboardAsync();
 				return Ok(players);
 			}
 			catch (Exception ex)
@@ -52,11 +54,13 @@ namespace QQbot.Api.Controllers
 		public async Task<ActionResult<Player>> RegisterPlayer([FromBody]SubmittedPlayer playerInfo)
 		{
 			if (!ModelState.IsValid)
+			{
 				return BadRequest("Invalid input!");
+			}
 
 			try
 			{
-				Player newPlayer = await _repository.AddPlayerAsync(playerInfo);
+				Player newPlayer = await _playerRepository.AddPlayerAsync(playerInfo);
 				return Ok(newPlayer);
 			}	
 			catch (Exception ex)

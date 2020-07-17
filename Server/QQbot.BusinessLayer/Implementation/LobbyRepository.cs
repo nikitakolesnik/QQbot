@@ -6,7 +6,7 @@ using QQbot.DataAccessLayer.Contexts;
 using QQbot.DataAccessLayer.Entities;
 using QQbot.DataAccessLayer.Enums;
 
-namespace QQbot.BusinessLayer
+namespace QQbot.BusinessLayer.Implementation
 {
 	public class LobbyRepository : ILobbyRepository
 	{

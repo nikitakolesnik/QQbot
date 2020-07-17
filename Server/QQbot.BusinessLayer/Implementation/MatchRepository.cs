@@ -7,7 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace QQbot.BusinessLayer
+namespace QQbot.BusinessLayer.Implementation
 {
 	public class MatchRepository : IMatchRepository
 	{

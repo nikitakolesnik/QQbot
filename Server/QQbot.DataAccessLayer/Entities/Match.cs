@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace QQbot.DataAccessLayer.Entities
 {
 	[Table("Matches")]
-	public class Match : AdminActionBase
+	public class Match : EntryBase
 	{
 		[Key]
 		public int Id { get; set; }

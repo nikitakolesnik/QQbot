@@ -18,10 +18,10 @@ namespace QQbot.DataAccessLayer.Entities
 
 		public AdminActionType Type { get; set; }
 		
-		public Player SubjectPlayer { get; set; }
 		public int? SubjectPlayerId { get; set; }
+		public Player SubjectPlayer { get; set; }
 		
-		public Match SubjectMatch { get; set; }
 		public int? SubjectMatchId { get; set; }
+		public Match SubjectMatch { get; set; }
 	}
 }
