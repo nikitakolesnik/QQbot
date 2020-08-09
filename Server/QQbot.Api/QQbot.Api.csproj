@@ -22,7 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\QQbot.BusinessLayer\QQbot.Repositories.csproj" />
+    <ProjectReference Include="..\QQbot.Repositories\QQbot.Repositories.csproj" />
   </ItemGroup>
 
 </Project>

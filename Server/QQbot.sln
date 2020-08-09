@@ -4,14 +4,21 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 16.0.29326.143
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QQbot.Api", "QQbot.Api\QQbot.Api.csproj", "{A09EB276-DEE1-4709-ABDB-3F059838FB35}"
+	ProjectSection(ProjectDependencies) = postProject
+		{0F87B38A-BA60-4E6A-BAF5-DEBAC9848AAF} = {0F87B38A-BA60-4E6A-BAF5-DEBAC9848AAF}
+		{27BBC2F3-184D-42D4-A882-9608855ACB3D} = {27BBC2F3-184D-42D4-A882-9608855ACB3D}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QQbot.Api.Tests", "QQbot.Api.Tests\QQbot.Api.Tests.csproj", "{CFFBF475-C2D8-4B2C-8FFA-7B9F7D87D4DF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QQbot.Repositories", "QQbot.BusinessLayer\QQbot.Repositories.csproj", "{0F87B38A-BA60-4E6A-BAF5-DEBAC9848AAF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QQbot.Repositories", "QQbot.Repositories\QQbot.Repositories.csproj", "{0F87B38A-BA60-4E6A-BAF5-DEBAC9848AAF}"
+	ProjectSection(ProjectDependencies) = postProject
+		{27BBC2F3-184D-42D4-A882-9608855ACB3D} = {27BBC2F3-184D-42D4-A882-9608855ACB3D}
+	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QQbot.DataAccess", "QQbot.DataAccessLayer\QQbot.DataAccess.csproj", "{27BBC2F3-184D-42D4-A882-9608855ACB3D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QQbot.DataAccess", "QQbot.DataAccess\QQbot.DataAccess.csproj", "{27BBC2F3-184D-42D4-A882-9608855ACB3D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiscordBot", "DiscordBot\DiscordBot.csproj", "{2548E972-534C-4DAE-888A-934D999F30E9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DiscordBot", "DiscordBot\DiscordBot.csproj", "{2548E972-534C-4DAE-888A-934D999F30E9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
