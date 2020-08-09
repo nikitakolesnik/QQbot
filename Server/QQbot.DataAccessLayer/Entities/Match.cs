@@ -1,9 +1,9 @@
-﻿using QQbot.DataAccessLayer.Entities.Base;
+﻿using QQbot.DataAccess.Entities.Base;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace QQbot.DataAccessLayer.Entities
+namespace QQbot.DataAccess.Entities
 {
 	[Table("Matches")]
 	public class Match : EntryBase

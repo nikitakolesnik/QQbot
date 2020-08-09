@@ -1,3 +1,6 @@
+BotToken.cs
+
+.gitignore
 bin
 obj
 .vs

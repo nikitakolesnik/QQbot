@@ -1,14 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using QQbot.DataAccessLayer.Entities;
-using QQbot.DataAccessLayer.Contexts;
+using QQbot.DataAccess.Entities;
+using QQbot.DataAccess.Contexts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using QQbot.DataAccessLayer.Enums;
-using QQbot.DataAccessLayer.Models;
+using QQbot.DataAccess.Enums;
+using QQbot.DataAccess.Models;
 
-namespace QQbot.BusinessLayer.Implementation
+namespace QQbot.Repositories.Implementation
 {
 	public class PlayerRepository : IPlayerRepository
 	{

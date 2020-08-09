@@ -1,7 +1,7 @@
-﻿using QQbot.DataAccessLayer.Entities;
+﻿using QQbot.DataAccess.Entities;
 using System.Threading.Tasks;
 
-namespace QQbot.BusinessLayer
+namespace QQbot.Repositories
 {
 	public interface ILobbyRepository
 	{

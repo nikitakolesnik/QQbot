@@ -1,4 +1,4 @@
-﻿namespace QQbot.DataAccessLayer.Enums
+﻿namespace QQbot.DataAccess.Enums
 {
 	public enum AdminActionType
 	{

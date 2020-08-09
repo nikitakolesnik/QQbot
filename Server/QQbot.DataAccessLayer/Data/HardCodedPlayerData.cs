@@ -1,9 +1,9 @@
-﻿using QQbot.DataAccessLayer.Entities;
-using QQbot.DataAccessLayer.Enums;
+﻿using QQbot.DataAccess.Entities;
+using QQbot.DataAccess.Enums;
 using System;
 using System.Collections.Generic;
 
-namespace QQbot.DataAccessLayer.Data
+namespace QQbot.DataAccess.Data
 {
 	public static class HardCodedPlayerData
 	{

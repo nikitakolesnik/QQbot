@@ -1,13 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using QQbot.DataAccessLayer.Contexts;
-using QQbot.DataAccessLayer.Entities;
-using QQbot.DataAccessLayer.Enums;
+using QQbot.DataAccess.Contexts;
+using QQbot.DataAccess.Entities;
+using QQbot.DataAccess.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace QQbot.BusinessLayer.Implementation
+namespace QQbot.Repositories.Implementation
 {
 	public class AdminRepository : IAdminRepository
 	{

@@ -2,11 +2,11 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using QQbot.DataAccessLayer.Contexts;
-using QQbot.DataAccessLayer.Entities;
-using QQbot.DataAccessLayer.Enums;
+using QQbot.DataAccess.Contexts;
+using QQbot.DataAccess.Entities;
+using QQbot.DataAccess.Enums;
 
-namespace QQbot.BusinessLayer.Implementation
+namespace QQbot.Repositories.Implementation
 {
 	public class LobbyRepository : ILobbyRepository
 	{

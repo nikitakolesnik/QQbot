@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using QQbot.DataAccessLayer.Contexts;
+using QQbot.DataAccess.Contexts;
 
 namespace QQbot.Api.Migrations
 {

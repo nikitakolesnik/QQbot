@@ -1,10 +1,10 @@
-﻿using QQbot.DataAccessLayer.Entities;
-using QQbot.DataAccessLayer.Enums;
+﻿using QQbot.DataAccess.Entities;
+using QQbot.DataAccess.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace QQbot.BusinessLayer.Implementation
+namespace QQbot.Repositories.Implementation
 {
 	public class RatingCalculator : IRatingCalculator
 	{

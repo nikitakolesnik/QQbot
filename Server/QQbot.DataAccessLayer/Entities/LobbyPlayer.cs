@@ -1,9 +1,9 @@
-﻿using QQbot.DataAccessLayer.Enums;
+﻿using QQbot.DataAccess.Enums;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace QQbot.DataAccessLayer.Entities
+namespace QQbot.DataAccess.Entities
 {
 	[Table("Lobby")]
 	public class LobbyPlayer

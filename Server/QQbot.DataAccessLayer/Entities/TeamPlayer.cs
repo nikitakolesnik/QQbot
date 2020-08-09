@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace QQbot.DataAccessLayer.Entities
+namespace QQbot.DataAccess.Entities
 {
 	[Table("TeamPlayers")]
 	public class TeamPlayer

@@ -1,4 +1,4 @@
-﻿namespace QQbot.DataAccessLayer.Models
+﻿namespace QQbot.DataAccess.Models
 {
 	public class LeaderboardPlayer
 	{

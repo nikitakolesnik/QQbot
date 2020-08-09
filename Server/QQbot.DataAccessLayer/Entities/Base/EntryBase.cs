@@ -1,7 +1,7 @@
-﻿using QQbot.DataAccessLayer.Enums;
+﻿using QQbot.DataAccess.Enums;
 using System;
 
-namespace QQbot.DataAccessLayer.Entities.Base
+namespace QQbot.DataAccess.Entities.Base
 {
 	public abstract class EntryBase
 	{

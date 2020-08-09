@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using QQbot.BusinessLayer;
+using QQbot.Repositories;
 using System;
 using System.Threading.Tasks;
 

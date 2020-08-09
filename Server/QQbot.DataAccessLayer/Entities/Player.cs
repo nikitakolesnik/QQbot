@@ -1,8 +1,8 @@
-﻿using QQbot.DataAccessLayer.Entities.Base;
+﻿using QQbot.DataAccess.Entities.Base;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace QQbot.DataAccessLayer.Entities
+namespace QQbot.DataAccess.Entities
 {
 	[Table("Players")]
 	public class Player : EntryBase

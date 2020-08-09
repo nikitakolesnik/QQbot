@@ -1,6 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using QQbot.DataAccessLayer.Data;
+using QQbot.DataAccess.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;

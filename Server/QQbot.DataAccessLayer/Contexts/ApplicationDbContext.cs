@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using QQbot.DataAccessLayer.Data;
-using QQbot.DataAccessLayer.Entities;
+using QQbot.DataAccess.Data;
+using QQbot.DataAccess.Entities;
 using System.Collections.Generic;
 
-namespace QQbot.DataAccessLayer.Contexts
+namespace QQbot.DataAccess.Contexts
 {
 	public class ApplicationDbContext : DbContext
 	{

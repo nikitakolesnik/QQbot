@@ -1,9 +1,9 @@
-﻿using QQbot.DataAccessLayer.Entities;
-using QQbot.DataAccessLayer.Models;
+﻿using QQbot.DataAccess.Entities;
+using QQbot.DataAccess.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace QQbot.BusinessLayer
+namespace QQbot.Repositories
 {
 	public interface IPlayerRepository
 	{
