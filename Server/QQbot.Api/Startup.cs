@@ -30,7 +30,11 @@ namespace QQbot.Api
 		public void ConfigureServices(IServiceCollection services)
 		{
 			services.AddControllers();
-			services.AddDbContext<ApplicationDbContext>(a => a.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=QQbotDB;Trusted_Connection=true;", b => b.MigrationsAssembly("QQbot.Api")));
+			services.AddDbContext<ApplicationDbContext>(
+				a => a.UseSqlServer(@"Server=(localdb)\mssqllocaldb;"
+					+ @"Database=QQbotDB;"
+					+ @"Trusted_Connection=true;", 
+				b => b.MigrationsAssembly("QQbot.Api")));
 
 			services.AddScoped<IMatchRepository,  MatchRepository>();
 			services.AddScoped<IPlayerRepository, PlayerRepository>();
@@ -42,6 +46,7 @@ namespace QQbot.Api
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
 		{
+			//UpdateDatabase(app);
 			if (env.IsDevelopment()) { app.UseDeveloperExceptionPage(); }
 			app.UseHttpsRedirection();
 			app.UseRouting();
@@ -50,5 +55,19 @@ namespace QQbot.Api
 			app.UseStaticFiles();  // ^
 			app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
 		}
+
+		//private static void UpdateDatabase(IApplicationBuilder app)
+  //      {
+		//	using (var serviceScope = app.ApplicationServices
+		//		.GetRequiredService<IServiceScopeFactory>()
+		//		.CreateScope())
+  //          {
+		//		using (var context = serviceScope.ServiceProvider
+		//			.GetService<ApplicationDbContext>())
+  //              {
+		//			context.Database.Migrate();
+  //              }
+  //          }
+  //      }
 	}
 }

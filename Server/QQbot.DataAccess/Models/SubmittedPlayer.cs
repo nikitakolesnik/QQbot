@@ -1,6 +1,6 @@
 ﻿namespace QQbot.DataAccess.Models
 {
-	public class SubmittedPlayer
+	public class SubmittedPlayer // How a player is initially submitted
 	{
 		public string Name { get; set; }
 		public long Discord { get; set; }

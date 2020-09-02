@@ -9,14 +9,13 @@ namespace QQbot.DataAccess.Contexts
 	{
 		public DbSet<AdminAction> AdminActions { get; set; }
 		public DbSet<LobbyPlayer> LobbyPlayers { get; set; }
-		public DbSet<Match> Matches { get; set; }
-		public DbSet<Player> Players { get; set; }
-		public DbSet<TeamPlayer> TeamPlayers { get; set; }
-		public DbSet<Team> Teams { get; set; }
+		public DbSet<Match>       Matches      { get; set; }
+		public DbSet<Player>      Players      { get; set; }
+		public DbSet<TeamPlayer>  TeamPlayers  { get; set; }
+		public DbSet<Team>        Teams        { get; set; }
 
 		public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
 		{
-			//Database.EnsureCreated();
 		}
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -27,7 +26,12 @@ namespace QQbot.DataAccess.Contexts
 				b.HasIndex(p => p.Discord).IsUnique();
 			});
 
-			IEnumerable<Player> players = HardCodedPlayerData.GetPlayers();
+            modelBuilder.Entity<LobbyPlayer>(b =>
+            {
+                b.HasIndex(lp => lp.PlayerId).IsUnique();
+            });
+
+            IEnumerable<Player> players = HardCodedPlayerData.GetPlayers();
 			foreach (var player in players)
 			{
 				modelBuilder.Entity<Player>().HasData(player);

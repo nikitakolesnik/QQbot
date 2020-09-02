@@ -19,12 +19,25 @@ namespace QQbot.Api.Controllers
 		/*
 		 * Add player 123 to lobby                          - api/lobby/id/123               POST
 		 * Add player with discord 2222222222 to lobby      - api/lobby/discord/2222222222   POST
-		 * Set player 123 to team 2                         - api/lobby/123/2                PUT
+		 * Set player 123 to team 2                         - api/lobby/id/123/team/2        PUT
 		 * Remove player 123 from lobby                     - api/lobby/id/123               DEL
 		 * Remove player with discord 2222222222 from lobby - api/lobby/discord/2222222222   DEL
-		 * Clear team 2                                     - api/lobby/2                    DEL
+		 * Clear team 2                                     - api/lobby/team/2               DEL
 		 * Clear lobby                                      - api/lobby                      DEL
 		 */
+
+		[HttpGet]
+		public async Task<object> GetLobby()
+        {
+			try
+            {
+				return Ok(await _repository.GetLobby());
+            }
+			catch(Exception ex)
+			{
+				return BadRequest(ex.ToString());
+			}
+        }
 
 		[HttpPost]
 		[Route("id/{id:int}")]
@@ -34,60 +47,44 @@ namespace QQbot.Api.Controllers
 			{
 				await _repository.AddPlayerByIdAsync(id);
 			}
-			catch (InvalidOperationException ex)
+			catch (Exception ex)
 			{
-				return BadRequest("Player with ID " + id + " not found | " + ex.Message);
-			}
-			catch (ArgumentNullException ex)
-			{
-				return BadRequest(ex.Message);
+				return BadRequest(ex.ToString());
 			}
 
-			return Ok();
+			return Ok(await _repository.GetLobby());
 		}
 
 		[HttpPost]
 		[Route("discord/{discordId:long}")]
 		public async Task<IActionResult> AddPlayerByDiscordId(long discordId)
 		{
-			try
+            try
 			{
 				await _repository.AddPlayerByDiscordIdAsync(discordId);
 			}
-			catch (InvalidOperationException ex)
+			catch (Exception ex)
 			{
-				return BadRequest("Player with Discord ID " + discordId + " not found | " + ex.Message);
-			}
-			catch (ArgumentNullException ex)
-			{
-				return BadRequest(ex.Message);
+				return BadRequest(ex.ToString());
 			}
 
-			return Ok();
+			return Ok(await _repository.GetLobby());
 		}
 
 		[HttpPut]
-		[Route("{id:int}/{team:int}")]
+		[Route("id/{id:int}/team/{team:int}")]
 		public async Task<IActionResult> SetTeam(int id, int team)
 		{
 			try
 			{
 				await _repository.SetTeamByIdAsync(id, team);
 			}
-			catch (InvalidOperationException ex)
+			catch (Exception ex)
 			{
-				return BadRequest("Player with ID " + id + " not found | " + ex.Message);
-			}
-			catch (ArgumentNullException ex)
-			{
-				return BadRequest(ex.Message);
-			}
-			catch (ArgumentException ex)
-			{
-				return BadRequest("Team argument must be 0, 1, or 2 | " + ex.Message);
+				return BadRequest(ex.ToString());
 			}
 
-			return Ok();
+			return Ok(await _repository.GetLobby());
 		}
 
 		[HttpDelete]
@@ -98,16 +95,12 @@ namespace QQbot.Api.Controllers
 			{
 				await _repository.KickPlayerByIdAsync(id);
 			}
-			catch (InvalidOperationException ex)
+			catch (Exception ex)
 			{
-				return BadRequest("Player with ID " + id + " not found | " + ex.Message);
-			}
-			catch (ArgumentNullException ex)
-			{
-				return BadRequest(ex.Message);
+				return BadRequest(ex.ToString());
 			}
 
-			return Ok();
+			return Ok(await _repository.GetLobby());
 		}
 
 		[HttpDelete]
@@ -118,36 +111,28 @@ namespace QQbot.Api.Controllers
 			{
 				await _repository.KickPlayerByDiscordIdAsync(discordId);
 			}
-			catch (InvalidOperationException ex)
+			catch (Exception ex)
 			{
-				return BadRequest("Player with Discord ID " + discordId + " not found | " + ex.Message);
-			}
-			catch (ArgumentNullException ex)
-			{
-				return BadRequest(ex.Message);
+				return BadRequest(ex.ToString());
 			}
 
-			return Ok();
+			return Ok(await _repository.GetLobby());
 		}
 
 		[HttpDelete]
-		[Route("{team:int}")]
+		[Route("team/{team:int}")]
 		public async Task<IActionResult> ClearTeam(int team)
 		{
 			try
 			{
 				await _repository.ClearTeamAsync(team);
 			}
-			catch (ArgumentNullException ex)
+			catch (Exception ex)
 			{
-				return BadRequest(ex.Message);
-			}
-			catch (ArgumentException ex)
-			{
-				return BadRequest("Team argument must be 0, 1, or 2 | " + ex.Message);
+				return BadRequest(ex.ToString());
 			}
 
-			return Ok();
+			return Ok(await _repository.GetLobby());
 		}
 
 		[HttpDelete]
@@ -162,7 +147,7 @@ namespace QQbot.Api.Controllers
 				return StatusCode(500, ex.Message);
 			}
 
-			return Ok();
+			return Ok(await _repository.GetLobby());
 		}
 	}
 }

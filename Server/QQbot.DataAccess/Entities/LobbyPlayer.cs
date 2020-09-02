@@ -9,14 +9,11 @@ namespace QQbot.DataAccess.Entities
 	public class LobbyPlayer
 	{
 		[Key]
-		public int Id { get; set; }
-
-		public Player Player { get; set; }
-
-		public int PlayerId { get; set; }
-
+		public int        Id         { get; set; }
+		public int        PlayerId   { get; set; }
 		public TeamNumber TeamNumber { get; set; } = TeamNumber.None;
-
-		public DateTime Joined { get; set; } = DateTime.UtcNow;
+		public DateTime   Joined     { get; set; } = DateTime.UtcNow;
+		
+		public Player     Player     { get; set; }
 	}
 }

@@ -92,8 +92,8 @@ namespace QQbot.Api.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    TeamId = table.Column<int>(nullable: true),
-                    PlayerId = table.Column<int>(nullable: false)
+                    PlayerId = table.Column<int>(nullable: false),
+                    TeamId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -109,7 +109,7 @@ namespace QQbot.Api.Migrations
                         column: x => x.TeamId,
                         principalTable: "Teams",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -152,22 +152,22 @@ namespace QQbot.Api.Migrations
                 columns: new[] { "Id", "Discord", "Name", "Rating", "Status", "Submitted" },
                 values: new object[,]
                 {
-                    { 1, 240413827718578177L, "Slam", 1000, 2, new DateTime(2020, 3, 26, 7, 48, 52, 522, DateTimeKind.Utc).AddTicks(2524) },
-                    { 2, 175325337196953600L, "Yoko", 1000, 2, new DateTime(2020, 3, 26, 7, 48, 52, 522, DateTimeKind.Utc).AddTicks(3488) },
-                    { 3, 287275232236929026L, "Candyboy", 1000, 2, new DateTime(2020, 3, 26, 7, 48, 52, 522, DateTimeKind.Utc).AddTicks(3504) },
-                    { 4, 232147476008796161L, "Godly", 1000, 2, new DateTime(2020, 3, 26, 7, 48, 52, 522, DateTimeKind.Utc).AddTicks(3506) },
-                    { 5, 416266623847235584L, "Santana", 1000, 2, new DateTime(2020, 3, 26, 7, 48, 52, 522, DateTimeKind.Utc).AddTicks(3507) },
-                    { 6, 208987498368598016L, "Purif", 1000, 2, new DateTime(2020, 3, 26, 7, 48, 52, 522, DateTimeKind.Utc).AddTicks(3511) },
-                    { 7, 361620009815900170L, "Chrona", 1000, 2, new DateTime(2020, 3, 26, 7, 48, 52, 522, DateTimeKind.Utc).AddTicks(3512) },
-                    { 8, 382998762533945344L, "Lisek", 1000, 2, new DateTime(2020, 3, 26, 7, 48, 52, 522, DateTimeKind.Utc).AddTicks(3527) },
-                    { 9, 277194459576532992L, "Oln", 1000, 2, new DateTime(2020, 3, 26, 7, 48, 52, 522, DateTimeKind.Utc).AddTicks(3528) },
-                    { 10, 288009866080157697L, "Rainy", 1000, 2, new DateTime(2020, 3, 26, 7, 48, 52, 522, DateTimeKind.Utc).AddTicks(3531) },
-                    { 11, 465126942656561152L, "Butters", 1000, 2, new DateTime(2020, 3, 26, 7, 48, 52, 522, DateTimeKind.Utc).AddTicks(3532) },
-                    { 12, 241149128216674305L, "Takida", 1000, 2, new DateTime(2020, 3, 26, 7, 48, 52, 522, DateTimeKind.Utc).AddTicks(3534) },
-                    { 13, 99492885015048192L, "Jo", 1000, 2, new DateTime(2020, 3, 26, 7, 48, 52, 522, DateTimeKind.Utc).AddTicks(3535) },
-                    { 14, 221445321530540032L, "Bounty", 1000, 2, new DateTime(2020, 3, 26, 7, 48, 52, 522, DateTimeKind.Utc).AddTicks(3536) },
-                    { 15, 430796233783640066L, "Cracks", 1000, 2, new DateTime(2020, 3, 26, 7, 48, 52, 522, DateTimeKind.Utc).AddTicks(3538) },
-                    { 16, 242126086983516160L, "Jonas", 1000, 2, new DateTime(2020, 3, 26, 7, 48, 52, 522, DateTimeKind.Utc).AddTicks(3539) }
+                    { 1, 240413827718578177L, "Slam", 1000, 2, new DateTime(2020, 8, 27, 0, 12, 52, 913, DateTimeKind.Utc).AddTicks(4388) },
+                    { 2, 175325337196953600L, "Yoko", 1000, 2, new DateTime(2020, 8, 27, 0, 12, 52, 913, DateTimeKind.Utc).AddTicks(5392) },
+                    { 3, 287275232236929026L, "Candyboy", 1000, 2, new DateTime(2020, 8, 27, 0, 12, 52, 913, DateTimeKind.Utc).AddTicks(5415) },
+                    { 4, 232147476008796161L, "Godly", 1000, 2, new DateTime(2020, 8, 27, 0, 12, 52, 913, DateTimeKind.Utc).AddTicks(5417) },
+                    { 5, 416266623847235584L, "Santana", 1000, 2, new DateTime(2020, 8, 27, 0, 12, 52, 913, DateTimeKind.Utc).AddTicks(5418) },
+                    { 6, 208987498368598016L, "Purif", 1000, 2, new DateTime(2020, 8, 27, 0, 12, 52, 913, DateTimeKind.Utc).AddTicks(5422) },
+                    { 7, 361620009815900170L, "Chrona", 1000, 2, new DateTime(2020, 8, 27, 0, 12, 52, 913, DateTimeKind.Utc).AddTicks(5423) },
+                    { 8, 382998762533945344L, "Lisek", 1000, 2, new DateTime(2020, 8, 27, 0, 12, 52, 913, DateTimeKind.Utc).AddTicks(5425) },
+                    { 9, 277194459576532992L, "Oln", 1000, 2, new DateTime(2020, 8, 27, 0, 12, 52, 913, DateTimeKind.Utc).AddTicks(5426) },
+                    { 10, 288009866080157697L, "Rainy", 1000, 2, new DateTime(2020, 8, 27, 0, 12, 52, 913, DateTimeKind.Utc).AddTicks(5429) },
+                    { 11, 465126942656561152L, "Butters", 1000, 2, new DateTime(2020, 8, 27, 0, 12, 52, 913, DateTimeKind.Utc).AddTicks(5430) },
+                    { 12, 241149128216674305L, "Takida", 1000, 2, new DateTime(2020, 8, 27, 0, 12, 52, 913, DateTimeKind.Utc).AddTicks(5432) },
+                    { 13, 99492885015048192L, "Jo", 1000, 2, new DateTime(2020, 8, 27, 0, 12, 52, 913, DateTimeKind.Utc).AddTicks(5433) },
+                    { 14, 221445321530540032L, "Bounty", 1000, 2, new DateTime(2020, 8, 27, 0, 12, 52, 913, DateTimeKind.Utc).AddTicks(5435) },
+                    { 15, 430796233783640066L, "Cracks", 1000, 2, new DateTime(2020, 8, 27, 0, 12, 52, 913, DateTimeKind.Utc).AddTicks(5436) },
+                    { 16, 242126086983516160L, "Jonas", 1000, 2, new DateTime(2020, 8, 27, 0, 12, 52, 913, DateTimeKind.Utc).AddTicks(5438) }
                 });
 
             migrationBuilder.InsertData(
@@ -175,22 +175,22 @@ namespace QQbot.Api.Migrations
                 columns: new[] { "Id", "AdminId", "SubjectMatchId", "SubjectPlayerId", "Type", "When" },
                 values: new object[,]
                 {
-                    { 1, 1, null, 1, 2, new DateTime(2020, 3, 26, 7, 48, 52, 523, DateTimeKind.Utc).AddTicks(6392) },
-                    { 2, 1, null, 2, 2, new DateTime(2020, 3, 26, 7, 48, 52, 523, DateTimeKind.Utc).AddTicks(8883) },
-                    { 3, 1, null, 3, 2, new DateTime(2020, 3, 26, 7, 48, 52, 523, DateTimeKind.Utc).AddTicks(8970) },
-                    { 4, 1, null, 4, 2, new DateTime(2020, 3, 26, 7, 48, 52, 523, DateTimeKind.Utc).AddTicks(9009) },
-                    { 5, 1, null, 5, 2, new DateTime(2020, 3, 26, 7, 48, 52, 523, DateTimeKind.Utc).AddTicks(9050) },
-                    { 6, 1, null, 6, 2, new DateTime(2020, 3, 26, 7, 48, 52, 523, DateTimeKind.Utc).AddTicks(9088) },
-                    { 7, 1, null, 7, 2, new DateTime(2020, 3, 26, 7, 48, 52, 523, DateTimeKind.Utc).AddTicks(9124) },
-                    { 8, 1, null, 8, 2, new DateTime(2020, 3, 26, 7, 48, 52, 523, DateTimeKind.Utc).AddTicks(9160) },
-                    { 9, 1, null, 9, 2, new DateTime(2020, 3, 26, 7, 48, 52, 523, DateTimeKind.Utc).AddTicks(9198) },
-                    { 10, 1, null, 10, 2, new DateTime(2020, 3, 26, 7, 48, 52, 523, DateTimeKind.Utc).AddTicks(9236) },
-                    { 11, 1, null, 11, 2, new DateTime(2020, 3, 26, 7, 48, 52, 523, DateTimeKind.Utc).AddTicks(9272) },
-                    { 12, 1, null, 12, 2, new DateTime(2020, 3, 26, 7, 48, 52, 523, DateTimeKind.Utc).AddTicks(9308) },
-                    { 13, 1, null, 13, 2, new DateTime(2020, 3, 26, 7, 48, 52, 523, DateTimeKind.Utc).AddTicks(9432) },
-                    { 14, 1, null, 14, 2, new DateTime(2020, 3, 26, 7, 48, 52, 523, DateTimeKind.Utc).AddTicks(9473) },
-                    { 15, 1, null, 15, 2, new DateTime(2020, 3, 26, 7, 48, 52, 523, DateTimeKind.Utc).AddTicks(9508) },
-                    { 16, 1, null, 16, 2, new DateTime(2020, 3, 26, 7, 48, 52, 523, DateTimeKind.Utc).AddTicks(9543) }
+                    { 1, 1, null, 1, 2, new DateTime(2020, 8, 27, 0, 12, 52, 914, DateTimeKind.Utc).AddTicks(9254) },
+                    { 2, 1, null, 2, 2, new DateTime(2020, 8, 27, 0, 12, 52, 915, DateTimeKind.Utc).AddTicks(1815) },
+                    { 3, 1, null, 3, 2, new DateTime(2020, 8, 27, 0, 12, 52, 915, DateTimeKind.Utc).AddTicks(1905) },
+                    { 4, 1, null, 4, 2, new DateTime(2020, 8, 27, 0, 12, 52, 915, DateTimeKind.Utc).AddTicks(1985) },
+                    { 5, 1, null, 5, 2, new DateTime(2020, 8, 27, 0, 12, 52, 915, DateTimeKind.Utc).AddTicks(2029) },
+                    { 6, 1, null, 6, 2, new DateTime(2020, 8, 27, 0, 12, 52, 915, DateTimeKind.Utc).AddTicks(2069) },
+                    { 7, 1, null, 7, 2, new DateTime(2020, 8, 27, 0, 12, 52, 915, DateTimeKind.Utc).AddTicks(2107) },
+                    { 8, 1, null, 8, 2, new DateTime(2020, 8, 27, 0, 12, 52, 915, DateTimeKind.Utc).AddTicks(2146) },
+                    { 9, 1, null, 9, 2, new DateTime(2020, 8, 27, 0, 12, 52, 915, DateTimeKind.Utc).AddTicks(2186) },
+                    { 10, 1, null, 10, 2, new DateTime(2020, 8, 27, 0, 12, 52, 915, DateTimeKind.Utc).AddTicks(2225) },
+                    { 11, 1, null, 11, 2, new DateTime(2020, 8, 27, 0, 12, 52, 915, DateTimeKind.Utc).AddTicks(2263) },
+                    { 12, 1, null, 12, 2, new DateTime(2020, 8, 27, 0, 12, 52, 915, DateTimeKind.Utc).AddTicks(2301) },
+                    { 13, 1, null, 13, 2, new DateTime(2020, 8, 27, 0, 12, 52, 915, DateTimeKind.Utc).AddTicks(2339) },
+                    { 14, 1, null, 14, 2, new DateTime(2020, 8, 27, 0, 12, 52, 915, DateTimeKind.Utc).AddTicks(2377) },
+                    { 15, 1, null, 15, 2, new DateTime(2020, 8, 27, 0, 12, 52, 915, DateTimeKind.Utc).AddTicks(2415) },
+                    { 16, 1, null, 16, 2, new DateTime(2020, 8, 27, 0, 12, 52, 915, DateTimeKind.Utc).AddTicks(2480) }
                 });
 
             migrationBuilder.CreateIndex(
@@ -211,7 +211,8 @@ namespace QQbot.Api.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Lobby_PlayerId",
                 table: "Lobby",
-                column: "PlayerId");
+                column: "PlayerId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Matches_LosingTeamId",

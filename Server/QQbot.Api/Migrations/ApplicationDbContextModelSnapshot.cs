@@ -15,11 +15,11 @@ namespace QQbot.Api.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.2")
+                .HasAnnotation("ProductVersion", "3.1.3")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("QQbot.DataAccessLayer.Entities.AdminAction", b =>
+            modelBuilder.Entity("QQbot.DataAccess.Entities.AdminAction", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -58,7 +58,7 @@ namespace QQbot.Api.Migrations
                             AdminId = 1,
                             SubjectPlayerId = 1,
                             Type = 2,
-                            When = new DateTime(2020, 3, 26, 7, 48, 52, 523, DateTimeKind.Utc).AddTicks(6392)
+                            When = new DateTime(2020, 8, 27, 0, 12, 52, 914, DateTimeKind.Utc).AddTicks(9254)
                         },
                         new
                         {
@@ -66,7 +66,7 @@ namespace QQbot.Api.Migrations
                             AdminId = 1,
                             SubjectPlayerId = 2,
                             Type = 2,
-                            When = new DateTime(2020, 3, 26, 7, 48, 52, 523, DateTimeKind.Utc).AddTicks(8883)
+                            When = new DateTime(2020, 8, 27, 0, 12, 52, 915, DateTimeKind.Utc).AddTicks(1815)
                         },
                         new
                         {
@@ -74,7 +74,7 @@ namespace QQbot.Api.Migrations
                             AdminId = 1,
                             SubjectPlayerId = 3,
                             Type = 2,
-                            When = new DateTime(2020, 3, 26, 7, 48, 52, 523, DateTimeKind.Utc).AddTicks(8970)
+                            When = new DateTime(2020, 8, 27, 0, 12, 52, 915, DateTimeKind.Utc).AddTicks(1905)
                         },
                         new
                         {
@@ -82,7 +82,7 @@ namespace QQbot.Api.Migrations
                             AdminId = 1,
                             SubjectPlayerId = 4,
                             Type = 2,
-                            When = new DateTime(2020, 3, 26, 7, 48, 52, 523, DateTimeKind.Utc).AddTicks(9009)
+                            When = new DateTime(2020, 8, 27, 0, 12, 52, 915, DateTimeKind.Utc).AddTicks(1985)
                         },
                         new
                         {
@@ -90,7 +90,7 @@ namespace QQbot.Api.Migrations
                             AdminId = 1,
                             SubjectPlayerId = 5,
                             Type = 2,
-                            When = new DateTime(2020, 3, 26, 7, 48, 52, 523, DateTimeKind.Utc).AddTicks(9050)
+                            When = new DateTime(2020, 8, 27, 0, 12, 52, 915, DateTimeKind.Utc).AddTicks(2029)
                         },
                         new
                         {
@@ -98,7 +98,7 @@ namespace QQbot.Api.Migrations
                             AdminId = 1,
                             SubjectPlayerId = 6,
                             Type = 2,
-                            When = new DateTime(2020, 3, 26, 7, 48, 52, 523, DateTimeKind.Utc).AddTicks(9088)
+                            When = new DateTime(2020, 8, 27, 0, 12, 52, 915, DateTimeKind.Utc).AddTicks(2069)
                         },
                         new
                         {
@@ -106,7 +106,7 @@ namespace QQbot.Api.Migrations
                             AdminId = 1,
                             SubjectPlayerId = 7,
                             Type = 2,
-                            When = new DateTime(2020, 3, 26, 7, 48, 52, 523, DateTimeKind.Utc).AddTicks(9124)
+                            When = new DateTime(2020, 8, 27, 0, 12, 52, 915, DateTimeKind.Utc).AddTicks(2107)
                         },
                         new
                         {
@@ -114,7 +114,7 @@ namespace QQbot.Api.Migrations
                             AdminId = 1,
                             SubjectPlayerId = 8,
                             Type = 2,
-                            When = new DateTime(2020, 3, 26, 7, 48, 52, 523, DateTimeKind.Utc).AddTicks(9160)
+                            When = new DateTime(2020, 8, 27, 0, 12, 52, 915, DateTimeKind.Utc).AddTicks(2146)
                         },
                         new
                         {
@@ -122,7 +122,7 @@ namespace QQbot.Api.Migrations
                             AdminId = 1,
                             SubjectPlayerId = 9,
                             Type = 2,
-                            When = new DateTime(2020, 3, 26, 7, 48, 52, 523, DateTimeKind.Utc).AddTicks(9198)
+                            When = new DateTime(2020, 8, 27, 0, 12, 52, 915, DateTimeKind.Utc).AddTicks(2186)
                         },
                         new
                         {
@@ -130,7 +130,7 @@ namespace QQbot.Api.Migrations
                             AdminId = 1,
                             SubjectPlayerId = 10,
                             Type = 2,
-                            When = new DateTime(2020, 3, 26, 7, 48, 52, 523, DateTimeKind.Utc).AddTicks(9236)
+                            When = new DateTime(2020, 8, 27, 0, 12, 52, 915, DateTimeKind.Utc).AddTicks(2225)
                         },
                         new
                         {
@@ -138,7 +138,7 @@ namespace QQbot.Api.Migrations
                             AdminId = 1,
                             SubjectPlayerId = 11,
                             Type = 2,
-                            When = new DateTime(2020, 3, 26, 7, 48, 52, 523, DateTimeKind.Utc).AddTicks(9272)
+                            When = new DateTime(2020, 8, 27, 0, 12, 52, 915, DateTimeKind.Utc).AddTicks(2263)
                         },
                         new
                         {
@@ -146,7 +146,7 @@ namespace QQbot.Api.Migrations
                             AdminId = 1,
                             SubjectPlayerId = 12,
                             Type = 2,
-                            When = new DateTime(2020, 3, 26, 7, 48, 52, 523, DateTimeKind.Utc).AddTicks(9308)
+                            When = new DateTime(2020, 8, 27, 0, 12, 52, 915, DateTimeKind.Utc).AddTicks(2301)
                         },
                         new
                         {
@@ -154,7 +154,7 @@ namespace QQbot.Api.Migrations
                             AdminId = 1,
                             SubjectPlayerId = 13,
                             Type = 2,
-                            When = new DateTime(2020, 3, 26, 7, 48, 52, 523, DateTimeKind.Utc).AddTicks(9432)
+                            When = new DateTime(2020, 8, 27, 0, 12, 52, 915, DateTimeKind.Utc).AddTicks(2339)
                         },
                         new
                         {
@@ -162,7 +162,7 @@ namespace QQbot.Api.Migrations
                             AdminId = 1,
                             SubjectPlayerId = 14,
                             Type = 2,
-                            When = new DateTime(2020, 3, 26, 7, 48, 52, 523, DateTimeKind.Utc).AddTicks(9473)
+                            When = new DateTime(2020, 8, 27, 0, 12, 52, 915, DateTimeKind.Utc).AddTicks(2377)
                         },
                         new
                         {
@@ -170,7 +170,7 @@ namespace QQbot.Api.Migrations
                             AdminId = 1,
                             SubjectPlayerId = 15,
                             Type = 2,
-                            When = new DateTime(2020, 3, 26, 7, 48, 52, 523, DateTimeKind.Utc).AddTicks(9508)
+                            When = new DateTime(2020, 8, 27, 0, 12, 52, 915, DateTimeKind.Utc).AddTicks(2415)
                         },
                         new
                         {
@@ -178,11 +178,11 @@ namespace QQbot.Api.Migrations
                             AdminId = 1,
                             SubjectPlayerId = 16,
                             Type = 2,
-                            When = new DateTime(2020, 3, 26, 7, 48, 52, 523, DateTimeKind.Utc).AddTicks(9543)
+                            When = new DateTime(2020, 8, 27, 0, 12, 52, 915, DateTimeKind.Utc).AddTicks(2480)
                         });
                 });
 
-            modelBuilder.Entity("QQbot.DataAccessLayer.Entities.LobbyPlayer", b =>
+            modelBuilder.Entity("QQbot.DataAccess.Entities.LobbyPlayer", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -200,12 +200,13 @@ namespace QQbot.Api.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PlayerId");
+                    b.HasIndex("PlayerId")
+                        .IsUnique();
 
                     b.ToTable("Lobby");
                 });
 
-            modelBuilder.Entity("QQbot.DataAccessLayer.Entities.Match", b =>
+            modelBuilder.Entity("QQbot.DataAccess.Entities.Match", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -236,7 +237,7 @@ namespace QQbot.Api.Migrations
                     b.ToTable("Matches");
                 });
 
-            modelBuilder.Entity("QQbot.DataAccessLayer.Entities.Player", b =>
+            modelBuilder.Entity("QQbot.DataAccess.Entities.Player", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -278,7 +279,7 @@ namespace QQbot.Api.Migrations
                             Name = "Slam",
                             Rating = 1000,
                             Status = 2,
-                            Submitted = new DateTime(2020, 3, 26, 7, 48, 52, 522, DateTimeKind.Utc).AddTicks(2524)
+                            Submitted = new DateTime(2020, 8, 27, 0, 12, 52, 913, DateTimeKind.Utc).AddTicks(4388)
                         },
                         new
                         {
@@ -287,7 +288,7 @@ namespace QQbot.Api.Migrations
                             Name = "Yoko",
                             Rating = 1000,
                             Status = 2,
-                            Submitted = new DateTime(2020, 3, 26, 7, 48, 52, 522, DateTimeKind.Utc).AddTicks(3488)
+                            Submitted = new DateTime(2020, 8, 27, 0, 12, 52, 913, DateTimeKind.Utc).AddTicks(5392)
                         },
                         new
                         {
@@ -296,7 +297,7 @@ namespace QQbot.Api.Migrations
                             Name = "Candyboy",
                             Rating = 1000,
                             Status = 2,
-                            Submitted = new DateTime(2020, 3, 26, 7, 48, 52, 522, DateTimeKind.Utc).AddTicks(3504)
+                            Submitted = new DateTime(2020, 8, 27, 0, 12, 52, 913, DateTimeKind.Utc).AddTicks(5415)
                         },
                         new
                         {
@@ -305,7 +306,7 @@ namespace QQbot.Api.Migrations
                             Name = "Godly",
                             Rating = 1000,
                             Status = 2,
-                            Submitted = new DateTime(2020, 3, 26, 7, 48, 52, 522, DateTimeKind.Utc).AddTicks(3506)
+                            Submitted = new DateTime(2020, 8, 27, 0, 12, 52, 913, DateTimeKind.Utc).AddTicks(5417)
                         },
                         new
                         {
@@ -314,7 +315,7 @@ namespace QQbot.Api.Migrations
                             Name = "Santana",
                             Rating = 1000,
                             Status = 2,
-                            Submitted = new DateTime(2020, 3, 26, 7, 48, 52, 522, DateTimeKind.Utc).AddTicks(3507)
+                            Submitted = new DateTime(2020, 8, 27, 0, 12, 52, 913, DateTimeKind.Utc).AddTicks(5418)
                         },
                         new
                         {
@@ -323,7 +324,7 @@ namespace QQbot.Api.Migrations
                             Name = "Purif",
                             Rating = 1000,
                             Status = 2,
-                            Submitted = new DateTime(2020, 3, 26, 7, 48, 52, 522, DateTimeKind.Utc).AddTicks(3511)
+                            Submitted = new DateTime(2020, 8, 27, 0, 12, 52, 913, DateTimeKind.Utc).AddTicks(5422)
                         },
                         new
                         {
@@ -332,7 +333,7 @@ namespace QQbot.Api.Migrations
                             Name = "Chrona",
                             Rating = 1000,
                             Status = 2,
-                            Submitted = new DateTime(2020, 3, 26, 7, 48, 52, 522, DateTimeKind.Utc).AddTicks(3512)
+                            Submitted = new DateTime(2020, 8, 27, 0, 12, 52, 913, DateTimeKind.Utc).AddTicks(5423)
                         },
                         new
                         {
@@ -341,7 +342,7 @@ namespace QQbot.Api.Migrations
                             Name = "Lisek",
                             Rating = 1000,
                             Status = 2,
-                            Submitted = new DateTime(2020, 3, 26, 7, 48, 52, 522, DateTimeKind.Utc).AddTicks(3527)
+                            Submitted = new DateTime(2020, 8, 27, 0, 12, 52, 913, DateTimeKind.Utc).AddTicks(5425)
                         },
                         new
                         {
@@ -350,7 +351,7 @@ namespace QQbot.Api.Migrations
                             Name = "Oln",
                             Rating = 1000,
                             Status = 2,
-                            Submitted = new DateTime(2020, 3, 26, 7, 48, 52, 522, DateTimeKind.Utc).AddTicks(3528)
+                            Submitted = new DateTime(2020, 8, 27, 0, 12, 52, 913, DateTimeKind.Utc).AddTicks(5426)
                         },
                         new
                         {
@@ -359,7 +360,7 @@ namespace QQbot.Api.Migrations
                             Name = "Rainy",
                             Rating = 1000,
                             Status = 2,
-                            Submitted = new DateTime(2020, 3, 26, 7, 48, 52, 522, DateTimeKind.Utc).AddTicks(3531)
+                            Submitted = new DateTime(2020, 8, 27, 0, 12, 52, 913, DateTimeKind.Utc).AddTicks(5429)
                         },
                         new
                         {
@@ -368,7 +369,7 @@ namespace QQbot.Api.Migrations
                             Name = "Butters",
                             Rating = 1000,
                             Status = 2,
-                            Submitted = new DateTime(2020, 3, 26, 7, 48, 52, 522, DateTimeKind.Utc).AddTicks(3532)
+                            Submitted = new DateTime(2020, 8, 27, 0, 12, 52, 913, DateTimeKind.Utc).AddTicks(5430)
                         },
                         new
                         {
@@ -377,7 +378,7 @@ namespace QQbot.Api.Migrations
                             Name = "Takida",
                             Rating = 1000,
                             Status = 2,
-                            Submitted = new DateTime(2020, 3, 26, 7, 48, 52, 522, DateTimeKind.Utc).AddTicks(3534)
+                            Submitted = new DateTime(2020, 8, 27, 0, 12, 52, 913, DateTimeKind.Utc).AddTicks(5432)
                         },
                         new
                         {
@@ -386,7 +387,7 @@ namespace QQbot.Api.Migrations
                             Name = "Jo",
                             Rating = 1000,
                             Status = 2,
-                            Submitted = new DateTime(2020, 3, 26, 7, 48, 52, 522, DateTimeKind.Utc).AddTicks(3535)
+                            Submitted = new DateTime(2020, 8, 27, 0, 12, 52, 913, DateTimeKind.Utc).AddTicks(5433)
                         },
                         new
                         {
@@ -395,7 +396,7 @@ namespace QQbot.Api.Migrations
                             Name = "Bounty",
                             Rating = 1000,
                             Status = 2,
-                            Submitted = new DateTime(2020, 3, 26, 7, 48, 52, 522, DateTimeKind.Utc).AddTicks(3536)
+                            Submitted = new DateTime(2020, 8, 27, 0, 12, 52, 913, DateTimeKind.Utc).AddTicks(5435)
                         },
                         new
                         {
@@ -404,7 +405,7 @@ namespace QQbot.Api.Migrations
                             Name = "Cracks",
                             Rating = 1000,
                             Status = 2,
-                            Submitted = new DateTime(2020, 3, 26, 7, 48, 52, 522, DateTimeKind.Utc).AddTicks(3538)
+                            Submitted = new DateTime(2020, 8, 27, 0, 12, 52, 913, DateTimeKind.Utc).AddTicks(5436)
                         },
                         new
                         {
@@ -413,11 +414,11 @@ namespace QQbot.Api.Migrations
                             Name = "Jonas",
                             Rating = 1000,
                             Status = 2,
-                            Submitted = new DateTime(2020, 3, 26, 7, 48, 52, 522, DateTimeKind.Utc).AddTicks(3539)
+                            Submitted = new DateTime(2020, 8, 27, 0, 12, 52, 913, DateTimeKind.Utc).AddTicks(5438)
                         });
                 });
 
-            modelBuilder.Entity("QQbot.DataAccessLayer.Entities.Team", b =>
+            modelBuilder.Entity("QQbot.DataAccess.Entities.Team", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -429,7 +430,7 @@ namespace QQbot.Api.Migrations
                     b.ToTable("Teams");
                 });
 
-            modelBuilder.Entity("QQbot.DataAccessLayer.Entities.TeamPlayer", b =>
+            modelBuilder.Entity("QQbot.DataAccess.Entities.TeamPlayer", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -439,7 +440,7 @@ namespace QQbot.Api.Migrations
                     b.Property<int>("PlayerId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("TeamId")
+                    b.Property<int>("TeamId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -451,54 +452,56 @@ namespace QQbot.Api.Migrations
                     b.ToTable("TeamPlayers");
                 });
 
-            modelBuilder.Entity("QQbot.DataAccessLayer.Entities.AdminAction", b =>
+            modelBuilder.Entity("QQbot.DataAccess.Entities.AdminAction", b =>
                 {
-                    b.HasOne("QQbot.DataAccessLayer.Entities.Player", "Admin")
+                    b.HasOne("QQbot.DataAccess.Entities.Player", "Admin")
                         .WithMany()
                         .HasForeignKey("AdminId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("QQbot.DataAccessLayer.Entities.Match", "SubjectMatch")
+                    b.HasOne("QQbot.DataAccess.Entities.Match", "SubjectMatch")
                         .WithMany()
                         .HasForeignKey("SubjectMatchId");
 
-                    b.HasOne("QQbot.DataAccessLayer.Entities.Player", "SubjectPlayer")
+                    b.HasOne("QQbot.DataAccess.Entities.Player", "SubjectPlayer")
                         .WithMany()
                         .HasForeignKey("SubjectPlayerId");
                 });
 
-            modelBuilder.Entity("QQbot.DataAccessLayer.Entities.LobbyPlayer", b =>
+            modelBuilder.Entity("QQbot.DataAccess.Entities.LobbyPlayer", b =>
                 {
-                    b.HasOne("QQbot.DataAccessLayer.Entities.Player", "Player")
+                    b.HasOne("QQbot.DataAccess.Entities.Player", "Player")
                         .WithMany()
                         .HasForeignKey("PlayerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("QQbot.DataAccessLayer.Entities.Match", b =>
+            modelBuilder.Entity("QQbot.DataAccess.Entities.Match", b =>
                 {
-                    b.HasOne("QQbot.DataAccessLayer.Entities.Team", "LosingTeam")
+                    b.HasOne("QQbot.DataAccess.Entities.Team", "LosingTeam")
                         .WithMany()
                         .HasForeignKey("LosingTeamId");
 
-                    b.HasOne("QQbot.DataAccessLayer.Entities.Team", "WinningTeam")
+                    b.HasOne("QQbot.DataAccess.Entities.Team", "WinningTeam")
                         .WithMany()
                         .HasForeignKey("WinningTeamId");
                 });
 
-            modelBuilder.Entity("QQbot.DataAccessLayer.Entities.TeamPlayer", b =>
+            modelBuilder.Entity("QQbot.DataAccess.Entities.TeamPlayer", b =>
                 {
-                    b.HasOne("QQbot.DataAccessLayer.Entities.Player", "Player")
+                    b.HasOne("QQbot.DataAccess.Entities.Player", "Player")
                         .WithMany()
                         .HasForeignKey("PlayerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("QQbot.DataAccessLayer.Entities.Team", "Team")
+                    b.HasOne("QQbot.DataAccess.Entities.Team", "Team")
                         .WithMany()
-                        .HasForeignKey("TeamId");
+                        .HasForeignKey("TeamId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

@@ -7,15 +7,14 @@ namespace QQbot.DataAccess.Entities
 	[Table("Players")]
 	public class Player : EntryBase
 	{
+		private const int _defaultRating = 1000;
+
 		[Key]
-		public int Id { get; set; }
-
-		public long Discord { get; set; } // example: 240413827718578177
-
+		public int    Id      { get; set; }
+		public string Name    { get; set; }
 		[Required]
 		[MaxLength(20)]
-		public string Name { get; set; }
-
-		public int Rating { get; set; } = 1000; // some default value
+		public long   Discord { get; set; } // example: 240413827718578177
+		public int    Rating  { get; set; } = _defaultRating;
 	}
 }
