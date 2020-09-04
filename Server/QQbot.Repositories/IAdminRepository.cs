@@ -1,5 +1,5 @@
 ﻿using QQbot.DataAccess.Entities;
-using QQbot.DataAccess.Enums;
+using QQbot.Enums;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

@@ -5,8 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using QQbot.DataAccess.Enums;
-using QQbot.DataAccess.Models;
+using QQbot.Repositories.Models;
+using QQbot.Enums;
 
 namespace QQbot.Repositories.Implementation
 {

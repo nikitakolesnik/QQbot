@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using QQbot.DataAccess.Contexts;
 using QQbot.DataAccess.Entities;
-using QQbot.DataAccess.Enums;
-using QQbot.DataAccess.Models;
+using QQbot.Enums;
+using QQbot.Repositories.Models;
 
 namespace QQbot.Repositories.Implementation
 {

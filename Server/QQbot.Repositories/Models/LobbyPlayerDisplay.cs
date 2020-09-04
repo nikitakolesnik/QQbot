@@ -1,7 +1,7 @@
-﻿using QQbot.DataAccess.Enums;
+﻿using QQbot.Enums;
 using System;
 
-namespace QQbot.DataAccess.Models
+namespace QQbot.Repositories.Models
 {
     public class LobbyPlayerDisplay
     {

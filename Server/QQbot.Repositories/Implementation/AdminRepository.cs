@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using QQbot.DataAccess.Contexts;
 using QQbot.DataAccess.Entities;
-using QQbot.DataAccess.Enums;
+using QQbot.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;

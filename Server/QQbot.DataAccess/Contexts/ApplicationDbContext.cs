@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using QQbot.DataAccess.Data;
 using QQbot.DataAccess.Entities;
+using QQbot.Enums;
 using System.Collections.Generic;
 
 namespace QQbot.DataAccess.Contexts
@@ -39,7 +40,7 @@ namespace QQbot.DataAccess.Contexts
 				{ 
 					Id = player.Id, 
 					AdminId = 1, 
-					Type = Enums.AdminActionType.ActionPlayer, 
+					Type = AdminActionType.ActionPlayer, 
 					SubjectPlayerId = player.Id 
 				});
 			}

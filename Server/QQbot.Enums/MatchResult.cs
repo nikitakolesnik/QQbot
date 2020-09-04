@@ -1,4 +1,4 @@
-﻿namespace QQbot.DataAccess.Enums
+﻿namespace QQbot.Enums
 {
 	public enum MatchResult
 	{

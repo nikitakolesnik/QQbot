@@ -19,12 +19,12 @@ namespace QQbot.Api.Controllers
 		}
 
 		/*
-		 * Who played in match 45                          - api/match/45             GET
-		 * Get 10 last active matches                      - api/match/history/10     GET
-		 * Get 10 last active matches involving player 123 - api/match/history/10/123 GET
-		 * Submit match                                    - api/match                POST (with body)
-		 * Edit match 45                                   - api/match/45             PUT
-		 * Activate/disable match 45                       - api/match/45/action/1    PUT
+		 * Who played in match 45                          - api/match/45                GET
+		 * Edit match 45                                   - api/match/45                PUT
+		 * Activate/disable match 45                       - api/match/45/action/1       PUT
+		 * Get 10 last active matches                      - api/match/history/10        GET
+		 * Get 10 last active matches involving player 123 - api/match/history/10/id/123 GET
+		 * Submit match                                    - api/match                   POST (with body)
 		 */
 
 	}

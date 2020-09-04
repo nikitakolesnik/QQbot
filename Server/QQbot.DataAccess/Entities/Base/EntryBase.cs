@@ -1,4 +1,4 @@
-﻿using QQbot.DataAccess.Enums;
+﻿using QQbot.Enums;
 using System;
 
 namespace QQbot.DataAccess.Entities.Base

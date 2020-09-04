@@ -1,7 +1,7 @@
 ﻿using QQbot.DataAccess.Entities;
 using System.Collections.Generic;
 
-namespace QQbot.DataAccess.Models
+namespace QQbot.Repositories.Models
 {
 	public class PlayerProfile
 	{
