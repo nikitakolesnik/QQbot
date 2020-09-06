@@ -12,7 +12,7 @@ namespace slambot.DataAccess.Entities
 		public int      Id          { get; set; }
 		public DateTime When        { get; set; } = DateTime.UtcNow;
 
-		public Team     WinningTeam { get; set; }
-		public Team     LosingTeam  { get; set; }
+		public string   WinningTeam { get; set; }
+		public string   LosingTeam  { get; set; }
 	}
 }

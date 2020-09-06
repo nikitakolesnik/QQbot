@@ -30,44 +30,46 @@ namespace slambot.Repositories.Implementation
 			return Math.Abs(max - min);
 		}
 
-		public async Task<int> RecordMatchAsync(IEnumerable<Player> playersWin, IEnumerable<Player> playersLose)
+		public async Task<int> RecordMatchAsync(string winningPlayerIds, string losingPlayerIds)
 		{
-			// Create & Insert new teams
+			throw new NotImplementedException();
 
-			Team teamWin = new Team();
-			Team teamLose = new Team();
+			//// Create & Insert new teams
 
-			await _context.Teams.AddAsync(teamWin);
-			await _context.Teams.AddAsync(teamLose);
-			await _context.SaveChangesAsync();
+			//Team teamWin = new Team();
+			//Team teamLose = new Team();
 
-
-			// Create & Insert the match
-
-			await _context.Matches.AddAsync(new Match { WinningTeam = teamWin, LosingTeam = teamLose });
+			//await _context.Teams.AddAsync(teamWin);
+			//await _context.Teams.AddAsync(teamLose);
+			//await _context.SaveChangesAsync();
 
 
-			// Create TeamPlayer rows, calculate rating change, Insert rows
+			//// Create & Insert the match
 
-			int winTeamRating = _calc.TeamRating(playersWin);
-			int loseTeamRating = _calc.TeamRating(playersLose);
-			int maxRatingDiff = await this.GetMaxRatingDifferenceAsync();
-
-			foreach (Player player in playersWin)
-			{
-				player.Rating = _calc.PlayerRating(player.Rating, loseTeamRating, maxRatingDiff, MatchResult.Win);
-				await _context.AddAsync(new TeamPlayer { Player = player, Team = teamWin });
-			}
-			foreach (Player player in playersLose)
-			{
-				player.Rating = _calc.PlayerRating(player.Rating, winTeamRating, maxRatingDiff, MatchResult.Lose);
-				await _context.AddAsync(new TeamPlayer { Player = player, Team = teamLose });
-			}
+			//await _context.Matches.AddAsync(new Match { WinningTeam = teamWin, LosingTeam = teamLose });
 
 
-			// Done
+			//// Create TeamPlayer rows, calculate rating change, Insert rows
 
-			return await _context.SaveChangesAsync();
+			//int winTeamRating = _calc.TeamRating(playersWin);
+			//int loseTeamRating = _calc.TeamRating(playersLose);
+			//int maxRatingDiff = await this.GetMaxRatingDifferenceAsync();
+
+			//foreach (Player player in playersWin)
+			//{
+			//	player.Rating = _calc.PlayerRating(player.Rating, loseTeamRating, maxRatingDiff, MatchResult.Win);
+			//	await _context.AddAsync(new TeamPlayer { Player = player, Team = teamWin });
+			//}
+			//foreach (Player player in playersLose)
+			//{
+			//	player.Rating = _calc.PlayerRating(player.Rating, winTeamRating, maxRatingDiff, MatchResult.Lose);
+			//	await _context.AddAsync(new TeamPlayer { Player = player, Team = teamLose });
+			//}
+
+
+			//// Done
+
+			//return await _context.SaveChangesAsync();
 		}
 	}
 }

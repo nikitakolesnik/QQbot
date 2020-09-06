@@ -45,7 +45,7 @@ namespace slambot.Api.Controllers
 		{
 			try
 			{
-				await _repository.AddPlayerByIdAsync(id);
+				await _repository.AddPlayerAsync(id);
 			}
 			catch (Exception ex)
 			{
@@ -77,7 +77,7 @@ namespace slambot.Api.Controllers
 		{
 			try
 			{
-				await _repository.SetTeamByIdAsync(id, team);
+				await _repository.SetTeamAsync(id, team);
 			}
 			catch (Exception ex)
 			{
@@ -93,7 +93,7 @@ namespace slambot.Api.Controllers
 		{
 			try
 			{
-				await _repository.KickPlayerByIdAsync(id);
+				await _repository.KickPlayerAsync(id);
 			}
 			catch (Exception ex)
 			{
@@ -140,7 +140,7 @@ namespace slambot.Api.Controllers
 		{
 			try
 			{
-				await _repository.ClearAllAsync();
+				await _repository.ClearLobbyAsync();
 			}
 			catch (Exception ex)
 			{

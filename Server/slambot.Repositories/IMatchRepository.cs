@@ -1,13 +1,10 @@
-﻿using slambot.DataAccess.Entities;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 namespace slambot.Repositories
 {
-	public interface IMatchRepository
+    public interface IMatchRepository
 	{
-		
 		Task<int> GetMaxRatingDifferenceAsync();
-		Task<int> RecordMatchAsync(IEnumerable<Player> winningTeam, IEnumerable<Player> losingTeam);
+		Task<int> RecordMatchAsync(string winningPlayerIds, string losingPlayerIds);
 	}
 }

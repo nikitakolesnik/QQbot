@@ -12,8 +12,6 @@ namespace slambot.DataAccess.Contexts
 		public DbSet<LobbyPlayer> LobbyPlayers { get; set; }
 		public DbSet<Match>       Matches      { get; set; }
 		public DbSet<Player>      Players      { get; set; }
-		public DbSet<TeamPlayer>  TeamPlayers  { get; set; }
-		public DbSet<Team>        Teams        { get; set; }
 
 		public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
 		{
