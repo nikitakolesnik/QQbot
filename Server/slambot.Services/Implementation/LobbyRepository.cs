@@ -5,10 +5,11 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using slambot.DataAccess.Contexts;
 using slambot.DataAccess.Entities;
-using slambot.Enums;
-using slambot.Repositories.Models;
+using slambot.Common.Enums;
+using slambot.Common.Configuration;
+using slambot.Services.Models;
 
-namespace slambot.Repositories.Implementation
+namespace slambot.Services.Implementation
 {
 	public class LobbyRepository : ILobbyRepository
 	{
@@ -45,7 +46,7 @@ namespace slambot.Repositories.Implementation
 
 			if (player.Status != Status.Approved)
             {
-				throw new Exception("Player cannot be added to lobby. They either need to have their registration approved by a moderator, or are banned.");
+				throw new Exception(ExceptionMessage.PlayerIneligibleForLobby);
             }
 
 			LobbyPlayer lobbyPlayer = new LobbyPlayer{ Player = player };

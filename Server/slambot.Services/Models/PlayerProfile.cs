@@ -1,7 +1,7 @@
 ﻿using slambot.DataAccess.Entities;
 using System.Collections.Generic;
 
-namespace slambot.Repositories.Models
+namespace slambot.Services.Models
 {
 	public class PlayerProfile
 	{

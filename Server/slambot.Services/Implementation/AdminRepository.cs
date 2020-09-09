@@ -1,13 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using slambot.DataAccess.Contexts;
 using slambot.DataAccess.Entities;
-using slambot.Enums;
+using slambot.Common.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace slambot.Repositories.Implementation
+namespace slambot.Services.Implementation
 {
 	public class AdminRepository : IAdminRepository
 	{

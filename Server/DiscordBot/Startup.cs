@@ -4,13 +4,12 @@ using Discord.Commands;
 using Discord.WebSocket;
 using DiscordBot.Services;
 using Microsoft.Extensions.DependencyInjection;
+using slambot.Common.Configuration;
 
 namespace DiscordBot
 {
     public class Startup
     {
-        private const int _cacheMsgsPerChannel = 1000;
-
         public Startup(string[] args)
         {
         }
@@ -39,7 +38,7 @@ namespace DiscordBot
             services.AddSingleton(new DiscordSocketClient(new DiscordSocketConfig
             {
                 LogLevel = LogSeverity.Verbose,
-                MessageCacheSize = _cacheMsgsPerChannel
+                MessageCacheSize = DiscordBotConfiguration.CacheMessagesPerChannel
             }))
             .AddSingleton(new CommandService(new CommandServiceConfig
             {

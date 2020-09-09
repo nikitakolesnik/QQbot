@@ -1,4 +1,4 @@
-﻿namespace slambot.Enums
+﻿namespace slambot.Common.Enums
 {
 	public enum Status
 	{

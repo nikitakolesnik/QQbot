@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using slambot.Repositories;
+using slambot.Services;
 using System;
 using System.Threading.Tasks;
 

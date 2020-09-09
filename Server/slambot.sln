@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "slambot.Api", "slambot.Api\
 		{041E7AA4-6524-4A0F-B929-780C76BD19FD} = {041E7AA4-6524-4A0F-B929-780C76BD19FD}
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "slambot.Repositories", "slambot.Repositories\slambot.Repositories.csproj", "{0F87B38A-BA60-4E6A-BAF5-DEBAC9848AAF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "slambot.Services", "slambot.Services\slambot.Services.csproj", "{0F87B38A-BA60-4E6A-BAF5-DEBAC9848AAF}"
 	ProjectSection(ProjectDependencies) = postProject
 		{041E7AA4-6524-4A0F-B929-780C76BD19FD} = {041E7AA4-6524-4A0F-B929-780C76BD19FD}
 		{27BBC2F3-184D-42D4-A882-9608855ACB3D} = {27BBC2F3-184D-42D4-A882-9608855ACB3D}
@@ -22,7 +22,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "slambot.DataAccess", "slamb
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DiscordBot", "DiscordBot\DiscordBot.csproj", "{2548E972-534C-4DAE-888A-934D999F30E9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "slambot.Enums", "slambot.Enums\slambot.Enums.csproj", "{041E7AA4-6524-4A0F-B929-780C76BD19FD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "slambot.Common", "slambot.Common\slambot.Common.csproj", "{041E7AA4-6524-4A0F-B929-780C76BD19FD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

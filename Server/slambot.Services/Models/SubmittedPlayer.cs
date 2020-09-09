@@ -1,4 +1,4 @@
-﻿namespace slambot.Repositories.Models
+﻿namespace slambot.Services.Models
 {
 	public class SubmittedPlayer // How a player is initially submitted
 	{

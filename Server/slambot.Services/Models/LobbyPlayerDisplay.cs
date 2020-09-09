@@ -1,7 +1,7 @@
-﻿using slambot.Enums;
+﻿using slambot.Common.Enums;
 using System;
 
-namespace slambot.Repositories.Models
+namespace slambot.Services.Models
 {
     public class LobbyPlayerDisplay
     {

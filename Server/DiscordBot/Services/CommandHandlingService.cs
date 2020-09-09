@@ -1,15 +1,13 @@
 ﻿using Discord.Commands;
 using Discord.WebSocket;
+using slambot.Common.Configuration;
 using System;
-using System.Reflection;
 using System.Threading.Tasks;
 
 namespace DiscordBot.Services
 {
     public class CommandHandlingService
     {
-        private const char _prefix = '~';
-
         private readonly DiscordSocketClient _client;
         private readonly CommandService _commands;
         private readonly IServiceProvider _provider;
@@ -32,7 +30,7 @@ namespace DiscordBot.Services
             }
             
             int argPos = 0; // Create a number to track where the prefix ends and the command begins
-            if (!(message.HasCharPrefix(_prefix, ref argPos) || message.HasMentionPrefix(_client.CurrentUser, ref argPos)) || message.Author.IsBot)
+            if (!(message.HasCharPrefix(DiscordBotConfiguration.CommandPrefix, ref argPos) || message.HasMentionPrefix(_client.CurrentUser, ref argPos)) || message.Author.IsBot)
             {
                 return; // Determine if the message is a command based on the prefix and make sure no bots trigger commands
             }

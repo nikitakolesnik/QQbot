@@ -1,9 +1,9 @@
 ﻿using slambot.DataAccess.Entities;
-using slambot.Repositories.Models;
+using slambot.Services.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace slambot.Repositories
+namespace slambot.Services
 {
     public interface ILobbyRepository
 	{

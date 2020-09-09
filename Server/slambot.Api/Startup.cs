@@ -11,8 +11,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
 using slambot.DataAccess.Contexts;
-using slambot.Repositories;
-using slambot.Repositories.Implementation;
+using slambot.Services;
+using slambot.Services.Implementation;
 
 namespace slambot.Api
 {

@@ -9,8 +9,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\slambot.Common\slambot.Common.csproj" />
     <ProjectReference Include="..\slambot.DataAccess\slambot.DataAccess.csproj" />
-    <ProjectReference Include="..\slambot.Enums\slambot.Enums.csproj" />
+    <ProjectReference Include="..\slambot.Enums\slambot.Common.csproj" />
   </ItemGroup>
 
 </Project>

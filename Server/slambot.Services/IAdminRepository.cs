@@ -1,9 +1,9 @@
 ﻿using slambot.DataAccess.Entities;
-using slambot.Enums;
+using slambot.Common.Enums;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace slambot.Repositories
+namespace slambot.Services
 {
 	public interface IAdminRepository
 	{

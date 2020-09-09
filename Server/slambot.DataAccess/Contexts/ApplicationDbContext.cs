@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using slambot.DataAccess.Data;
 using slambot.DataAccess.Entities;
-using slambot.Enums;
+using slambot.Common.Enums;
 using System.Collections.Generic;
 
 namespace slambot.DataAccess.Contexts

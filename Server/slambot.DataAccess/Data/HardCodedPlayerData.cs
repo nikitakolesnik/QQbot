@@ -1,5 +1,5 @@
 ﻿using slambot.DataAccess.Entities;
-using slambot.Enums;
+using slambot.Common.Enums;
 using System;
 using System.Collections.Generic;
 

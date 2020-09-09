@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using slambot.Repositories;
+using slambot.Services;
 using slambot.DataAccess.Entities;
-using slambot.Repositories.Models;
+using slambot.Services.Models;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;

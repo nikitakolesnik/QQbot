@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using slambot.Repositories;
+using slambot.Services;
 using System;
 using System.Threading.Tasks;
 
@@ -17,13 +17,11 @@ namespace slambot.Api.Controllers
 		}
 
 		/*
-		 * Add player 123 to lobby                          - api/lobby/id/123               POST
-		 * Add player with discord 2222222222 to lobby      - api/lobby/discord/2222222222   POST
-		 * Set player 123 to team 2                         - api/lobby/id/123/team/2        PUT
-		 * Remove player 123 from lobby                     - api/lobby/id/123               DEL
-		 * Remove player with discord 2222222222 from lobby - api/lobby/discord/2222222222   DEL
-		 * Clear team 2                                     - api/lobby/team/2               DEL
-		 * Clear lobby                                      - api/lobby                      DEL
+		 * Add player 123 to lobby      - POST api/lobby/id/123        
+		 * Set player 123 to team 2     - PUT  api/lobby/id/123/team/2 
+		 * Remove player 123 from lobby - DEL  api/lobby/id/123        
+		 * Clear team 2                 - DEL  api/lobby/team/2        
+		 * Clear lobby                  - DEL  api/lobby               
 		 */
 
 		[HttpGet]
@@ -46,22 +44,6 @@ namespace slambot.Api.Controllers
 			try
 			{
 				await _repository.AddPlayerAsync(id);
-			}
-			catch (Exception ex)
-			{
-				return BadRequest(ex.ToString());
-			}
-
-			return Ok(await _repository.GetLobby());
-		}
-
-		[HttpPost]
-		[Route("discord/{discordId:long}")]
-		public async Task<IActionResult> AddPlayerByDiscordId(long discordId)
-		{
-            try
-			{
-				await _repository.AddPlayerByDiscordIdAsync(discordId);
 			}
 			catch (Exception ex)
 			{
@@ -94,22 +76,6 @@ namespace slambot.Api.Controllers
 			try
 			{
 				await _repository.KickPlayerAsync(id);
-			}
-			catch (Exception ex)
-			{
-				return BadRequest(ex.ToString());
-			}
-
-			return Ok(await _repository.GetLobby());
-		}
-
-		[HttpDelete]
-		[Route("discord/{discordId:long}")]
-		public async Task<IActionResult> KickPlayerByDiscordIdAsync(long discordId)
-		{
-			try
-			{
-				await _repository.KickPlayerByDiscordIdAsync(discordId);
 			}
 			catch (Exception ex)
 			{

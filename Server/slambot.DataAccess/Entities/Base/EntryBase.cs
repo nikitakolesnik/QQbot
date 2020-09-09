@@ -1,4 +1,4 @@
-﻿using slambot.Enums;
+﻿using slambot.Common.Enums;
 using System;
 
 namespace slambot.DataAccess.Entities.Base

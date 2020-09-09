@@ -1,14 +1,15 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using slambot.Common.Configuration;
 using slambot.DataAccess.Entities;
 using slambot.DataAccess.Contexts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using slambot.Repositories.Models;
-using slambot.Enums;
+using slambot.Services.Models;
+using slambot.Common.Enums;
 
-namespace slambot.Repositories.Implementation
+namespace slambot.Services.Implementation
 {
 	public class PlayerRepository : IPlayerRepository
 	{
@@ -28,7 +29,7 @@ namespace slambot.Repositories.Implementation
 		{
 			if (string.IsNullOrEmpty(playerInfo.Name))
 			{
-				throw new ArgumentException("Name cannot be empty.");
+				throw new ArgumentException(ExceptionMessage.PlayerNameEmpty);
 			}
 
 			Player newPlayer = new Player { Name = playerInfo.Name, Discord = playerInfo.Discord, Status = Status.PendingReview };
