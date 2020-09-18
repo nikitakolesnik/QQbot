@@ -4,6 +4,7 @@ using Discord.WebSocket;
 using System;
 using System.Reflection;
 using System.Threading.Tasks;
+using slambot.Common.Configuration;
 
 namespace DiscordBot.Services
 {

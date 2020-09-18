@@ -7,6 +7,5 @@ namespace slambot.DataAccess.Entities.Base
 	{
 		public DateTime Submitted  { get; set; } = DateTime.UtcNow;
 		public Status   Status     { get; set; }
-        //public DateTime ActionDate { get; set; }
     }
 }

@@ -28,9 +28,9 @@ namespace slambot.Api
 			services.AddControllers();
 			services.AddDbContext<ApplicationDbContext>(
 				a => a.UseSqlServer(@"Server=(localdb)\mssqllocaldb;"
-					+ @"Database=QQbotDB;"
+					+ @"Database=slambotDB;"
 					+ @"Trusted_Connection=true;", 
-				b => b.MigrationsAssembly("QQbot.Api")));
+				b => b.MigrationsAssembly("slambot.DataAccess")));
 
 			services.AddScoped<IMatchRepository,  MatchRepository>();
 			services.AddScoped<IPlayerRepository, PlayerRepository>();

@@ -23,8 +23,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\slambot.Common\slambot.Common.csproj" />
-    <ProjectReference Include="..\slambot.Enums\slambot.Common.csproj" />
-    <ProjectReference Include="..\slambot.Repositories\slambot.Services.csproj" />
     <ProjectReference Include="..\slambot.Services\slambot.Services.csproj" />
   </ItemGroup>
 

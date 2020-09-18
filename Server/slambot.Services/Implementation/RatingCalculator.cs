@@ -1,23 +1,16 @@
 ﻿using slambot.Common.Enums;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace slambot.Services.Implementation
 {
     public class RatingCalculator : IRatingCalculator
 	{
-		public int TeamRating(List<int> playerRatings)
-		{
-			return playerRatings.Sum() / playerRatings.Count();
-		}
-
 		public int PlayerRating(int playerRating, int opponentRating, int maxRatingDiff, MatchResult matchResult)
 		{
 			// Huge thanks again to Candyboy & Eight Bit for the formula & implementation, carried over from the GvGRank project
 
 			int ratingDiff = Math.Max(Math.Abs(playerRating - opponentRating), 100);
-			double quotient = ratingDiff / maxRatingDiff;
+			double quotient = ratingDiff / Math.Max(maxRatingDiff, 1);
 
 			const double EULERS_NUMBER       = 2.71828;
 			const double MIN_CHANGE_PERCENT  = 0.01;  // Minimum rating change for a comparison

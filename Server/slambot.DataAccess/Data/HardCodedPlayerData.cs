@@ -1,11 +1,10 @@
 ﻿using slambot.DataAccess.Entities;
 using slambot.Common.Enums;
-using System;
 using System.Collections.Generic;
 
 namespace slambot.DataAccess.Data
 {
-	public static class HardCodedPlayerData
+    public static class HardCodedPlayerData
 	{
 		public static IEnumerable<Player> GetPlayers()
 		{

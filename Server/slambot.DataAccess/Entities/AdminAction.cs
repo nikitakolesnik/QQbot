@@ -15,6 +15,7 @@ namespace slambot.DataAccess.Entities
 		public AdminActionType Type { get; set; }
 		public int? SubjectPlayerId { get; set; }
 		public int? SubjectMatchId { get; set; }
+		public Status Action { get; set; }
 		
 		public Player Admin { get; set; }
 		public Player SubjectPlayer { get; set; }

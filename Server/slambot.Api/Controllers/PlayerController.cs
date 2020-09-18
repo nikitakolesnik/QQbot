@@ -5,6 +5,7 @@ using slambot.Services.Models;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using slambot.Common.Enums;
 
 namespace slambot.Api.Controllers
 {
@@ -21,66 +22,109 @@ namespace slambot.Api.Controllers
 			_playerRepository = playerRepository ?? throw new ArgumentNullException(nameof(playerRepository));
 		}
 
-		/*
-		 * Get leaderboard                                      - api/players                  GET
-		 * Get full player 123 profile, with 10 past match data - api/players/123/profile(/10) GET
-		 * Register player                                      - api/players                  POST
-		 * Edit player 123                                      - api/players/123              PUT
-		 * Activate/disable player 123                          - api/players/123/action/1     PUT
+        /*
+		 * Get leaderboard               - GET  api/players
+		 * Get player 123 profile        - GET  api/players/123
+		 * Get player 123 name & discord - GET  api/players/123/short
+		 * Register player               - POST api/players
+		 * Edit player 123               - PUT  api/players/123
+		 * Activate/disable player 123   - PUT  api/players/123/actionId/1
 		 */
 
-		[HttpGet]
-		public async Task<ActionResult<IEnumerable<Player>>> Leaderboard()
-		{
-			try
-			{
-				var players = await _playerRepository.GetLeaderboardAsync();
-				return Ok(players);
-			}
-			catch (Exception ex)
-			{
-				return BadRequest(ex.Message);
-			}
-		}
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Player>>> Leaderboard()
+        {
+            try
+            {
+                return Ok(await _playerRepository.LeaderboardAsync());
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.ToString());
+            }
+        }
 
-		//[HttpGet]
-		//[Route("{id:int}/profile/{results:int}")]
-		//public async Task<ActionResult<PlayerProfile>> Profile(int id, int results)
-		//{
-		//	throw new NotImplementedException();
-		//}
+        [HttpGet]
+        [Route("{id:int}")]
+        public async Task<ActionResult<PlayerProfile>> Profile(int id)
+        {
+            try
+            {
+                return Ok(await _playerRepository.ProfileAsync(id));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.ToString());
+            }
+        }
 
-		[HttpPost]
-		public async Task<ActionResult<Player>> RegisterPlayer([FromBody]SubmittedPlayer playerInfo)
-		{
-			if (!ModelState.IsValid)
-			{
-				return BadRequest("Invalid input!");
-			}
+        [HttpGet]
+        [Route("{id:int}/short")]
+        public async Task<ActionResult<PlayerProfile>> PlayerNameDiscord(int id)
+        {
+            try
+            {
+                return Ok(await _playerRepository.PlayerNameDiscordAsync(id));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.ToString());
+            }
+        }
 
-			try
-			{
-				Player newPlayer = await _playerRepository.AddPlayerAsync(playerInfo);
-				return Ok(newPlayer);
-			}	
-			catch (Exception ex)
-			{
-				return BadRequest(ex.Message);
-			}
-		}
+        [HttpPost]
+        public async Task<ActionResult<Player>> RegisterPlayer([FromBody] SubmittedPlayer playerData)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest("Invalid input!");
+            }
 
-		//[HttpPut]
-		//[Route("{id:int}")]
-		//public async Task<ActionResult<Player>> EditPlayer(int id)
-		//{
-		//	throw new NotImplementedException();
-		//}
+            try
+            {
+                return Ok(await _playerRepository.AddPlayerAsync(playerData));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.ToString());
+            }
+        }
 
-		//[HttpPut]
-		//[Route("{id:int}/action/{action:int}")]
-		//public async Task<ActionResult<Player>> ActionPlayer(int id, int action)
-		//{
-		//	throw new NotImplementedException();
-		//}
-	}
+        [HttpPut]
+        [Route("{id:int}")]
+        public async Task<ActionResult<Player>> EditPlayer(int id, [FromBody]SubmittedPlayer playerData)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest("Invalid input!");
+            }
+
+            try
+            {
+                return Ok(await _playerRepository.UpdatePlayerAsync(id, playerData));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.ToString());
+            }
+        }
+
+        // routing error below
+
+        [HttpPut]
+        [Route("{id:int}/action/{actionId:int}")]
+        public async Task<ActionResult<Player>> ActionPlayer(int id, int actionId /* naming this "action" creates a routing error lol */)
+        {
+            try
+            {
+                //if (!Enum.IsDefined(typeof(Status), actionId)) { throw new ArgumentException(ExceptionMessage.InvalidActionId); }
+
+                return Ok(await _playerRepository.ActionPlayerAsync(id, (Status)actionId));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.ToString());
+            }
+        }
+    }
 }

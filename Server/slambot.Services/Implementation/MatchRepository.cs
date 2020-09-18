@@ -21,7 +21,6 @@ namespace slambot.Services.Implementation
 			_context = context ?? throw new ArgumentNullException(nameof(context));
 			_calc    = calc    ?? throw new ArgumentNullException(nameof(calc));
 		}
-
 		public async Task<int> GetMaxRatingDifferenceAsync()
 		{
 			int min = await _context.Players.MinAsync(p => p.Rating);
@@ -30,7 +29,7 @@ namespace slambot.Services.Implementation
 			return Math.Abs(max - min);
 		}
 
-		public async Task RecordMatchAsync(TeamNumber winningTeam)
+		public async Task RecordMatchAsync(TeamNumber winningTeam, int? ratingDiffOverride = null)
 		{
 			// Build teams 
 
@@ -58,15 +57,16 @@ namespace slambot.Services.Implementation
 
 			await _context.Matches.AddAsync(new Match() { 
 				WinningTeam = winningTeam, 
-				Team1 = '|' + string.Join('|', team1) + '|', // the delimeter before&after allows for finding in a player in a team string with .Contains("|1|"), even if they're first/last
-				Team2 = '|' + string.Join('|', team2) + '|'  // example: "|1|4|9|16|29|33|34|55|"
+				Team1 = string.Join(',', team1),
+				Team2 = string.Join(',', team2)
 			});
 
 
 			// Calculate player rating change
 
-			int team1RatingAvg = _calc.TeamRating(team1.Select(p => p.Player.Rating).ToList());
-			int team2RatingAvg = _calc.TeamRating(team2.Select(p => p.Player.Rating).ToList());
+			//int team1RatingAvg = _calc.TeamRating(team1.Select(p => p.Player.Rating).ToList());
+			int team1RatingAvg = (int)team1.Select(p => p.Player.Rating).ToList().Average();
+			int team2RatingAvg = (int)team2.Select(p => p.Player.Rating).ToList().Average();
 			int maxRatingDiff  = await this.GetMaxRatingDifferenceAsync();
 
 			if (winningTeam == TeamNumber.Team1)

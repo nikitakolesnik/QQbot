@@ -10,5 +10,8 @@
 
         public const string PlayerNameEmpty = 
             "Name cannot be empty.";
+
+        public const string InvalidActionId =
+            "ID cannot be converted to a valid action.";
     }
 }
