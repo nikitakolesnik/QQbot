@@ -10,7 +10,7 @@ namespace slambot.Services
 	{
 		Task<Player> ActionPlayerAsync(int id, Status action);
 		Task<Player> AddPlayerAsync(SubmittedPlayer player);
-		Task<Player> UpdatePlayerAsync(int id, SubmittedPlayer playerData);
+		Task<Player> EditPlayerAsync(int id, SubmittedPlayer playerData);
 		Task<SubmittedPlayer> PlayerNameDiscordAsync(int id);
 		Task<IEnumerable<LeaderboardPlayer>> LeaderboardAsync();
 		Task<PlayerProfile> ProfileAsync(int id);

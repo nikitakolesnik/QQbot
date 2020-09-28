@@ -2,8 +2,11 @@
 using slambot.DataAccess.Data;
 using slambot.DataAccess.Entities;
 using slambot.Common.Enums;
+using slambot.Common.Configuration;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using slambot.Common;
 
 namespace slambot.DataAccess.Contexts
 {
@@ -44,68 +47,72 @@ namespace slambot.DataAccess.Contexts
 				});
 			}
 
-
-            // Add 1000 dummy matches
-
-            System.Random r = new System.Random();
-
-            for (int i = 0; i < 1000; i++)
+            if (MatchConfiguration.SeedTestMatches == true)
             {
-                List<int> team1 = new List<int>();
-                List<int> team2 = new List<int>();
+                int matchesToGenerate = 1000;
+                Random r = new Random();
 
-                // Decide if player is in team 1 or 2
-
-                int playerTeam = r.Next(1, 3);
-
-                if (playerTeam == 1) team1.Add(1);
-                else team2.Add(1);
-
-                // Decide winning team
-
-                int winningTeamRoll = r.Next(0, 101);
-                TeamNumber winningTeam;
-                if (winningTeamRoll > 50)
-                    winningTeam = TeamNumber.Team1;
-                else if (winningTeamRoll < 50)
-                    winningTeam = TeamNumber.Team2;
-                else
-                    winningTeam = TeamNumber.None;
-
-                // Fill teams randomly
-
-                while (team1.Count < 8)
+                for (int i = 0; i < matchesToGenerate; i++)
                 {
-                    int newPlayer = r.Next(2, players.Count() + 1);
-                    if (!team1.Contains(newPlayer))
-                        team1.Add(newPlayer);
+                    List<int> team1 = new List<int>();
+                    List<int> team2 = new List<int>();
+
+                    //// Decide if player is in team 1 or 2
+
+                    //int playerTeam = r.Next(1, 3);
+                    //if (playerTeam == 1) team1.Add(1);
+                    //else team2.Add(1);
+
+
+                    // Decide winning team
+
+                    int winningTeamRoll = r.Next(0, 101);
+                    TeamNumber winningTeam;
+                    if (winningTeamRoll > 50)
+                        winningTeam = TeamNumber.Team1;
+                    else if (winningTeamRoll < 50)
+                        winningTeam = TeamNumber.Team2;
+                    else
+                        winningTeam = TeamNumber.None;
+
+
+                    // Fill teams randomly
+
+                    while (team1.Count < 8)
+                    {
+                        int newPlayer = r.Next(2, players.Count() + 1);
+                        if (!team1.Contains(newPlayer))
+                            team1.Add(newPlayer);
+                    }
+
+                    while (team2.Count < 8)
+                    {
+                        int newPlayer = r.Next(2, players.Count() + 1);
+                        if (!team2.Contains(newPlayer))
+                            team2.Add(newPlayer);
+                    }
+
+
+                    // convert to string of IDs
+
+                    team1.Sort();
+                    string team1str = Utilities.ListToStr(team1);
+                    team2.Sort();
+                    string team2str = Utilities.ListToStr(team2);
+
+
+                    // create row
+
+                    modelBuilder.Entity<Match>().HasData(new Match
+                    {
+                        Id = i + 1,
+                        WinningTeam = winningTeam,
+                        Team1 = team1str,
+                        Team2 = team2str,
+                        Status = Status.Approved
+                    });
                 }
-
-                while (team2.Count < 8)
-                {
-                    int newPlayer = r.Next(2, players.Count() + 1);
-                    if (!team2.Contains(newPlayer))
-                        team2.Add(newPlayer);
-                }
-
-                // convert to string of IDs
-
-                team1.Sort();
-                team2.Sort();
-
-                string team1str = string.Join(',', team1);
-                string team2str = string.Join(',', team2);
-
-                // create row
-
-                modelBuilder.Entity<Match>().HasData(new Match
-                {
-                    Id = i + 1,
-                    WinningTeam = winningTeam,
-                    Team1 = team1str,
-                    Team2 = team2str,
-                    Status = Status.Approved
-                });
+            
             }
         }
 	}

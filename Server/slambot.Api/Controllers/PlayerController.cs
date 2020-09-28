@@ -73,13 +73,8 @@ namespace slambot.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Player>> RegisterPlayer([FromBody] SubmittedPlayer playerData)
+        public async Task<ActionResult<Player>> Register([FromBody] SubmittedPlayer playerData)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest("Invalid input!");
-            }
-
             try
             {
                 return Ok(await _playerRepository.AddPlayerAsync(playerData));
@@ -92,16 +87,11 @@ namespace slambot.Api.Controllers
 
         [HttpPut]
         [Route("{id:int}")]
-        public async Task<ActionResult<Player>> EditPlayer(int id, [FromBody]SubmittedPlayer playerData)
+        public async Task<ActionResult<Player>> Edit(int id, [FromBody]SubmittedPlayer playerData)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest("Invalid input!");
-            }
-
             try
             {
-                return Ok(await _playerRepository.UpdatePlayerAsync(id, playerData));
+                return Ok(await _playerRepository.EditPlayerAsync(id, playerData));
             }
             catch (Exception ex)
             {
@@ -113,7 +103,7 @@ namespace slambot.Api.Controllers
 
         [HttpPut]
         [Route("{id:int}/action/{actionId:int}")]
-        public async Task<ActionResult<Player>> ActionPlayer(int id, int actionId /* naming this "action" creates a routing error lol */)
+        public async Task<ActionResult<Player>> AdminAction(int id, int actionId /* naming this "action" creates a routing error lol */)
         {
             try
             {

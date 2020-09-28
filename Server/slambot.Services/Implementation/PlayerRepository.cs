@@ -8,6 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using slambot.Services.Models;
 using slambot.Common.Enums;
+using slambot.Common;
 
 namespace slambot.Services.Implementation
 {
@@ -39,7 +40,6 @@ namespace slambot.Services.Implementation
 				SubjectPlayer = player,
 				Action = action
 			});
-
 			
 			// Done
 			
@@ -60,7 +60,7 @@ namespace slambot.Services.Implementation
 			return newPlayer;
 		}
 
-		public async Task<Player> UpdatePlayerAsync(int id, SubmittedPlayer playerData)
+		public async Task<Player> EditPlayerAsync(int id, SubmittedPlayer playerData)
 		{
 			Player player = await _context.Players.Where(p => p.Id == id).SingleAsync();
 			player.Name = playerData.Name;
@@ -141,8 +141,8 @@ namespace slambot.Services.Implementation
 
 				// Build collection of player IDs for each team
 
-				List<int> team1Ids = match.Team1.Split(',').Select(int.Parse).ToList();
-				List<int> team2Ids = match.Team2.Split(',').Select(int.Parse).ToList();
+				List<int> team1Ids = Utilities.StrToList(match.Team1);
+				List<int> team2Ids = Utilities.StrToList(match.Team2);
 
 
 				// calculate all rating changes for this match

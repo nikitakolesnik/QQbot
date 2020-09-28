@@ -39,7 +39,7 @@ namespace slambot.Api.Controllers
 
 		[HttpPost]
 		[Route("id/{id:int}")]
-		public async Task<IActionResult> AddPlayerById(int id)
+		public async Task<IActionResult> AddPlayer(int id)
 		{
 			try
 			{
@@ -71,7 +71,7 @@ namespace slambot.Api.Controllers
 
 		[HttpDelete]
 		[Route("id/{id:int}")]
-		public async Task<IActionResult> KickPlayerByIdAsync(int id)
+		public async Task<IActionResult> Kick(int id)
 		{
 			try
 			{
