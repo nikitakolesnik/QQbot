@@ -26,7 +26,7 @@ namespace slambot.Common
         /// </summary>
         public static string Surround(int id)
         {
-            return (MatchConfiguration.TeamDelimiter + id + MatchConfiguration.TeamDelimiter).ToString();
+            return MatchConfiguration.TeamDelimiter + id.ToString() + MatchConfiguration.TeamDelimiter;
         }
 
         public static int Limit(int num, int min, int max)

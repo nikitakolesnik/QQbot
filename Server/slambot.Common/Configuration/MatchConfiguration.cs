@@ -7,5 +7,6 @@
         public const bool ForceEightPlayerTeams = false;
         public const char TeamDelimiter = '|';
         public const bool SeedTestMatches = true;
+        public const int TestMatchesToSeed = 1000;
     }
 }

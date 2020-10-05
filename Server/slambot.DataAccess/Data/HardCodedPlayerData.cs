@@ -103,6 +103,54 @@ namespace slambot.DataAccess.Data
 				{
 					Name = "Jonas",
 					Discord = 242126086983516160
+				},
+
+				new Player()
+                {
+					Name = "Jim",
+					Discord = 581965183669501952
+				},
+
+				new Player()
+                {
+					Name = "Holye",
+					Discord = 273617664457310210
+				},
+
+				new Player()
+                {
+					Name = "Maga",
+					Discord = 310713367683923968
+				},
+
+				new Player()
+                {
+					Name = "Calvin",
+					Discord = 235062551724032000
+				},
+
+				new Player()
+                {
+					Name = "Kam",
+					Discord = 179021286645694464
+				},
+
+				new Player()
+                {
+					Name = "Lynie",
+					Discord = 170238151732887552
+				},
+
+				new Player()
+                {
+					Name = "Zynkh",
+					Discord = 614187828531691739
+				},
+
+				new Player()
+                {
+					Name = "Luke",
+					Discord = 478594642602885121
 				}
 			};
 

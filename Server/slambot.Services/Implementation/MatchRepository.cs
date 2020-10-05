@@ -23,24 +23,7 @@ namespace slambot.Services.Implementation
 			_calc    = calc    ?? throw new ArgumentNullException(nameof(calc));
 		}
 
-        /// <summary>
-        /// Attaches player names to their IDs.
-        /// </summary>
-		private static List<Tuple<int, string>> StrToTuple(string team, ApplicationDbContext context)
-		{
-			List<int> teamList = Utilities.StrToList(team);
-			List<Player> players = context.Players.Where(p => teamList.Contains(p.Id)).ToList();
-			List<Tuple<int, string>> result = new List<Tuple<int, string>>();
-
-			foreach (int id in teamList)
-			{
-				result.Add(new Tuple<int, string>(id, players.Single(p => p.Id == id).Name));
-			}
-
-			return result;
-		}
-
-        public async Task<Match> ActionMatchAsync(int id, Status action)
+        public async Task<Match> ActionAsync(int id, Status action)
         {
 			Match match = await _context.Matches.SingleAsync(m => m.Id == id);
 			match.Status = action;
@@ -63,7 +46,7 @@ namespace slambot.Services.Implementation
 			return match;
 		}
 
-        public async Task<Match> EditMatchAsync(int id, TeamNumber winningTeam, string team1, string team2)
+        public async Task<Match> EditAsync(int id, TeamNumber winningTeam, string team1, string team2)
 		{
 			if (MatchConfiguration.ForceEightPlayerTeams)
             {
@@ -82,7 +65,7 @@ namespace slambot.Services.Implementation
 			return match;
         }
 
-        public async Task<int> GetMaxRatingDifferenceAsync()
+        public async Task<int> MaxRatingDiff()
 		{
 			int min = await _context.Players.MinAsync(p => p.Rating);
 			int max = await _context.Players.MaxAsync(p => p.Rating);
@@ -90,80 +73,97 @@ namespace slambot.Services.Implementation
 			return Math.Abs(max - min);
 		}
 
-        public async Task<IEnumerable<MatchDisplay>> HistoryAsync(int results = MatchConfiguration.DefaultMatchesToShow)
+        public async Task<List<MatchDisplay>> HistoryAsync(int results, int playerId = -1)
 		{
 			results = Utilities.Limit(results, 0, MatchConfiguration.MaxMatchesToShow);
 
-			IEnumerable<Match> matches = await _context.Matches
-				.Where(m => m.Status == Status.Approved)
-				.TakeLast(results)
-				//.Select(m => new MatchDisplay
-				//{
-				//	Id = m.Id,
-				//	WinningTeam = m.WinningTeam,
-				//	Team1 = StrToTuple(m.Team1, _context),
-				//	Team2 = StrToTuple(m.Team2, _context),
-				//	When = m.Submitted
-				//})
+			IQueryable<Match> matchQuery = _context.Matches
+				.Where(m => m.Status == Status.Approved);
+
+			if (playerId != -1)
+            {
+				matchQuery = matchQuery.Where(m => m.Team1.Contains(Utilities.Surround(playerId)) 
+												|| m.Team2.Contains(Utilities.Surround(playerId)));
+            }
+
+			IEnumerable<Match> matches = await matchQuery
+				.OrderByDescending(p => p.Id)
+				.Take(results)
 				.ToListAsync();
 
 			// Get all the player IDs involved in these matches
 
-			Dictionary<int, string> players = new Dictionary<int, string>();
-			IEnumerable<MatchDisplay> matchDisplays = Enumerable.Empty<MatchDisplay>();
+			HashSet<int> playerIds = new HashSet<int>();
 
 			foreach (Match match in matches)
 			{
-				List<int> idList = Utilities.StrToList(match.Team1);
-				idList.AddRange(Utilities.StrToList(match.Team2));
-
-				foreach (int id in idList)
-                {
-					players.Add(id, "");
-                }
+				playerIds.UnionWith(Utilities.StrToList(match.Team1));
+				playerIds.UnionWith(Utilities.StrToList(match.Team2));
 			}
 
-			// Get the player names of these IDs
+			// Get the names of all players that participated in these matches
 
+			List<Tuple<int, string>> playerNames = await _context.Players
+				.Where(p => playerIds.Contains(p.Id))
+				.Select(p => new Tuple<int, string>(p.Id, p.Name))
+				.ToListAsync();
+
+			// Map names to IDs in matches
+
+			List<MatchDisplay> matchDisplays = new List<MatchDisplay>();
+			foreach (Match match in matches)
+			{
+				List<Tuple<int, string>> team1 = new List<Tuple<int, string>>();
+				List<Tuple<int, string>> team2 = new List<Tuple<int, string>>();
+
+				foreach (var player in playerNames)
+                {
+					string id = Utilities.Surround(player.Item1);
+					
+					if (match.Team1.Contains(id))
+						team1.Add(player);
+					else if (match.Team2.Contains(id))
+						team2.Add(player);
+				}
+
+				matchDisplays.Add(new MatchDisplay
+				{
+					WinningTeam = match.WinningTeam,
+					Team1 = team1,
+					Team2 = team2,
+					When = match.Submitted,
+				});
+			}
+
+			return matchDisplays;
 		}
 
-		public async Task<MatchDisplay> MatchDetailsAsync(int id)
+		public async Task<MatchDisplay> DetailsAsync(int id)
 		{
 			Match match = await _context.Matches
-				//.Select(m => new MatchDisplay
-				//{
-				//	Id = m.Id,
-				//	WinningTeam = m.WinningTeam,
-				//	//Team1 = StrToTuple(m.Team1, _context),
-				//	//Team2 = StrToTuple(m.Team2, _context),
-				//	When = m.Submitted
-				//})
 				.SingleAsync(m => m.Id == id);
 
-
-		}
-
-        public async Task<IEnumerable<MatchDisplay>> PlayerHistoryAsync(int playerId, int results = MatchConfiguration.DefaultMatchesToShow)
-		{
-			results = Utilities.Limit(results, 0, MatchConfiguration.MaxMatchesToShow);
-
-			IEnumerable<Match> matches = await _context.Matches
-				.Where(m => m.Status == Status.Approved && 
-					(m.Team1.Contains(Utilities.Surround(playerId))
-					|| m.Team2.Contains(Utilities.Surround(playerId))))
-				.TakeLast(results)
-				//.Select(m => new MatchDisplay
-				//{
-				//	Id = m.Id,
-				//	WinningTeam = m.WinningTeam,
-				//	//Team1 = StrToTuple(m.Team1, _context),
-				//	//Team2 = StrToTuple(m.Team2, _context),
-				//	When = m.Submitted
-				//})
+			List<Tuple<int, string>> team1Players = await _context.Players
+				.Where(p => Utilities.StrToList(match.Team1).Contains(p.Id))
+				.Select(p => new Tuple<int, string>(p.Id, p.Name))
 				.ToListAsync();
+
+			List<Tuple<int, string>> team2Players = await _context.Players
+				.Where(p => Utilities.StrToList(match.Team2).Contains(p.Id))
+				.Select(p => new Tuple<int, string>(p.Id, p.Name))
+				.ToListAsync();
+
+			return new MatchDisplay
+			{
+				//Id = match.Id,
+				WinningTeam = match.WinningTeam,
+				Team1 = team1Players,
+				Team2 = team2Players,
+				When = match.Submitted
+			};
 		}
 
-        public async Task<Match> RecordMatchAsync(TeamNumber winningTeam)
+        public async Task<Match> RecordAsync(TeamNumber winningTeam)
 		{
 			// Build teams 
 
@@ -203,7 +203,7 @@ namespace slambot.Services.Implementation
 			//int team1RatingAvg = _calc.TeamRating(team1.Select(p => p.Player.Rating).ToList());
 			int team1RatingAvg = (int)team1.Select(p => p.Player.Rating).ToList().Average();
 			int team2RatingAvg = (int)team2.Select(p => p.Player.Rating).ToList().Average();
-			int maxRatingDiff  = await this.GetMaxRatingDifferenceAsync();
+			int maxRatingDiff  = await this.MaxRatingDiff();
 
 			if (winningTeam == TeamNumber.Team1)
 			{

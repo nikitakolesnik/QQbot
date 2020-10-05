@@ -25,7 +25,7 @@ namespace slambot.Api.Controllers
 		 */
 
 		[HttpGet]
-		public async Task<object> GetLobby()
+		public async Task<IActionResult> GetLobby()
         {
 			try
             {

@@ -1,14 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
 using slambot.DataAccess.Contexts;
 using slambot.Services;
@@ -16,7 +9,7 @@ using slambot.Services.Implementation;
 
 namespace slambot.Api
 {
-	public class Startup
+    public class Startup
 	{
 		public Startup()
 		{
@@ -52,18 +45,18 @@ namespace slambot.Api
 			app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
 		}
 
-		//private static void UpdateDatabase(IApplicationBuilder app)
-  //      {
-		//	using (var serviceScope = app.ApplicationServices
-		//		.GetRequiredService<IServiceScopeFactory>()
-		//		.CreateScope())
-  //          {
-		//		using (var context = serviceScope.ServiceProvider
-		//			.GetService<ApplicationDbContext>())
-  //              {
-		//			context.Database.Migrate();
-  //              }
-  //          }
-  //      }
-	}
+        //private static void UpdateDatabase(IApplicationBuilder app)
+        //{
+        //    using (var serviceScope = app.ApplicationServices
+        //        .GetRequiredService<IServiceScopeFactory>()
+        //        .CreateScope())
+        //    {
+        //        using (var context = serviceScope.ServiceProvider
+        //            .GetService<ApplicationDbContext>())
+        //        {
+        //            context.Database.Migrate();
+        //        }
+        //    }
+        //}
+    }
 }

@@ -49,15 +49,14 @@ namespace slambot.DataAccess.Contexts
 
             if (MatchConfiguration.SeedTestMatches == true)
             {
-                int matchesToGenerate = 1000;
                 Random r = new Random();
 
-                for (int i = 0; i < matchesToGenerate; i++)
+                for (int i = 0; i < MatchConfiguration.TestMatchesToSeed + 1; i++)
                 {
                     List<int> team1 = new List<int>();
                     List<int> team2 = new List<int>();
 
-                    //// Decide if player is in team 1 or 2
+                    // Force player 1 to be in the match
 
                     //int playerTeam = r.Next(1, 3);
                     //if (playerTeam == 1) team1.Add(1);
@@ -88,7 +87,7 @@ namespace slambot.DataAccess.Contexts
                     while (team2.Count < 8)
                     {
                         int newPlayer = r.Next(2, players.Count() + 1);
-                        if (!team2.Contains(newPlayer))
+                        if (!team1.Contains(newPlayer) && !team2.Contains(newPlayer))
                             team2.Add(newPlayer);
                     }
 

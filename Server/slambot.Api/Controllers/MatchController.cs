@@ -39,7 +39,7 @@ namespace slambot.Api.Controllers
         {
             try
             {
-				return Ok(await _matchRepository.MatchDetailsAsync(id));
+				return Ok(await _matchRepository.DetailsAsync(id));
             }
 			catch (Exception ex)
             {
@@ -49,11 +49,11 @@ namespace slambot.Api.Controllers
 
 		[HttpPut]
 		[Route("{id:int}")]
-		public async Task<IActionResult> Edit([FromRoute]int id, [FromBody]TeamRequestBody team)
+		public async Task<IActionResult> Edit([FromRoute] int id, [FromBody] TeamRequestBody team)
         {
 			try
             {
-				return Ok(await _matchRepository.EditMatchAsync(id, team.WinningTeam, team.Team1, team.Team2));
+				return Ok(await _matchRepository.EditAsync(id, team.WinningTeam, team.Team1, team.Team2));
             }
 			catch (Exception ex)
             {
@@ -63,11 +63,11 @@ namespace slambot.Api.Controllers
 
 		[HttpPut]
 		[Route("{id:int}/action/{actionId:int}")]
-		public async Task<IActionResult> AdminAction([FromRoute]int id, [FromRoute]int actionId)
+		public async Task<IActionResult> AdminAction([FromRoute] int id, [FromRoute] int actionId)
         {
 			try
 			{
-				return Ok(await _matchRepository.ActionMatchAsync(id, (Status)actionId));
+				return Ok(await _matchRepository.ActionAsync(id, (Status)actionId));
 			}
 			catch (Exception ex)
 			{
@@ -76,8 +76,8 @@ namespace slambot.Api.Controllers
         }
 
 		[HttpGet]
-		[Route("history/{results:int=MatchConfiguration.DefaultMatchesToShow}")]
-		public async Task<IActionResult> History([FromRoute]int results)
+		[Route("history/{results?}")]
+		public async Task<IActionResult> History([FromRoute] int results = MatchConfiguration.DefaultMatchesToShow)
         {
 			try
 			{
@@ -90,12 +90,12 @@ namespace slambot.Api.Controllers
         }
 
 		[HttpGet]
-		[Route("id/{id:int}/history/{results:int=MatchConfiguration.DefaultMatchesToShow}")]
-		public async Task<IActionResult> PlayerHistory([FromRoute]int id, [FromRoute] int results)
+		[Route("id/{id:int}/history/{results?}")]
+		public async Task<IActionResult> PlayerHistory([FromRoute] int id, [FromRoute] int results)
 		{
 			try
 			{
-				return Ok(await _matchRepository.PlayerHistoryAsync(id, results));
+				return Ok(await _matchRepository.HistoryAsync(results, id));
 			}
 			catch (Exception ex)
 			{
@@ -105,11 +105,11 @@ namespace slambot.Api.Controllers
 
 		[HttpPost]
 		[Route("{winningTeam:int}")]
-		public async Task<IActionResult> Submit([FromRoute]int winningTeam)
+		public async Task<IActionResult> Submit([FromRoute] int winningTeam)
         {
 			try
 			{
-				return Ok(await _matchRepository.RecordMatchAsync((TeamNumber)winningTeam));
+				return Ok(await _matchRepository.RecordAsync((TeamNumber)winningTeam));
 			}
 			catch (Exception ex)
 			{
