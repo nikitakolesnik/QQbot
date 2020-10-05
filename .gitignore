@@ -1,4 +1,5 @@
 BotToken.cs
+ConnectionString.cs
 
 .gitignore
 bin

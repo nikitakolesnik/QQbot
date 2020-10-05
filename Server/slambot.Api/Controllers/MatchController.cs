@@ -16,9 +16,7 @@ namespace slambot.Api.Controllers
 		private readonly IMatchRepository _matchRepository;
         private readonly IAdminRepository _adminRepository;
 
-        public MatchController(IMatchRepository matchRepository, 
-			//IPlayerRepository playerRepository, 
-			IAdminRepository adminRepository)
+        public MatchController(IMatchRepository matchRepository, IAdminRepository adminRepository)
 		{
 			_matchRepository = matchRepository ?? throw new ArgumentNullException(nameof(matchRepository));
             _adminRepository = adminRepository ?? throw new ArgumentNullException(nameof(adminRepository));

@@ -9,11 +9,11 @@ namespace slambot.Api.Controllers
 	[Route("api/lobby")]
 	public class LobbyController : ControllerBase
 	{
-		private readonly ILobbyRepository _repository;
+		private readonly ILobbyRepository _lobbyRepository;
 
 		public LobbyController(ILobbyRepository repository)
 		{
-			_repository = repository ?? throw new ArgumentNullException(nameof(repository));
+			_lobbyRepository = repository ?? throw new ArgumentNullException(nameof(repository));
 		}
 
 		/*
@@ -29,7 +29,7 @@ namespace slambot.Api.Controllers
         {
 			try
             {
-				return Ok(await _repository.GetLobby());
+				return Ok(await _lobbyRepository.GetLobby());
             }
 			catch(Exception ex)
 			{
@@ -43,14 +43,14 @@ namespace slambot.Api.Controllers
 		{
 			try
 			{
-				await _repository.AddPlayerAsync(id);
+				await _lobbyRepository.AddPlayerAsync(id);
 			}
 			catch (Exception ex)
 			{
 				return BadRequest(ex.ToString());
 			}
 
-			return Ok(await _repository.GetLobby());
+			return Ok(await _lobbyRepository.GetLobby());
 		}
 
 		[HttpPut]
@@ -59,14 +59,14 @@ namespace slambot.Api.Controllers
 		{
 			try
 			{
-				await _repository.SetTeamAsync(id, team);
+				await _lobbyRepository.SetTeamAsync(id, team);
 			}
 			catch (Exception ex)
 			{
 				return BadRequest(ex.ToString());
 			}
 
-			return Ok(await _repository.GetLobby());
+			return Ok(await _lobbyRepository.GetLobby());
 		}
 
 		[HttpDelete]
@@ -75,14 +75,14 @@ namespace slambot.Api.Controllers
 		{
 			try
 			{
-				await _repository.KickPlayerAsync(id);
+				await _lobbyRepository.KickPlayerAsync(id);
 			}
 			catch (Exception ex)
 			{
 				return BadRequest(ex.ToString());
 			}
 
-			return Ok(await _repository.GetLobby());
+			return Ok(await _lobbyRepository.GetLobby());
 		}
 
 		[HttpDelete]
@@ -91,14 +91,14 @@ namespace slambot.Api.Controllers
 		{
 			try
 			{
-				await _repository.ClearTeamAsync(team);
+				await _lobbyRepository.ClearTeamAsync(team);
 			}
 			catch (Exception ex)
 			{
 				return BadRequest(ex.ToString());
 			}
 
-			return Ok(await _repository.GetLobby());
+			return Ok(await _lobbyRepository.GetLobby());
 		}
 
 		[HttpDelete]
@@ -106,14 +106,14 @@ namespace slambot.Api.Controllers
 		{
 			try
 			{
-				await _repository.ClearLobbyAsync();
+				await _lobbyRepository.ClearLobbyAsync();
 			}
 			catch (Exception ex)
 			{
 				return StatusCode(500, ex.Message);
 			}
 
-			return Ok(await _repository.GetLobby());
+			return Ok(await _lobbyRepository.GetLobby());
 		}
 	}
 }

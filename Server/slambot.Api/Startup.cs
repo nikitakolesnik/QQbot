@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using slambot.DataAccess.Contexts;
 using slambot.Services;
 using slambot.Services.Implementation;
+using slambot.Common.Configuration;
 
 namespace slambot.Api
 {
@@ -20,9 +21,7 @@ namespace slambot.Api
 		{
 			services.AddControllers();
 			services.AddDbContext<ApplicationDbContext>(
-				a => a.UseSqlServer(@"Server=(localdb)\mssqllocaldb;"
-					+ @"Database=slambotDB;"
-					+ @"Trusted_Connection=true;", 
+				a => a.UseSqlServer(ConnectionString.Value, 
 				b => b.MigrationsAssembly("slambot.DataAccess")));
 
 			services.AddScoped<IMatchRepository,  MatchRepository>();
