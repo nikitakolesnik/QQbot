@@ -12,14 +12,11 @@ namespace slambot.Api.Controllers
 	[Route("api/match")]
 	public class MatchController : ControllerBase
 	{
-		private const int _defaultMatchesToShow = MatchConfiguration.DefaultMatchesToShow;
 		private readonly IMatchRepository _matchRepository;
-        private readonly IAdminRepository _adminRepository;
 
-        public MatchController(IMatchRepository matchRepository, IAdminRepository adminRepository)
+        public MatchController(IMatchRepository matchRepository)
 		{
 			_matchRepository = matchRepository ?? throw new ArgumentNullException(nameof(matchRepository));
-            _adminRepository = adminRepository ?? throw new ArgumentNullException(nameof(adminRepository));
         }
 
 		/*

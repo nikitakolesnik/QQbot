@@ -23,7 +23,7 @@ namespace slambot.Services.Implementation
 		public async Task<IEnumerable<LobbyPlayerDisplay>> GetLobby()
 		{
 			IEnumerable<LobbyPlayer> lobby = await _context.LobbyPlayers.Include("Player").ToListAsync();
-			List<LobbyPlayerDisplay> lobbyDisplay = new List<LobbyPlayerDisplay>();
+			List<LobbyPlayerDisplay> lobbyDisplay = new();
 
 			// Map to display model
 			foreach (LobbyPlayer lobbyPlayer in lobby)
@@ -49,7 +49,7 @@ namespace slambot.Services.Implementation
 				throw new Exception(ExceptionMessage.PlayerIneligibleForLobby);
             }
 
-			LobbyPlayer lobbyPlayer = new LobbyPlayer{ Player = player };
+			LobbyPlayer lobbyPlayer = new() { Player = player };
 
 			await _context.LobbyPlayers.AddAsync(lobbyPlayer);
 			await _context.SaveChangesAsync();
@@ -61,7 +61,7 @@ namespace slambot.Services.Implementation
 		{
 			if (team < 0 || team > 2)
 			{
-				throw new ArgumentException();
+				throw new ArgumentException(null, nameof(team));
 			}
 
 			LobbyPlayer lobbyPlayer = await _context.LobbyPlayers.SingleAsync(p => p.PlayerId == id);
@@ -85,7 +85,7 @@ namespace slambot.Services.Implementation
 		{
 			if (team < 0 && team > 2)
 			{
-				throw new ArgumentException();
+				throw new ArgumentException(null, nameof(team));
 			}
 
 			IEnumerable<LobbyPlayer> lobby = await _context.LobbyPlayers.ToListAsync();

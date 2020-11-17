@@ -32,7 +32,7 @@ namespace slambot.Services.Implementation
 
 			// Add this to admin action log
 
-			await _context.AdminActions.AddAsync(new AdminAction()
+			await _context.AdminActions.AddAsync(new()
 			{
 				Admin = admin, // todo
 				Type = AdminActionType.ActionMatch,
@@ -93,7 +93,7 @@ namespace slambot.Services.Implementation
 
 			// Get all the player IDs involved in these matches
 
-			HashSet<int> playerIds = new HashSet<int>();
+			HashSet<int> playerIds = new();
 
 			foreach (Match match in matches)
 			{
@@ -110,11 +110,11 @@ namespace slambot.Services.Implementation
 
 			// Map names to IDs in matches
 
-			List<MatchDisplay> matchDisplays = new List<MatchDisplay>();
+			List<MatchDisplay> matchDisplays = new();
 			foreach (Match match in matches)
 			{
-				List<Tuple<int, string>> team1 = new List<Tuple<int, string>>();
-				List<Tuple<int, string>> team2 = new List<Tuple<int, string>>();
+				List<Tuple<int, string>> team1 = new();
+				List<Tuple<int, string>> team2 = new();
 
 				foreach (var player in playerNames)
                 {
@@ -126,7 +126,7 @@ namespace slambot.Services.Implementation
 						team2.Add(player);
 				}
 
-				matchDisplays.Add(new MatchDisplay
+				matchDisplays.Add(new()
 				{
 					WinningTeam = match.WinningTeam,
 					Team1 = team1,
@@ -189,7 +189,7 @@ namespace slambot.Services.Implementation
 
 			// Record the match
 
-			Match match = new Match()
+			Match match = new()
 			{
 				WinningTeam = winningTeam,
 				Team1 = string.Join(',', team1),

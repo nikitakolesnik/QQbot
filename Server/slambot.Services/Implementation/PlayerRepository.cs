@@ -34,7 +34,7 @@ namespace slambot.Services.Implementation
 
 			// Add this to admin action log
 			
-			await _context.AdminActions.AddAsync(new AdminAction() { 
+			await _context.AdminActions.AddAsync(new() { 
 				Admin = admin, // todo
 				Type = AdminActionType.ActionPlayer,
 				SubjectPlayer = player,
@@ -54,7 +54,7 @@ namespace slambot.Services.Implementation
 				throw new ArgumentException(ExceptionMessage.PlayerNameEmpty);
 			}
 
-			Player newPlayer = new Player { Name = playerData.Name, Discord = playerData.Discord, Status = Status.PendingReview };
+			Player newPlayer = new() { Name = playerData.Name, Discord = playerData.Discord, Status = Status.PendingReview };
 			await _context.Players.AddAsync(newPlayer);
 			await _context.SaveChangesAsync();
 			return newPlayer;
@@ -71,19 +71,27 @@ namespace slambot.Services.Implementation
 
 		public async Task<SubmittedPlayer> PlayerNameDiscordAsync(int id)
 		{
-			Player player = await _context.Players.Where(p => p.Id == id).SingleAsync();
-			return new SubmittedPlayer { Name = player.Name, Discord = player.Discord };
+			return await _context.Players
+				.Where(p => p.Id == id)
+				.Select(sp => new SubmittedPlayer 
+				{ 
+					Name = sp.Name, 
+					Discord = sp.Discord 
+				})
+				.SingleAsync();
 		}
 
 		public async Task<IEnumerable<LeaderboardPlayer>> LeaderboardAsync()
 		{
-			List<Player> players = await _context.Players.OrderByDescending(x => x.Rating).ToListAsync();
-			List<LeaderboardPlayer> leaderboard = new List<LeaderboardPlayer>();
+			List<Player> players = await _context.Players
+				.OrderByDescending(x => x.Rating)
+				.ToListAsync();
+			List<LeaderboardPlayer> leaderboard = new();
 			int rank = 1;
 
 			foreach (var player in players)
 			{
-				leaderboard.Add(new LeaderboardPlayer 
+				leaderboard.Add(new() 
 				{ 
 					Id     = player.Id,
 					Rank   = rank++, 
@@ -104,18 +112,18 @@ namespace slambot.Services.Implementation
 
 			// Prepare return object & initialize containers for finding relative player data
 
-			PlayerProfile profile = new PlayerProfile() 
+			PlayerProfile profile = new() 
 			{ 
 				Name = player.Name, 
 				//Rating = player.Rating,
 				PeakRating = player.Rating
 			};
 			int playerCount = _context.Players.Max(p => p.Id);
-			Dictionary<int, int> allPlayerRatings = new Dictionary<int, int>();
-			Dictionary<int, int> playersWonWith = new Dictionary<int, int>();
-			Dictionary<int, int> playersWonAgainst = new Dictionary<int, int>();
-			Dictionary<int, int> playersLostWith = new Dictionary<int, int>();
-			Dictionary<int, int> playersLostAgainst = new Dictionary<int, int>();
+			Dictionary<int, int> allPlayerRatings = new();
+			Dictionary<int, int> playersWonWith = new();
+			Dictionary<int, int> playersWonAgainst = new();
+			Dictionary<int, int> playersLostWith = new();
+			Dictionary<int, int> playersLostAgainst = new();
 
 			for (int i = 1; i <= playerCount; i++)
             {
@@ -162,6 +170,7 @@ namespace slambot.Services.Implementation
 
 				
 				// if the player participated in this match, increment their stats
+				//		this section is very ugly and im not sure how to fix that yet
 
 				if (team1Ids.Contains(player.Id)) // If player was on Team 1
 				{

@@ -13,12 +13,10 @@ namespace slambot.Api.Controllers
 	[Route("/api/players")]
 	public class PlayerController : ControllerBase
 	{
-		private readonly IAdminRepository _adminRepository;
 		private readonly IPlayerRepository _playerRepository;
 
-		public PlayerController(IAdminRepository adminRepository, IPlayerRepository playerRepository)
+		public PlayerController(IPlayerRepository playerRepository)
 		{
-			_adminRepository = adminRepository ?? throw new ArgumentNullException(nameof(adminRepository));
 			_playerRepository = playerRepository ?? throw new ArgumentNullException(nameof(playerRepository));
 		}
 
@@ -98,8 +96,6 @@ namespace slambot.Api.Controllers
                 return BadRequest(ex.ToString());
             }
         }
-
-        // routing error below
 
         [HttpPut]
         [Route("{id:int}/action/{actionId:int}")]

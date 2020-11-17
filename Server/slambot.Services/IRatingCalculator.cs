@@ -1,5 +1,4 @@
 ﻿using slambot.Common.Enums;
-using System.Collections.Generic;
 
 namespace slambot.Services
 {

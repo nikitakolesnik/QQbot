@@ -53,8 +53,8 @@ namespace slambot.DataAccess.Contexts
 
                 for (int i = 0; i < MatchConfiguration.TestMatchesToSeed + 1; i++)
                 {
-                    List<int> team1 = new List<int>();
-                    List<int> team2 = new List<int>();
+                    List<int> team1 = new();
+                    List<int> team2 = new();
 
                     // Force player 1 to be in the match
 

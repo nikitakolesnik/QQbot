@@ -8,146 +8,146 @@ namespace slambot.DataAccess.Data
 	{
 		public static IEnumerable<Player> GetPlayers()
 		{
-			List<Player> players = new List<Player>
+			List<Player> players = new()
 			{ 
-				new Player()
+				new()
 				{
 					Name = "Slam",
 					Discord = 240413827718578177
 				},
-				new Player()
+				new()
 				{
 					Name = "Yoko",
 					Discord = 175325337196953600
 				},
 
-				new Player()
+				new()
 				{
 					Name = "Candyboy",
 					Discord = 287275232236929026
 				},
 
-				new Player()
+				new()
 				{
 					Name = "Godly",
 					Discord = 232147476008796161
 				},
 
-				new Player()
+				new()
 				{
 					Name = "Santana",
 					Discord = 416266623847235584
 				},
 
-				new Player()
+				new()
 				{
 					Name = "Purif",
 					Discord = 208987498368598016
 				},
 
-				new Player()
+				new()
 				{
 					Name = "Chrona",
 					Discord = 361620009815900170
 				},
 
-				new Player()
+				new()
 				{
 					Name = "Lisek",
 					Discord = 382998762533945344
 				},
 
-				new Player()
+				new()
 				{
 					Name = "Oln",
 					Discord = 277194459576532992
 				},
 
-				new Player()
+				new()
 				{
 					Name = "Rainy",
 					Discord = 288009866080157697
 				},
 
-				new Player()
+				new()
 				{
 					Name = "Butters",
 					Discord = 465126942656561152
 				},
 
-				new Player()
+				new()
 				{
 					Name = "Takida",
 					Discord = 241149128216674305
 				},
 
-				new Player()
+				new()
 				{
 					Name = "Jo",
 					Discord = 99492885015048192
 				},
 
-				new Player()
+				new()
 				{
 					Name = "Bounty",
 					Discord = 221445321530540032
 				},
 
-				new Player()
+				new()
 				{
 					Name = "Cracks",
 					Discord = 430796233783640066
 				},
 
-				new Player()
+				new()
 				{
 					Name = "Jonas",
 					Discord = 242126086983516160
 				},
 
-				new Player()
+				new()
                 {
 					Name = "Jim",
 					Discord = 581965183669501952
 				},
 
-				new Player()
+				new()
                 {
 					Name = "Holye",
 					Discord = 273617664457310210
 				},
 
-				new Player()
+				new()
                 {
 					Name = "Maga",
 					Discord = 310713367683923968
 				},
 
-				new Player()
+				new()
                 {
 					Name = "Calvin",
 					Discord = 235062551724032000
 				},
 
-				new Player()
+				new()
                 {
 					Name = "Kam",
 					Discord = 179021286645694464
 				},
 
-				new Player()
+				new()
                 {
 					Name = "Lynie",
 					Discord = 170238151732887552
 				},
 
-				new Player()
+				new()
                 {
 					Name = "Zynkh",
 					Discord = 614187828531691739
 				},
 
-				new Player()
+				new()
                 {
 					Name = "Luke",
 					Discord = 478594642602885121

@@ -14,7 +14,6 @@ namespace slambot.Services
 		Task<Match> EditAsync(int id, TeamNumber winningTeam, string team1, string team2);
 		Task<int> MaxRatingDiff();
 		Task<List<MatchDisplay>> HistoryAsync(int resultCount = MatchConfiguration.DefaultMatchesToShow, int playerId = -1);
-		//Task<IEnumerable<MatchDisplay>> PlayerHistoryAsync(int playerId, int resultCount);
 		Task<Match> RecordAsync(TeamNumber winningTeam);
 	}
 }

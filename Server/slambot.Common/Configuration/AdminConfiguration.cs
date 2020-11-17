@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace slambot.Common.Configuration
+﻿namespace slambot.Common.Configuration
 {
     public static class AdminConfiguration
     {

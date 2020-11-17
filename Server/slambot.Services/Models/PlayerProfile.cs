@@ -1,4 +1,4 @@
-﻿//using slambot.DataAccess.Entities;
+﻿using System;
 using System.Collections.Generic;
 
 namespace slambot.Services.Models
@@ -21,10 +21,10 @@ namespace slambot.Services.Models
 		public int       MostLossesWithPlayerId    { get; set; }
 		public int       MostWinsAgainstPlayerId   { get; set; }
 		public int       MostLossesAgainstPlayerId { get; set; }
-		
-		//public Player    MostWinsWithPlayer        { get; set; }
-		//public Player    MostLossesWithPlayer      { get; set; }
-		//public Player    MostWinsAgainstPlayer     { get; set; }
-		//public Player    MostLossesAgainstPlayer   { get; set; }
+
+		//public Tuple<int,string> MostWinsWithPlayer      { get; set; }
+		//public Tuple<int,string> MostLossesWithPlayer    { get; set; }
+		//public Tuple<int,string> MostWinsAgainstPlayer   { get; set; }
+		//public Tuple<int,string> MostLossesAgainstPlayer { get; set; }
 	}
 }
