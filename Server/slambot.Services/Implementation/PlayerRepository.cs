@@ -139,21 +139,20 @@ namespace slambot.Services.Implementation
 
 			await foreach (Match match in _context.Matches.AsAsyncEnumerable())
 			{
-				// Skip disabled or pending-approval matches
-
-				if (match.Status != Status.Approved)
-                {
+				if (match.Status != Status.Approved // Skip disabled or pending-approval matches
+					|| match.WinningTeam == TeamNumber.None) // No need to count anything for a draw
+				{
 					continue;
                 }
 
 
-				// Build collection of player IDs for each team
+				// Get collection of player IDs for each team
 
 				List<int> team1Ids = Utilities.StrToList(match.Team1);
 				List<int> team2Ids = Utilities.StrToList(match.Team2);
 
 
-				// calculate all rating changes for this match
+				// Calculate all rating changes for this match
 
 				int team1RatingAvg = (int)team1Ids.Average();
 				int team2RatingAvg = (int)team2Ids.Average();
@@ -168,90 +167,54 @@ namespace slambot.Services.Implementation
 					allPlayerRatings[t2PlayerId] = _calc.PlayerRating(allPlayerRatings[t2PlayerId], team1RatingAvg, maxRatingDiff, match.WinningTeam == TeamNumber.Team2 ? MatchResult.Win : MatchResult.Lose);
                 }
 
-				
-				// if the player participated in this match, increment their stats
-				//		this section is very ugly and im not sure how to fix that yet
 
-				if (team1Ids.Contains(player.Id)) // If player was on Team 1
-				{
-					profile.RatingOverTime.Add(allPlayerRatings[player.Id]);
+				// If the player participated in this match, add to profile
 
-					if (match.WinningTeam == TeamNumber.Team1)
+				List<int> winningTeam = null;
+				List<int> losingTeam  = null;
+				bool? playerWon = null;
+
+				winningTeam = (match.WinningTeam == TeamNumber.Team1) ? team1Ids : team2Ids;
+				losingTeam  = (match.WinningTeam == TeamNumber.Team1) ? team2Ids : team1Ids;
+
+				if (winningTeam.Contains(player.Id))
+					playerWon = true;
+				else if (team2Ids.Contains(player.Id))
+					playerWon = false;
+
+				if (playerWon == null) // not set; player wasn't on either team
+					continue;
+
+				if (playerWon == true) // WIN
+                {
+					profile.Wins++;
+					profile.CurrentWinStreak++;
+					profile.HighestWinStreak = Math.Max(profile.CurrentWinStreak, profile.HighestWinStreak);
+					profile.PeakRating = Math.Max(profile.PeakRating, allPlayerRatings[player.Id]);
+
+					foreach (int winningPlayerId in winningTeam)
 					{
-						profile.Wins++;
-						profile.CurrentWinStreak++;
-						if (profile.HighestWinStreak < profile.CurrentWinStreak)
-							profile.HighestWinStreak = profile.CurrentWinStreak;
-						if (profile.PeakRating < allPlayerRatings[player.Id])
-							profile.PeakRating = allPlayerRatings[player.Id];
-
-						foreach (int t1PlayerId in team1Ids) // Add Team 1 to friendly stats
-						{
-							if (t1PlayerId == player.Id)
-								continue;
-							playersWonWith[t1PlayerId] += 1;
-						}
-						foreach (int t2PlayerId in team2Ids) // Add Team 2 to enemy stats
-						{
-							playersWonAgainst[t2PlayerId] += 1;
-						}
+						if (winningPlayerId != player.Id)
+							playersWonWith[winningPlayerId]++;
 					}
-					else if (match.WinningTeam == TeamNumber.Team2)
+					foreach (int losingPlayerId in losingTeam)
 					{
-						profile.Losses++;
-						profile.CurrentWinStreak = 0;
-
-						foreach (int t1PlayerId in team1Ids) // Add Team 1 to friendly stats
-						{
-							if (t1PlayerId == player.Id)
-								continue;
-							playersLostWith[t1PlayerId] += 1;
-						}
-						foreach (int t2PlayerId in team2Ids) // Add Team 2 to enemy stats
-						{
-							playersLostAgainst[t2PlayerId] += 1;
-						}
+						playersWonAgainst[losingPlayerId]++;
 					}
 				}
-				else if (team2Ids.Contains(player.Id)) // If player was on Team 2
-				{
-					profile.RatingOverTime.Add(allPlayerRatings[player.Id]);
+				else // LOSS
+                {
+					profile.Losses++;
+					profile.CurrentWinStreak = 0;
 
-					if (match.WinningTeam == TeamNumber.Team1)
+					foreach (int losingPlayerId in losingTeam)
 					{
-						profile.Losses++;
-						profile.CurrentWinStreak = 0;
-
-						foreach (int t1PlayerId in team1Ids) // Add Team 1 to enemy stats
-						{
-							playersLostAgainst[t1PlayerId] += 1;
-						}
-						foreach (int t2PlayerId in team2Ids) // Add Team 2 to friendly stats
-						{
-							if (t2PlayerId == player.Id)
-								continue;
-							playersLostWith[t2PlayerId] += 1;
-						}
+						if (losingPlayerId != player.Id)
+							playersLostWith[losingPlayerId]++;
 					}
-					else if (match.WinningTeam == TeamNumber.Team2)
+					foreach (int winningPlayerId in winningTeam)
 					{
-						profile.Wins++;
-						profile.CurrentWinStreak++;
-						if (profile.HighestWinStreak < profile.CurrentWinStreak)
-							profile.HighestWinStreak = profile.CurrentWinStreak;
-						if (profile.PeakRating < allPlayerRatings[player.Id])
-							profile.PeakRating = allPlayerRatings[player.Id];
-
-						foreach (int t1PlayerId in team1Ids) // Add Team 1 to enemy stats
-						{
-                            playersWonAgainst[t1PlayerId] += 1;
-						}
-						foreach (int t2PlayerId in team2Ids) // Add Team 2 to friendly stats
-						{
-							if (t2PlayerId == player.Id)
-								continue;
-							playersWonWith[t2PlayerId] += 1;
-						}
+						playersLostAgainst[winningPlayerId]++;
 					}
 				}
 			}
