@@ -1,11 +1,17 @@
 ﻿using slambot.DataAccess.Entities;
 using slambot.Common.Enums;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace slambot.DataAccess.Data
 {
     public static class HardCodedPlayerData
 	{
+		public static int PlayerCount()
+        {
+			return GetPlayers().Count();
+        }
+
 		public static IEnumerable<Player> GetPlayers()
 		{
 			List<Player> players = new()

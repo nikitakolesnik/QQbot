@@ -154,8 +154,15 @@ namespace slambot.Services.Implementation
 
 				// Calculate all rating changes for this match
 
-				int team1RatingAvg = (int)team1Ids.Average();
-				int team2RatingAvg = (int)team2Ids.Average();
+				var aaaaa = allPlayerRatings.Where(x => team1Ids.Contains(x.Key)).Select(x => x.Value).ToList();
+
+				static int TeamRatingAverage(List<int> team, Dictionary<int,int> all)
+                {
+					return (int)all.Where(x => team.Contains(x.Key)).Select(x => x.Value).ToList().Average();
+				}
+
+				int team1RatingAvg = TeamRatingAverage(team1Ids, allPlayerRatings);
+				int team2RatingAvg = TeamRatingAverage(team2Ids, allPlayerRatings);
 				int maxRatingDiff = allPlayerRatings.Values.Max() - allPlayerRatings.Values.Min();
 
 				foreach (int t1PlayerId in team1Ids)

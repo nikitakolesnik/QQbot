@@ -65,7 +65,7 @@ namespace slambot.Services.Implementation
 			return match;
         }
 
-        public async Task<int> MaxRatingDiff()
+        public async Task<int> MaxRatingDiffAsync()
 		{
 			int min = await _context.Players.MinAsync(p => p.Rating);
 			int max = await _context.Players.MaxAsync(p => p.Rating);
@@ -200,36 +200,34 @@ namespace slambot.Services.Implementation
 
 			// Calculate player rating change
 
-			//int team1RatingAvg = _calc.TeamRating(team1.Select(p => p.Player.Rating).ToList());
-			int team1RatingAvg = (int)team1.Select(p => p.Player.Rating).ToList().Average();
-			int team2RatingAvg = (int)team2.Select(p => p.Player.Rating).ToList().Average();
-			int maxRatingDiff  = await this.MaxRatingDiff();
-
-			if (winningTeam == TeamNumber.Team1)
-			{
-				foreach(LobbyPlayer winningPlayer in team1)
-                {
-					winningPlayer.Player.Rating = _calc.PlayerRating(winningPlayer.Player.Rating, team2RatingAvg, maxRatingDiff, MatchResult.Win);
-                }
-				foreach(LobbyPlayer losingPlayer in team2)
-                {
-					losingPlayer.Player.Rating = _calc.PlayerRating(losingPlayer.Player.Rating, team1RatingAvg, maxRatingDiff, MatchResult.Lose);
-                }
-			}
-			else if (winningTeam == TeamNumber.Team2)
-			{
-				foreach(LobbyPlayer losingPlayer in team1)
-                {
-					losingPlayer.Player.Rating = _calc.PlayerRating(losingPlayer.Player.Rating, team2RatingAvg, maxRatingDiff, MatchResult.Lose);
-                }
-				foreach (LobbyPlayer winningPlayer in team2)
-				{
-					winningPlayer.Player.Rating = _calc.PlayerRating(winningPlayer.Player.Rating, team1RatingAvg, maxRatingDiff, MatchResult.Win);
-				}
-			}
-			else
+			if (winningTeam != TeamNumber.None) // if it wasn't a draw
             {
-				// do nothing if draw
+				int team1RatingAvg = (int)team1.Select(p => p.Player.Rating).ToList().Average();
+				int team2RatingAvg = (int)team2.Select(p => p.Player.Rating).ToList().Average();
+				int maxRatingDiff  = await MaxRatingDiffAsync();
+
+				if (winningTeam == TeamNumber.Team1)
+				{
+					foreach(LobbyPlayer winningPlayer in team1)
+					{
+						winningPlayer.Player.Rating = _calc.PlayerRating(winningPlayer.Player.Rating, team2RatingAvg, maxRatingDiff, MatchResult.Win);
+					}
+					foreach(LobbyPlayer losingPlayer in team2)
+					{
+						losingPlayer.Player.Rating = _calc.PlayerRating(losingPlayer.Player.Rating, team1RatingAvg, maxRatingDiff, MatchResult.Lose);
+					}
+				}
+				else
+				{
+					foreach(LobbyPlayer losingPlayer in team1)
+					{
+						losingPlayer.Player.Rating = _calc.PlayerRating(losingPlayer.Player.Rating, team2RatingAvg, maxRatingDiff, MatchResult.Lose);
+					}
+					foreach (LobbyPlayer winningPlayer in team2)
+					{
+						winningPlayer.Player.Rating = _calc.PlayerRating(winningPlayer.Player.Rating, team1RatingAvg, maxRatingDiff, MatchResult.Win);
+					}
+				}
             }
 
 

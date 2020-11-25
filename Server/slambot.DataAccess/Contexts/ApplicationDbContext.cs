@@ -5,7 +5,6 @@ using slambot.Common.Enums;
 using slambot.Common.Configuration;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using slambot.Common;
 
 namespace slambot.DataAccess.Contexts
@@ -35,17 +34,17 @@ namespace slambot.DataAccess.Contexts
             });
 
             IEnumerable<Player> players = HardCodedPlayerData.GetPlayers();
-			foreach (Player player in players)
-			{
-				modelBuilder.Entity<Player>().HasData(player);
-				modelBuilder.Entity<AdminAction>().HasData(new AdminAction 
-				{ 
-					Id = player.Id, 
-					AdminId = 1, 
-					Type = AdminActionType.ActionPlayer, 
-					SubjectPlayerId = player.Id 
-				});
-			}
+            foreach (Player player in players)
+            {
+                modelBuilder.Entity<Player>().HasData(player);
+                modelBuilder.Entity<AdminAction>().HasData(new AdminAction
+                {
+                    Id = player.Id,
+                    AdminId = 1,
+                    Type = AdminActionType.ActionPlayer,
+                    SubjectPlayerId = player.Id
+                });
+            }
 
             if (MatchConfiguration.SeedTestMatches == true)
             {
@@ -73,22 +72,22 @@ namespace slambot.DataAccess.Contexts
 
                     while (team1.Count < 8)
                     {
-                        int newPlayer = r.Next(1, players.Count() + 1);
+                        int newPlayer = r.Next(1, HardCodedPlayerData.PlayerCount() + 1);
                         if (!team1.Contains(newPlayer))
                             team1.Add(newPlayer);
                     }
                     while (team2.Count < 8)
                     {
-                        int newPlayer = r.Next(1, players.Count() + 1);
+                        int newPlayer = r.Next(1, HardCodedPlayerData.PlayerCount() + 1);
                         if (!team1.Contains(newPlayer) && !team2.Contains(newPlayer))
                             team2.Add(newPlayer);
                     }
 
-                    team1.Sort();
-                    team2.Sort();
-
 
                     // create row
+
+                    team1.Sort();
+                    team2.Sort();
 
                     modelBuilder.Entity<Match>().HasData(new Match
                     {
@@ -99,7 +98,6 @@ namespace slambot.DataAccess.Contexts
                         Status = Status.Approved
                     });
                 }
-            
             }
         }
 	}

@@ -12,7 +12,7 @@ namespace slambot.Services
 		Task<Match> ActionAsync(int matchId, Status action);
 		Task<MatchDisplay> DetailsAsync(int id);
 		Task<Match> EditAsync(int id, TeamNumber winningTeam, string team1, string team2);
-		Task<int> MaxRatingDiff();
+		Task<int> MaxRatingDiffAsync();
 		Task<List<MatchDisplay>> HistoryAsync(int resultCount = MatchConfiguration.DefaultMatchesToShow, int playerId = -1);
 		Task<Match> RecordAsync(TeamNumber winningTeam);
 	}
