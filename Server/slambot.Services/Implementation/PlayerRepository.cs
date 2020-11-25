@@ -119,10 +119,10 @@ namespace slambot.Services.Implementation
 				PeakRating = player.Rating
 			};
 			int playerCount = _context.Players.Max(p => p.Id);
-			Dictionary<int, int> allPlayerRatings = new();
-			Dictionary<int, int> playersWonWith = new();
-			Dictionary<int, int> playersWonAgainst = new();
-			Dictionary<int, int> playersLostWith = new();
+			Dictionary<int, int> allPlayerRatings   = new();
+			Dictionary<int, int> playersWonWith     = new();
+			Dictionary<int, int> playersWonAgainst  = new();
+			Dictionary<int, int> playersLostWith    = new();
 			Dictionary<int, int> playersLostAgainst = new();
 
 			for (int i = 1; i <= playerCount; i++)
@@ -256,16 +256,34 @@ namespace slambot.Services.Implementation
 				}
 			}
 
+			// get player names for IDs
 
-			// map dictionary results to profile
+			static int HighestValueKey(Dictionary<int, int> dict)
+			{
+				return dict.Aggregate((l, r) => l.Value > r.Value ? l : r).Key;
+			}
 
-			profile.MostLossesAgainstPlayerId = playersLostAgainst.Aggregate((l, r) => l.Value > r.Value ? l : r).Key;
-			profile.MostLossesWithPlayerId = playersLostWith.Aggregate((l, r) => l.Value > r.Value ? l : r).Key;
-			profile.MostWinsAgainstPlayerId = playersWonAgainst.Aggregate((l, r) => l.Value > r.Value ? l : r).Key;
-			profile.MostWinsWithPlayerId = playersWonWith.Aggregate((l, r) => l.Value > r.Value ? l : r).Key;
+			int la = HighestValueKey(playersLostAgainst);
+			int lw = HighestValueKey(playersLostWith);
+			int wa = HighestValueKey(playersWonAgainst);
+			int ww = HighestValueKey(playersWonWith);
+
+			List<int> ids = new() { la, lw, wa, ww };
+			List<Tuple<int, string>> idNames = await _context.Players
+				.Where(p => ids.Contains(p.Id))
+				.Select(p => new Tuple<int, string>(p.Id, p.Name))
+				.ToListAsync();
+
+
+			// build profile from results
+
 			profile.WinPercent = (int)(100 * ((double)profile.Wins / (double)(profile.Wins + profile.Losses)));
-			
 			profile.Rating = allPlayerRatings[player.Id]; // temp
+			profile.MostLossesAgainstPlayer = idNames.Single(i => i.Item1 == la);
+			profile.MostLossesWithPlayer = idNames.Single(i => i.Item1 == lw);
+			profile.MostWinsAgainstPlayer = idNames.Single(i => i.Item1 == wa);
+			profile.MostWinsWithPlayer = idNames.Single(i => i.Item1 == ww);
+
 
 			// Done
 

@@ -56,12 +56,6 @@ namespace slambot.DataAccess.Contexts
                     List<int> team1 = new();
                     List<int> team2 = new();
 
-                    // Force player 1 to be in the match
-
-                    //int playerTeam = r.Next(1, 3);
-                    //if (playerTeam == 1) team1.Add(1);
-                    //else team2.Add(1);
-
 
                     // Decide winning team
 
@@ -79,25 +73,19 @@ namespace slambot.DataAccess.Contexts
 
                     while (team1.Count < 8)
                     {
-                        int newPlayer = r.Next(2, players.Count() + 1);
+                        int newPlayer = r.Next(1, players.Count() + 1);
                         if (!team1.Contains(newPlayer))
                             team1.Add(newPlayer);
                     }
-
                     while (team2.Count < 8)
                     {
-                        int newPlayer = r.Next(2, players.Count() + 1);
+                        int newPlayer = r.Next(1, players.Count() + 1);
                         if (!team1.Contains(newPlayer) && !team2.Contains(newPlayer))
                             team2.Add(newPlayer);
                     }
 
-
-                    // convert to string of IDs
-
                     team1.Sort();
-                    string team1str = Utilities.ListToStr(team1);
                     team2.Sort();
-                    string team2str = Utilities.ListToStr(team2);
 
 
                     // create row
@@ -106,8 +94,8 @@ namespace slambot.DataAccess.Contexts
                     {
                         Id = i + 1,
                         WinningTeam = winningTeam,
-                        Team1 = team1str,
-                        Team2 = team2str,
+                        Team1 = Utilities.ListToStr(team1),
+                        Team2 = Utilities.ListToStr(team2),
                         Status = Status.Approved
                     });
                 }
