@@ -154,8 +154,6 @@ namespace slambot.Services.Implementation
 
 				// Calculate all rating changes for this match
 
-				var aaaaa = allPlayerRatings.Where(x => team1Ids.Contains(x.Key)).Select(x => x.Value).ToList();
-
 				static int TeamRatingAverage(List<int> team, Dictionary<int,int> all)
                 {
 					return (int)all.Where(x => team.Contains(x.Key)).Select(x => x.Value).ToList().Average();
@@ -177,16 +175,13 @@ namespace slambot.Services.Implementation
 
 				// If the player participated in this match, add to profile
 
-				List<int> winningTeam = null;
-				List<int> losingTeam  = null;
+				List<int> winningTeam = (match.WinningTeam == TeamNumber.Team1) ? team1Ids : team2Ids;
+				List<int> losingTeam  = (match.WinningTeam == TeamNumber.Team1) ? team2Ids : team1Ids;
 				bool? playerWon = null;
-
-				winningTeam = (match.WinningTeam == TeamNumber.Team1) ? team1Ids : team2Ids;
-				losingTeam  = (match.WinningTeam == TeamNumber.Team1) ? team2Ids : team1Ids;
-
+				
 				if (winningTeam.Contains(player.Id))
 					playerWon = true;
-				else if (team2Ids.Contains(player.Id))
+				else if (losingTeam.Contains(player.Id))
 					playerWon = false;
 
 				if (playerWon == null) // not set; player wasn't on either team
