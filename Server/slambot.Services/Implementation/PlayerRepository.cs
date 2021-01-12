@@ -174,16 +174,8 @@ namespace slambot.Services.Implementation
 
 				List<int> winningTeam = (match.WinningTeam == TeamNumber.Team1) ? team1Ids : team2Ids;
 				List<int> losingTeam = (match.WinningTeam == TeamNumber.Team1) ? team2Ids : team1Ids;
-				bool playerWon = false;
 
-				if (winningTeam.Contains(player.Id))
-					playerWon = true;
-				else if (losingTeam.Contains(player.Id))
-					playerWon = false;
-				else
-					continue; // player didn't play; don't update their profile
-
-				if (playerWon) // WIN
+				if (winningTeam.Contains(player.Id)) // Player won
 				{
 					profile.Wins++;
 					profile.CurrentWinStreak++;
@@ -197,7 +189,7 @@ namespace slambot.Services.Implementation
 					foreach (int losingPlayerId in losingTeam)
 						playersWonAgainst[losingPlayerId]++;
 				}
-				else // LOSS
+				else if (losingTeam.Contains(player.Id)) // Player lost
 				{
 					profile.Losses++;
 					profile.CurrentWinStreak = 0;
@@ -208,6 +200,10 @@ namespace slambot.Services.Implementation
 
 					foreach (int winningPlayerId in winningTeam)
 						playersLostAgainst[winningPlayerId]++;
+				}
+				else
+				{
+					// Player wasn't on either team, so do nothing to their profile
 				}
 			}
 
