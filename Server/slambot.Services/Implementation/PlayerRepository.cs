@@ -201,9 +201,9 @@ namespace slambot.Services.Implementation
 					foreach (int winningPlayerId in winningTeam)
 						playersLostAgainst[winningPlayerId]++;
 				}
-				else
+				else // Player wasn't on either team, so do nothing to their profile
 				{
-					// Player wasn't on either team, so do nothing to their profile
+					continue;
 				}
 			}
 
