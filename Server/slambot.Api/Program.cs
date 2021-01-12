@@ -3,7 +3,7 @@ using Microsoft.Extensions.Hosting;
 
 namespace slambot.Api
 {
-    public class Program
+	public class Program
 	{
 		public static void Main(string[] args)
 		{

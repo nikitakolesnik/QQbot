@@ -1,58 +1,56 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using slambot.Common;
 using slambot.Common.Configuration;
-using slambot.DataAccess.Entities;
+using slambot.Common.Enums;
 using slambot.DataAccess.Contexts;
+using slambot.DataAccess.Entities;
+using slambot.Services.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using slambot.Services.Models;
-using slambot.Common.Enums;
-using slambot.Common;
 
 namespace slambot.Services.Implementation
 {
 	public class PlayerRepository : IPlayerRepository
 	{
 		private readonly ApplicationDbContext _context;
-        private readonly IRatingCalculator _calc;
+		private readonly IRatingCalculator _calc;
 
-        public PlayerRepository(ApplicationDbContext context, IRatingCalculator calc)
+		public PlayerRepository(ApplicationDbContext context, IRatingCalculator calc)
 		{
 			_context = context ?? throw new ArgumentNullException(nameof(context));
-            _calc = calc ?? throw new ArgumentNullException(nameof(calc));
-        }
+			_calc = calc ?? throw new ArgumentNullException(nameof(calc));
+		}
 
 		public async Task<Player> ActionPlayerAsync(int id, Status action)
 		{
 			// Find player & apply change 
-			
+
+			Player admin = await _context.Players.SingleAsync(p => p.Id == 1); // TEMP
 			Player player = await _context.Players.SingleAsync(p => p.Id == id);
 			player.Status = action;
 
-			Player admin = await _context.Players.SingleAsync(p => p.Id == 1); // TEMP
-
 			// Add this to admin action log
-			
-			await _context.AdminActions.AddAsync(new() { 
+
+			await _context.AdminActions.AddAsync(new()
+			{
 				Admin = admin, // todo
 				Type = AdminActionType.ActionPlayer,
 				SubjectPlayer = player,
 				Action = action
 			});
-			
+
 			// Done
-			
+
 			await _context.SaveChangesAsync();
 			return player;
-        }
+		}
 
-        public async Task<Player> AddPlayerAsync(SubmittedPlayer playerData)
+		public async Task<Player> AddPlayerAsync(SubmittedPlayer playerData)
 		{
 			if (string.IsNullOrEmpty(playerData.Name))
-			{
 				throw new ArgumentException(ExceptionMessage.PlayerNameEmpty);
-			}
 
 			Player newPlayer = new() { Name = playerData.Name, Discord = playerData.Discord, Status = Status.PendingReview };
 			await _context.Players.AddAsync(newPlayer);
@@ -73,10 +71,10 @@ namespace slambot.Services.Implementation
 		{
 			return await _context.Players
 				.Where(p => p.Id == id)
-				.Select(sp => new SubmittedPlayer 
-				{ 
-					Name = sp.Name, 
-					Discord = sp.Discord 
+				.Select(sp => new SubmittedPlayer
+				{
+					Name = sp.Name,
+					Discord = sp.Discord
 				})
 				.SingleAsync();
 		}
@@ -91,48 +89,52 @@ namespace slambot.Services.Implementation
 
 			foreach (var player in players)
 			{
-				leaderboard.Add(new() 
-				{ 
-					Id     = player.Id,
-					Rank   = rank++, 
-					Name   = player.Name, 
+				leaderboard.Add(new()
+				{
+					Id = player.Id,
+					Rank = rank++,
+					Name = player.Name,
 					Rating = player.Rating
 				});
 			}
 
 			return leaderboard;
-        }
+		}
 
-        public async Task<PlayerProfile> ProfileAsync(int id)
-        {
+		public async Task<PlayerProfile> ProfileAsync(int id)
+		{
 			// Find player
 
 			Player player = await _context.Players.SingleAsync(p => p.Id == id);
 
 
-			// Prepare return object & initialize containers for finding relative player data
+			// Prepare return object
 
-			PlayerProfile profile = new() 
-			{ 
-				Name = player.Name, 
+			PlayerProfile profile = new()
+			{
+				Name = player.Name,
 				//Rating = player.Rating,
 				PeakRating = player.Rating
 			};
+
+
+			// initialize containers for calculating relative player data
+
 			int playerCount = _context.Players.Max(p => p.Id);
-			Dictionary<int, int> allPlayerRatings   = new();
-			Dictionary<int, int> playersWonWith     = new();
-			Dictionary<int, int> playersWonAgainst  = new();
-			Dictionary<int, int> playersLostWith    = new();
-			Dictionary<int, int> playersLostAgainst = new();
+			Dictionary<int, int> allPlayerRatings = new(playerCount);
+			Dictionary<int, int> playersWonWith = new(playerCount);
+			Dictionary<int, int> playersWonAgainst = new(playerCount);
+			Dictionary<int, int> playersLostWith = new(playerCount);
+			Dictionary<int, int> playersLostAgainst = new(playerCount);
 
 			for (int i = 1; i <= playerCount; i++)
-            {
+			{
 				allPlayerRatings.Add(i, PlayerConfiguration.DefaultRating);
-                playersWonWith.Add(i, 0);
-                playersWonAgainst.Add(i, 0);
-                playersLostWith.Add(i, 0);
-                playersLostAgainst.Add(i, 0);
-            }
+				playersWonWith.Add(i, 0);
+				playersWonAgainst.Add(i, 0);
+				playersLostWith.Add(i, 0);
+				playersLostAgainst.Add(i, 0);
+			}
 
 
 			// Go through the match history, rebuilding player rating
@@ -141,9 +143,7 @@ namespace slambot.Services.Implementation
 			{
 				if (match.Status != Status.Approved // Skip disabled or pending-approval matches
 					|| match.WinningTeam == TeamNumber.None) // No need to count anything for a draw
-				{
 					continue;
-                }
 
 
 				// Get collection of player IDs for each team
@@ -154,8 +154,8 @@ namespace slambot.Services.Implementation
 
 				// Calculate all rating changes for this match
 
-				static int TeamRatingAverage(List<int> team, Dictionary<int,int> all)
-                {
+				static int TeamRatingAverage(List<int> team, Dictionary<int, int> all)
+				{
 					return (int)all.Where(x => team.Contains(x.Key)).Select(x => x.Value).ToList().Average();
 				}
 
@@ -164,62 +164,53 @@ namespace slambot.Services.Implementation
 				int maxRatingDiff = allPlayerRatings.Values.Max() - allPlayerRatings.Values.Min();
 
 				foreach (int t1PlayerId in team1Ids)
-                {
-                    allPlayerRatings[t1PlayerId] = _calc.PlayerRating(allPlayerRatings[t1PlayerId], team2RatingAvg, maxRatingDiff, match.WinningTeam == TeamNumber.Team1 ? MatchResult.Win : MatchResult.Lose);
-                }
+					allPlayerRatings[t1PlayerId] = _calc.PlayerRating(allPlayerRatings[t1PlayerId], team2RatingAvg, maxRatingDiff, match.WinningTeam == TeamNumber.Team1 ? MatchResult.Win : MatchResult.Lose);
+
 				foreach (int t2PlayerId in team2Ids)
-                {
 					allPlayerRatings[t2PlayerId] = _calc.PlayerRating(allPlayerRatings[t2PlayerId], team1RatingAvg, maxRatingDiff, match.WinningTeam == TeamNumber.Team2 ? MatchResult.Win : MatchResult.Lose);
-                }
 
 
 				// If the player participated in this match, add to profile
 
 				List<int> winningTeam = (match.WinningTeam == TeamNumber.Team1) ? team1Ids : team2Ids;
-				List<int> losingTeam  = (match.WinningTeam == TeamNumber.Team1) ? team2Ids : team1Ids;
-				bool? playerWon = null;
-				
+				List<int> losingTeam = (match.WinningTeam == TeamNumber.Team1) ? team2Ids : team1Ids;
+				bool playerWon = false;
+
 				if (winningTeam.Contains(player.Id))
 					playerWon = true;
 				else if (losingTeam.Contains(player.Id))
 					playerWon = false;
+				else
+					continue; // player didn't play; don't update their profile
 
-				if (playerWon == null) // not set; player wasn't on either team
-					continue;
-
-				if (playerWon == true) // WIN
-                {
+				if (playerWon) // WIN
+				{
 					profile.Wins++;
 					profile.CurrentWinStreak++;
 					profile.HighestWinStreak = Math.Max(profile.CurrentWinStreak, profile.HighestWinStreak);
 					profile.PeakRating = Math.Max(profile.PeakRating, allPlayerRatings[player.Id]);
 
 					foreach (int winningPlayerId in winningTeam)
-					{
 						if (winningPlayerId != player.Id)
 							playersWonWith[winningPlayerId]++;
-					}
+
 					foreach (int losingPlayerId in losingTeam)
-					{
 						playersWonAgainst[losingPlayerId]++;
-					}
 				}
 				else // LOSS
-                {
+				{
 					profile.Losses++;
 					profile.CurrentWinStreak = 0;
 
 					foreach (int losingPlayerId in losingTeam)
-					{
 						if (losingPlayerId != player.Id)
 							playersLostWith[losingPlayerId]++;
-					}
+
 					foreach (int winningPlayerId in winningTeam)
-					{
 						playersLostAgainst[winningPlayerId]++;
-					}
 				}
 			}
+
 
 			// get player names for IDs
 
@@ -253,6 +244,6 @@ namespace slambot.Services.Implementation
 			// Done
 
 			return profile;
-        }
-    }
+		}
+	}
 }

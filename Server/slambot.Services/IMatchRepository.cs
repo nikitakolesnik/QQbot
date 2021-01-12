@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace slambot.Services
 {
-    public interface IMatchRepository
+	public interface IMatchRepository
 	{
 		Task<Match> ActionAsync(int matchId, Status action);
 		Task<MatchDisplay> DetailsAsync(int id);

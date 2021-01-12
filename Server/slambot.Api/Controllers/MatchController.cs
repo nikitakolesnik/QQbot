@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using slambot.Common.Enums;
 using slambot.Common.Configuration;
+using slambot.Common.Enums;
 using slambot.Services;
+using slambot.Services.Models;
 using System;
 using System.Threading.Tasks;
-using slambot.Services.Models;
 
 namespace slambot.Api.Controllers
 {
@@ -14,10 +14,10 @@ namespace slambot.Api.Controllers
 	{
 		private readonly IMatchRepository _matchRepository;
 
-        public MatchController(IMatchRepository matchRepository)
+		public MatchController(IMatchRepository matchRepository)
 		{
 			_matchRepository = matchRepository ?? throw new ArgumentNullException(nameof(matchRepository));
-        }
+		}
 
 		/*
 		 * Who played in match 45                          - GET  api/match/45
@@ -31,35 +31,35 @@ namespace slambot.Api.Controllers
 		[HttpGet]
 		[Route("{id:int}")]
 		public async Task<IActionResult> Details(int id)
-        {
-            try
-            {
+		{
+			try
+			{
 				return Ok(await _matchRepository.DetailsAsync(id));
-            }
+			}
 			catch (Exception ex)
-            {
+			{
 				return BadRequest(ex.ToString());
-            }
-        }
+			}
+		}
 
 		[HttpPut]
 		[Route("{id:int}")]
 		public async Task<IActionResult> Edit([FromRoute] int id, [FromBody] TeamRequestBody team)
-        {
+		{
 			try
-            {
+			{
 				return Ok(await _matchRepository.EditAsync(id, team.WinningTeam, team.Team1, team.Team2));
-            }
+			}
 			catch (Exception ex)
-            {
+			{
 				return BadRequest(ex.ToString());
-            }
-        }
+			}
+		}
 
 		[HttpPut]
 		[Route("{id:int}/action/{actionId:int}")]
 		public async Task<IActionResult> AdminAction([FromRoute] int id, [FromRoute] int actionId)
-        {
+		{
 			try
 			{
 				return Ok(await _matchRepository.ActionAsync(id, (Status)actionId));
@@ -68,12 +68,12 @@ namespace slambot.Api.Controllers
 			{
 				return BadRequest(ex.ToString());
 			}
-        }
+		}
 
 		[HttpGet]
 		[Route("history/{results?}")]
 		public async Task<IActionResult> History([FromRoute] int results = MatchConfiguration.DefaultMatchesToShow)
-        {
+		{
 			try
 			{
 				return Ok(await _matchRepository.HistoryAsync(results));
@@ -82,7 +82,7 @@ namespace slambot.Api.Controllers
 			{
 				return BadRequest(ex.ToString());
 			}
-        }
+		}
 
 		[HttpGet]
 		[Route("id/{id:int}/history/{results?}")]
@@ -101,7 +101,7 @@ namespace slambot.Api.Controllers
 		[HttpPost]
 		[Route("{winningTeam:int}")]
 		public async Task<IActionResult> Submit([FromRoute] int winningTeam)
-        {
+		{
 			try
 			{
 				return Ok(await _matchRepository.RecordAsync((TeamNumber)winningTeam));

@@ -1,18 +1,18 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using slambot.Common;
+using slambot.Common.Configuration;
+using slambot.Common.Enums;
 using slambot.DataAccess.Contexts;
 using slambot.DataAccess.Entities;
-using slambot.Common.Enums;
-using slambot.Common.Configuration;
+using slambot.Services.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using slambot.Services.Models;
-using slambot.Common;
 
 namespace slambot.Services.Implementation
 {
-    public class MatchRepository : IMatchRepository
+	public class MatchRepository : IMatchRepository
 	{
 		private readonly ApplicationDbContext _context;
 		private readonly IRatingCalculator _calc;
@@ -20,11 +20,11 @@ namespace slambot.Services.Implementation
 		public MatchRepository(ApplicationDbContext context, IRatingCalculator calc)
 		{
 			_context = context ?? throw new ArgumentNullException(nameof(context));
-			_calc    = calc    ?? throw new ArgumentNullException(nameof(calc));
+			_calc = calc ?? throw new ArgumentNullException(nameof(calc));
 		}
 
-        public async Task<Match> ActionAsync(int id, Status action)
-        {
+		public async Task<Match> ActionAsync(int id, Status action)
+		{
 			Match match = await _context.Matches.SingleAsync(m => m.Id == id);
 			match.Status = action;
 
@@ -46,16 +46,16 @@ namespace slambot.Services.Implementation
 			return match;
 		}
 
-        public async Task<Match> EditAsync(int id, TeamNumber winningTeam, string team1, string team2)
+		public async Task<Match> EditAsync(int id, TeamNumber winningTeam, string team1, string team2)
 		{
 			if (MatchConfiguration.ForceEightPlayerTeams)
-            {
+			{
 				if (team1.Count(c => c == ',') != 7
 					|| team2.Count(c => c == ',') != 7)
-                {
+				{
 					throw new ArgumentException(ExceptionMessage.InvalidMatchSize);
-                }
-            }
+				}
+			}
 
 			Match match = await _context.Matches.SingleAsync(m => m.Id == id);
 			match.WinningTeam = winningTeam;
@@ -63,9 +63,9 @@ namespace slambot.Services.Implementation
 			match.Team2 = team2;
 			await _context.SaveChangesAsync();
 			return match;
-        }
+		}
 
-        public async Task<int> MaxRatingDiffAsync()
+		public async Task<int> MaxRatingDiffAsync()
 		{
 			int min = await _context.Players.MinAsync(p => p.Rating);
 			int max = await _context.Players.MaxAsync(p => p.Rating);
@@ -73,7 +73,7 @@ namespace slambot.Services.Implementation
 			return Math.Abs(max - min);
 		}
 
-        public async Task<List<MatchDisplay>> HistoryAsync(int results, int playerId = -1)
+		public async Task<List<MatchDisplay>> HistoryAsync(int results, int playerId = -1)
 		{
 			results = Utilities.Limit(results, 0, MatchConfiguration.MaxMatchesToShow);
 
@@ -81,10 +81,10 @@ namespace slambot.Services.Implementation
 				.Where(m => m.Status == Status.Approved);
 
 			if (playerId != -1)
-            {
-				matchQuery = matchQuery.Where(m => m.Team1.Contains(Utilities.Surround(playerId)) 
+			{
+				matchQuery = matchQuery.Where(m => m.Team1.Contains(Utilities.Surround(playerId))
 												|| m.Team2.Contains(Utilities.Surround(playerId)));
-            }
+			}
 
 			IEnumerable<Match> matches = await matchQuery
 				.OrderByDescending(p => p.Id)
@@ -117,9 +117,9 @@ namespace slambot.Services.Implementation
 				List<Tuple<int, string>> team2 = new();
 
 				foreach (var player in playerNames)
-                {
+				{
 					string id = Utilities.Surround(player.Item1);
-					
+
 					if (match.Team1.Contains(id))
 						team1.Add(player);
 					else if (match.Team2.Contains(id))
@@ -163,7 +163,7 @@ namespace slambot.Services.Implementation
 			};
 		}
 
-        public async Task<Match> RecordAsync(TeamNumber winningTeam)
+		public async Task<Match> RecordAsync(TeamNumber winningTeam)
 		{
 			// Build teams 
 
@@ -181,10 +181,10 @@ namespace slambot.Services.Implementation
 			if (MatchConfiguration.ForceEightPlayerTeams)
 			{
 				if (team1.Count() != 8 && team2.Count() != 8)
-                {
+				{
 					throw new ArgumentException(ExceptionMessage.InvalidMatchSize);
-                }
-            }
+				}
+			}
 
 
 			// Record the match
@@ -201,25 +201,25 @@ namespace slambot.Services.Implementation
 			// Calculate player rating change
 
 			if (winningTeam != TeamNumber.None) // if it wasn't a draw
-            {
+			{
 				int team1RatingAvg = (int)team1.Select(p => p.Player.Rating).ToList().Average();
 				int team2RatingAvg = (int)team2.Select(p => p.Player.Rating).ToList().Average();
-				int maxRatingDiff  = await MaxRatingDiffAsync();
+				int maxRatingDiff = await MaxRatingDiffAsync();
 
 				if (winningTeam == TeamNumber.Team1)
 				{
-					foreach(LobbyPlayer winningPlayer in team1)
+					foreach (LobbyPlayer winningPlayer in team1)
 					{
 						winningPlayer.Player.Rating = _calc.PlayerRating(winningPlayer.Player.Rating, team2RatingAvg, maxRatingDiff, MatchResult.Win);
 					}
-					foreach(LobbyPlayer losingPlayer in team2)
+					foreach (LobbyPlayer losingPlayer in team2)
 					{
 						losingPlayer.Player.Rating = _calc.PlayerRating(losingPlayer.Player.Rating, team1RatingAvg, maxRatingDiff, MatchResult.Lose);
 					}
 				}
 				else
 				{
-					foreach(LobbyPlayer losingPlayer in team1)
+					foreach (LobbyPlayer losingPlayer in team1)
 					{
 						losingPlayer.Player.Rating = _calc.PlayerRating(losingPlayer.Player.Rating, team2RatingAvg, maxRatingDiff, MatchResult.Lose);
 					}
@@ -228,7 +228,7 @@ namespace slambot.Services.Implementation
 						winningPlayer.Player.Rating = _calc.PlayerRating(winningPlayer.Player.Rating, team1RatingAvg, maxRatingDiff, MatchResult.Win);
 					}
 				}
-            }
+			}
 
 
 			// Done

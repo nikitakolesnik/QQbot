@@ -26,16 +26,16 @@ namespace slambot.Api.Controllers
 
 		[HttpGet]
 		public async Task<IActionResult> GetLobby()
-        {
+		{
 			try
-            {
+			{
 				return Ok(await _lobbyRepository.GetLobby());
-            }
-			catch(Exception ex)
+			}
+			catch (Exception ex)
 			{
 				return BadRequest(ex.ToString());
 			}
-        }
+		}
 
 		[HttpPost]
 		[Route("id/{id:int}")]

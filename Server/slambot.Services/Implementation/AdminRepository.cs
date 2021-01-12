@@ -1,13 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using slambot.Common;
+using slambot.Common.Configuration;
+using slambot.Common.Enums;
 using slambot.DataAccess.Contexts;
 using slambot.DataAccess.Entities;
-using slambot.Common.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using slambot.Common.Configuration;
-using slambot.Common;
 
 namespace slambot.Services.Implementation
 {
@@ -58,7 +58,7 @@ namespace slambot.Services.Implementation
 					.OrderByDescending(a => a.Id)
 					.Take(results)
 					.ToListAsync();
-			else 
+			else
 				return await _context.AdminActions
 					.Where(a => (a.Type == AdminActionType.ActionPlayer || a.Type == AdminActionType.EditPlayer) && a.SubjectPlayerId == playerId)
 					.OrderByDescending(a => a.Id)

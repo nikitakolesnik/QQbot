@@ -1,13 +1,13 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using slambot.Common.Configuration;
+using slambot.Common.Enums;
+using slambot.DataAccess.Contexts;
+using slambot.DataAccess.Entities;
+using slambot.Services.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using slambot.DataAccess.Contexts;
-using slambot.DataAccess.Entities;
-using slambot.Common.Enums;
-using slambot.Common.Configuration;
-using slambot.Services.Models;
 
 namespace slambot.Services.Implementation
 {
@@ -27,15 +27,16 @@ namespace slambot.Services.Implementation
 
 			// Map to display model
 			foreach (LobbyPlayer lobbyPlayer in lobby)
-            {
-				lobbyDisplay.Add(new LobbyPlayerDisplay {
-					Id         = lobbyPlayer.Player.Id,
-					Name       = lobbyPlayer.Player.Name,
-					Rating     = lobbyPlayer.Player.Rating,
+			{
+				lobbyDisplay.Add(new LobbyPlayerDisplay
+				{
+					Id = lobbyPlayer.Player.Id,
+					Name = lobbyPlayer.Player.Name,
+					Rating = lobbyPlayer.Player.Rating,
 					TeamNumber = lobbyPlayer.TeamNumber,
-					Joined     = lobbyPlayer.Joined
+					Joined = lobbyPlayer.Joined
 				});
-            }
+			}
 
 			return lobbyDisplay.AsEnumerable();
 		}
@@ -45,9 +46,9 @@ namespace slambot.Services.Implementation
 			Player player = await _context.Players.Where(p => p.Id == id).SingleAsync();
 
 			if (player.Status != Status.Approved)
-            {
+			{
 				throw new Exception(ExceptionMessage.PlayerIneligibleForLobby);
-            }
+			}
 
 			LobbyPlayer lobbyPlayer = new() { Player = player };
 
@@ -74,11 +75,11 @@ namespace slambot.Services.Implementation
 
 		public async Task KickPlayerAsync(int id)
 		{
-            LobbyPlayer lobbyPlayer = await _context.LobbyPlayers.SingleAsync(p => p.PlayerId == id);
-            
+			LobbyPlayer lobbyPlayer = await _context.LobbyPlayers.SingleAsync(p => p.PlayerId == id);
+
 			_context.LobbyPlayers.Remove(lobbyPlayer);
 
-            await _context.SaveChangesAsync();
+			await _context.SaveChangesAsync();
 		}
 
 		public async Task ClearTeamAsync(int team)
@@ -91,12 +92,12 @@ namespace slambot.Services.Implementation
 			IEnumerable<LobbyPlayer> lobby = await _context.LobbyPlayers.ToListAsync();
 
 			foreach (LobbyPlayer lobbyPlayer in lobby)
-            {
+			{
 				if (lobbyPlayer.TeamNumber == (TeamNumber)team)
-                {
+				{
 					lobbyPlayer.TeamNumber = TeamNumber.None;
-                }
-            }
+				}
+			}
 
 			await _context.SaveChangesAsync();
 		}
@@ -105,5 +106,5 @@ namespace slambot.Services.Implementation
 		{
 			await _context.Database.ExecuteSqlRawAsync("DELETE FROM Lobby");
 		}
-    }
+	}
 }

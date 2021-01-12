@@ -1,16 +1,16 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.EntityFrameworkCore;
+using slambot.Common.Configuration;
 using slambot.DataAccess.Contexts;
 using slambot.Services;
 using slambot.Services.Implementation;
-using slambot.Common.Configuration;
 
 namespace slambot.Api
 {
-    public class Startup
+	public class Startup
 	{
 		public Startup()
 		{
@@ -21,14 +21,14 @@ namespace slambot.Api
 		{
 			services.AddControllers();
 			services.AddDbContext<ApplicationDbContext>(
-				a => a.UseSqlServer(ConnectionString.Value, 
+				a => a.UseSqlServer(ConnectionString.Value,
 				b => b.MigrationsAssembly("slambot.DataAccess")));
 
-			services.AddScoped<IMatchRepository,  MatchRepository>();
+			services.AddScoped<IMatchRepository, MatchRepository>();
 			services.AddScoped<IPlayerRepository, PlayerRepository>();
-			services.AddScoped<ILobbyRepository,  LobbyRepository>();
+			services.AddScoped<ILobbyRepository, LobbyRepository>();
 			services.AddScoped<IRatingCalculator, RatingCalculator>();
-			services.AddScoped<IAdminRepository,  AdminRepository>();
+			services.AddScoped<IAdminRepository, AdminRepository>();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -44,18 +44,18 @@ namespace slambot.Api
 			app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
 		}
 
-        //private static void UpdateDatabase(IApplicationBuilder app)
-        //{
-        //    using (var serviceScope = app.ApplicationServices
-        //        .GetRequiredService<IServiceScopeFactory>()
-        //        .CreateScope())
-        //    {
-        //        using (var context = serviceScope.ServiceProvider
-        //            .GetService<ApplicationDbContext>())
-        //        {
-        //            context.Database.Migrate();
-        //        }
-        //    }
-        //}
-    }
+		//private static void UpdateDatabase(IApplicationBuilder app)
+		//{
+		//    using (var serviceScope = app.ApplicationServices
+		//        .GetRequiredService<IServiceScopeFactory>()
+		//        .CreateScope())
+		//    {
+		//        using (var context = serviceScope.ServiceProvider
+		//            .GetService<ApplicationDbContext>())
+		//        {
+		//            context.Database.Migrate();
+		//        }
+		//    }
+		//}
+	}
 }

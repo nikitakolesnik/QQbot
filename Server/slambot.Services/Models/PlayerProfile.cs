@@ -9,7 +9,7 @@ namespace slambot.Services.Models
 		public string Name { get; set; }
 		public int Rating { get; set; }
 		public int PeakRating { get; set; }
-        public List<int> RatingOverTime { get; set; } = new ();
+		public List<int> RatingOverTime { get; set; } = new();
 		//public int PeakRank { get; set; }
 		//public List<int> RankOverTime { get; set; }
 		public int Wins { get; set; }
@@ -17,7 +17,7 @@ namespace slambot.Services.Models
 		public int WinPercent { get; set; }
 		public int CurrentWinStreak { get; set; }
 		public int HighestWinStreak { get; set; }
-        public Tuple<int, string> MostWinsWithPlayer { get; set; }
+		public Tuple<int, string> MostWinsWithPlayer { get; set; }
 		public Tuple<int, string> MostLossesWithPlayer { get; set; }
 		public Tuple<int, string> MostWinsAgainstPlayer { get; set; }
 		public Tuple<int, string> MostLossesAgainstPlayer { get; set; }

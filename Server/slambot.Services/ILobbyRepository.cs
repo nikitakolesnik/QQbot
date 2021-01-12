@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace slambot.Services
 {
-    public interface ILobbyRepository
+	public interface ILobbyRepository
 	{
 		Task<IEnumerable<LobbyPlayerDisplay>> GetLobby();
 		Task<LobbyPlayer> AddPlayerAsync(int id);

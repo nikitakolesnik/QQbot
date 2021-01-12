@@ -1,21 +1,21 @@
-﻿using slambot.DataAccess.Entities;
-using slambot.Common.Enums;
+﻿using slambot.Common.Enums;
+using slambot.DataAccess.Entities;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace slambot.DataAccess.Data
 {
-    public static class HardCodedPlayerData
+	public static class HardCodedPlayerData
 	{
 		public static int PlayerCount()
-        {
+		{
 			return GetPlayers().Count();
-        }
+		}
 
 		public static IEnumerable<Player> GetPlayers()
 		{
 			List<Player> players = new()
-			{ 
+			{
 				new()
 				{
 					Name = "Slam",
@@ -112,49 +112,49 @@ namespace slambot.DataAccess.Data
 				},
 
 				new()
-                {
+				{
 					Name = "Jim",
 					Discord = 581965183669501952
 				},
 
 				new()
-                {
+				{
 					Name = "Holye",
 					Discord = 273617664457310210
 				},
 
 				new()
-                {
+				{
 					Name = "Maga",
 					Discord = 310713367683923968
 				},
 
 				new()
-                {
+				{
 					Name = "Calvin",
 					Discord = 235062551724032000
 				},
 
 				new()
-                {
+				{
 					Name = "Kam",
 					Discord = 179021286645694464
 				},
 
 				new()
-                {
+				{
 					Name = "Lynie",
 					Discord = 170238151732887552
 				},
 
 				new()
-                {
+				{
 					Name = "Zynkh",
 					Discord = 614187828531691739
 				},
 
 				new()
-                {
+				{
 					Name = "Luke",
 					Discord = 478594642602885121
 				}

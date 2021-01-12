@@ -1,31 +1,31 @@
 ﻿using Discord;
 using Discord.Commands;
 using Discord.WebSocket;
+using slambot.Common.Configuration;
 using System;
 using System.Reflection;
 using System.Threading.Tasks;
-using slambot.Common.Configuration;
 
 namespace DiscordBot.Services
 {
-    public class StartupService
-    {
-        private readonly DiscordSocketClient _client;
-        private readonly CommandService _commands;
+	public class StartupService
+	{
+		private readonly DiscordSocketClient _client;
+		private readonly CommandService _commands;
 
-        public StartupService(DiscordSocketClient client, CommandService commands)
-        {
-            _client = client ?? throw new ArgumentNullException(nameof(client));
-            _commands = commands ?? throw new ArgumentNullException(nameof(commands));
-        }
+		public StartupService(DiscordSocketClient client, CommandService commands)
+		{
+			_client = client ?? throw new ArgumentNullException(nameof(client));
+			_commands = commands ?? throw new ArgumentNullException(nameof(commands));
+		}
 
-        public async Task StartAsync()
-        {
-            await _client.LoginAsync(TokenType.Bot, BotToken.Value);
-            await _client.StartAsync();
+		public async Task StartAsync()
+		{
+			await _client.LoginAsync(TokenType.Bot, BotToken.Value);
+			await _client.StartAsync();
 
-            await _commands.AddModulesAsync(assembly: Assembly.GetEntryAssembly(),
-                                            services: null);
-        }
-    }
+			await _commands.AddModulesAsync(assembly: Assembly.GetEntryAssembly(),
+											services: null);
+		}
+	}
 }

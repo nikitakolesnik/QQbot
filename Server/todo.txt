@@ -1,0 +1,11 @@
+front end
+-make it
+-discord login
+
+discord bot
+-commands
+-permissions
+
+api
+-error handling
+-discord authentication

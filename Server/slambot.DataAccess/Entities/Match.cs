@@ -5,13 +5,13 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace slambot.DataAccess.Entities
 {
-    [Table("Matches")]
+	[Table("Matches")]
 	public class Match : EntryBase
 	{
-        [Key]
-		public int        Id          { get; set; }
+		[Key]
+		public int Id { get; set; }
 		public TeamNumber WinningTeam { get; set; }
-		public string     Team1       { get; set; }
-		public string     Team2       { get; set; }
+		public string Team1 { get; set; }
+		public string Team2 { get; set; }
 	}
 }

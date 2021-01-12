@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace slambot.Services
 {
-    public interface IAdminRepository
+	public interface IAdminRepository
 	{
 		Task<IEnumerable<AdminAction>> HistoryAsync(int numberResults);
 		Task<IEnumerable<AdminAction>> PlayerHistoryAsync(int numberResults, int playerId);
