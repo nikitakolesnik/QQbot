@@ -6,7 +6,7 @@ Seeding random matches for testing:
 https://github.com/nikitakolesnik/slambot/blob/master/Server/slambot.DataAccess/Contexts/ApplicationDbContext.cs#L49
 
 Building a player profile with extremely detailed stats, and levaraging the database schema to analyze thousands of matches in milliseconds: 
-https://github.com/nikitakolesnik/slambot/blob/master/Server/slambot.Services/Implementation/PlayerRepository.cs#L106
+https://github.com/nikitakolesnik/slambot/blob/master/Server/slambot.Services/Implementation/PlayerRepository.cs#L104
   
 Rating calculation: 
 https://github.com/nikitakolesnik/slambot/blob/master/Server/slambot.Services/Implementation/RatingCalculator.cs
